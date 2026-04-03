@@ -76,18 +76,24 @@ Page({
   data: {
     zones: [],
     currentDepth: 0,
-    maxRevealed: 0,
+    revealDepth: 0,
     scrollTop: 0,
     showBio: false,
     bioCreature: null,
     bubbles: []
   },
 
-  totalHeight: 0,
+  pxPerMeter: 3,
   bubbleTimer: null,
   bubbleId: 0,
 
   onLoad: function () {
+    var self = this
+    // 获取屏幕信息计算 rpx 到 px 的比例
+    var sysInfo = wx.getSystemInfoSync()
+    var scale = sysInfo.windowWidth / 750
+    self.pxPerMeter = RPX_PER_METER * scale
+
     var zones = ZONES.map(function (z) {
       var range = z.to - z.from
       var height = range * RPX_PER_METER
@@ -117,7 +123,6 @@ Page({
         })
       }
     })
-    this.totalHeight = MAX_DEPTH * RPX_PER_METER
     this.setData({ zones: zones })
     this.startBubbles()
   },
@@ -143,11 +148,10 @@ Page({
 
   onScroll: function (e) {
     var scrollTop = e.detail.scrollTop
-    var ratio = scrollTop / (this.totalHeight * 0.5)
-    var depth = Math.min(Math.floor(ratio * MAX_DEPTH), MAX_DEPTH)
+    var depth = Math.min(Math.floor(scrollTop / this.pxPerMeter), MAX_DEPTH)
     if (Math.abs(depth - this.data.currentDepth) > 3) {
-      var revealed = Math.max(this.data.maxRevealed, depth + 80)
-      this.setData({ currentDepth: depth, maxRevealed: revealed })
+      var revealed = Math.max(this.data.revealDepth, depth + 200)
+      this.setData({ currentDepth: depth, revealDepth: revealed })
     }
   },
 

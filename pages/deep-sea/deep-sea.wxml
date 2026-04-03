@@ -46,7 +46,7 @@
         wx:for="{{item.creatures}}"
         wx:for-item="c"
         wx:key="name"
-        class="creature creature-{{c.size}} {{c.depth <= maxRevealed ? 'creature-visible swim-anim' : 'creature-hidden'}}"
+        class="creature creature-{{c.size}} {{c.depth <= revealDepth ? 'creature-visible' : 'creature-hidden'}}"
         style="margin-top: {{c.offset}}rpx;"
         bindtap="showCreatureBio"
         data-name="{{c.name}}"
@@ -67,7 +67,7 @@
         wx:for="{{item.landmarks}}"
         wx:for-item="lm"
         wx:key="text"
-        class="landmark"
+        class="landmark {{lm.depth <= revealDepth ? 'landmark-visible' : 'landmark-hidden'}}"
         style="margin-top: {{lm.offset}}rpx;"
       >
         <view class="landmark-line"></view>
