@@ -23,7 +23,7 @@ var ZONES = [
       { depth: 250, name: '狮子鱼', img: './images/lionfish.jpg', bio: '狮子鱼的美丽外表极具欺骗性,它们鳍条上的毒刺可以导致剧烈疼痛。原产于印度洋,如今已入侵大西洋,对当地生态造成严重威胁。', size: 'medium' },
       { depth: 350, name: '巨型鱿鱼', img: './images/squid.jpg', bio: '巨型鱿鱼的眼睛有篮球那么大,是动物界最大的眼球。它们生活在200-1000米深处,是抹香鲸的主要猎物。', size: 'large' },
       { depth: 500, name: '抹香鲸', img: './images/sperm-whale.jpg', bio: '抹香鲸拥有动物界最大的大脑,重达9kg。它们能下潜至2000米深处,屏息长达90分钟,是最深潜的哺乳动物。', size: 'large' },
-      { depth: 700, name: '灯笼鱼', img: './images/deep-anglerfish.png', bio: '灯笼鱼(鮟鱇鱼)用头顶的生物发光器官吸引猎物。雄性体型极小,会永久寄生在雌性身上,融为一体,只提供精子。', size: 'medium' },
+      { depth: 700, name: '灯笼鱼', img: './images/deep-anglerfish.jpg', bio: '灯笼鱼(鮟鱇鱼)用头顶的生物发光器官吸引猎物。雄性体型极小,会永久寄生在雌性身上,融为一体,只提供精子。', size: 'medium' },
       { depth: 800, name: '鹦鹉螟', img: './images/nautilus.jpg', bio: '鹦鹉螟是活化石,在5亿年前就已存在,比恐龙还古老。它们用90多条触手捕食,壳内的气室可以调节浮力。', size: 'medium' },
       { depth: 900, name: '管水母', img: './images/siphonophore.jpg', bio: '管水母是世界上最长的动物,最长可达40米,比蓝鲸还长。它其实不是一只动物,而是由数千个微小个体组成的群体。', size: 'large' }
     ],
@@ -38,7 +38,7 @@ var ZONES = [
     creatures: [
       { depth: 1200, name: '琵琶鱼', img: './images/anglerfish.jpg', bio: '琵琶鱼(深海鮟鱇)生活在永恒黑暗中,头顶发光诱饵吸引猎物。嘴巴可以张开150度,能吞下比自己大两倍的猎物。', size: 'medium' },
       { depth: 1800, name: '尖牙鱼', img: './images/fangtooth.jpg', bio: '尖牙鱼拥有与身体比例最大的牙齿。它们生活在500-5000米深处,能承受巨大压力,是深海最凶猛的掠食者之一。', size: 'small' },
-      { depth: 2200, name: '吞噬鳗', img: './images/gulper-eel.png', bio: '吞噬鳗的嘴巴可以张得比身体还大,能吞下比自己大的猎物。尾巴末端有发光器官,用来吸引猎物。', size: 'medium' },
+      { depth: 2200, name: '吞噬鳗', img: './images/gulper-eel.jpg', bio: '吞噬鳗的嘴巴可以张得比身体还大,能吞下比自己大的猎物。尾巴末端有发光器官,用来吸引猎物。', size: 'medium' },
       { depth: 2500, name: '管虫', img: './images/tubeworm.jpg', bio: '深海热泉管虫不需要阳光,靠体内共生细菌进行化学合成获取能量。它们没有嘴、没有胃、没有消化系统,却能长到2米以上。', size: 'medium' },
       { depth: 3000, name: '海蜘蛛', img: './images/sea-spider.jpg', bio: '深海海蜘蛛的腿展可达70厘米。由于深海高压和低温,它们的体型远大于浅水亲戚,这种现象叫"深海巨大化"。', size: 'medium' },
       { depth: 3500, name: '巨型等足虫', img: './images/isopod.jpg', bio: '巨型等足虫是深海的"西瓜虫",体长可达50厘米。它们是深海食腐动物,可以5年不进食,是极端环境生存的冠军。', size: 'large' },
@@ -56,7 +56,7 @@ var ZONES = [
       { depth: 4500, name: '铁甲蜗牛', img: './images/scaly-snail.jpg', bio: '铁甲蜗牛的壳上覆盖着硫化铁,是唯一已知使用铁元素作为外骨骼的动物。生活在印度洋深海热泉附近。', size: 'small' },
       { depth: 5500, name: '僵尸蠕虫', img: './images/zombie-worm.jpg', bio: '僵尸蠕虫(食骨蠕虫)以鲸鱼骨骼为食,没有嘴也没有胃。它们分泌酸性物质溶解骨骼,靠体内共生细菌吸收营养。', size: 'small' },
       { depth: 7000, name: '小飞象章鱼', img: './images/dumbo-octopus.jpg', bio: '小飞象章鱼因耳状鳍像大象耳朵而得名,是最深处的章鱼。它们不喷墨,而是用鳍像翅膀一样缓慢飞行。', size: 'medium' },
-      { depth: 8178, name: '马里亚纳狮子鱼', img: './images/snailfish.png', bio: '马里亚纳狮子鱼是已知生活在最深处的鱼类,在8178米被发现。它们的身体像果冻一样透明柔软,以适应极端高压。', size: 'medium' },
+      { depth: 8178, name: '马里亚纳狮子鱼', img: './images/snailfish.jpg', bio: '马里亚纳狮子鱼是已知生活在最深处的鱼类,在8178米被发现。它们的身体像果冻一样透明柔软,以适应极端高压。', size: 'medium' },
       { depth: 8200, name: '深海水母', img: './images/deep-jellyfish.jpg', bio: '深海水母Deepstaria在8000米深处漂浮,伞状身体可以展开到60厘米。它们不需要触手捕食,而是像口袋一样包裹猎物。', size: 'large' },
       { depth: 9800, name: '深渊钩虾', img: './images/amphipod.jpg', bio: '深渊钩虾在接近万米深处仍然活跃,是极端环境下的甲壳动物。它们体内含有特殊酶,可以分解沉到海底的木质碎片。', size: 'small' },
       { depth: 10900, name: '极端微生物', img: './images/microbes.jpg', bio: '在挑战者深渊的海底,仍存在微生物群落。它们在1100个大气压下生存,以沉降的有机碎屑为食,证明了生命的顽强。', size: 'small' }
