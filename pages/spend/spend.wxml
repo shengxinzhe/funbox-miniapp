@@ -1,0 +1,53 @@
+<view class="page">
+  <!-- Gates header -->
+  <view class="gates-header">
+    <image class="gates-avatar" src="{{gatesImg}}" mode="aspectFill"></image>
+    <view class="gates-info">
+      <view class="gates-name">Bill Gates</view>
+      <view class="gates-net">净资产: $1000亿</view>
+    </view>
+  </view>
+
+  <!-- Sticky money bar -->
+  <view class="money-bar">
+    <view class="money-label">你的余额</view>
+    <view class="money-amount {{moneyAnim ? 'money-bounce' : ''}}">
+      {{balanceDisplay}}
+      <text class="money-unit">{{balanceUnit}}</text>
+    </view>
+    <view class="progress-bar" wx:if="{{totalSpent > 0}}">
+      <view class="progress-fill" style="width: {{spentPct}}%"></view>
+    </view>
+    <view class="money-spent" wx:if="{{totalSpent > 0}}">已花: {{spentStr}} ({{spentPct}}%)</view>
+  </view>
+
+  <!-- Items list -->
+  <view class="items">
+    <view class="item slide-in" wx:for="{{items}}" wx:key="key">
+      <view class="item-emoji">{{item.emoji}}</view>
+      <view class="item-info">
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-price">{{item.priceStr}}</view>
+      </view>
+      <view class="item-actions">
+        <view class="act-btn sell {{item.qty === 0 ? 'disabled' : ''}}" bindtap="sell" data-key="{{item.key}}">-</view>
+        <view class="item-qty">{{item.qty}}</view>
+        <view class="act-btn buy {{balance < item.price ? 'disabled' : ''}}" bindtap="buy" data-key="{{item.key}}">+</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Receipt -->
+  <view class="receipt" wx:if="{{totalSpent > 0}}">
+    <view class="receipt-title">购物清单</view>
+    <view class="receipt-item" wx:for="{{receipt}}" wx:key="key">
+      <text>{{item.name}} x{{item.qty}}</text>
+      <text>{{item.totalStr}}</text>
+    </view>
+    <view class="receipt-total">
+      <text>总计</text>
+      <text>{{spentStr}}</text>
+    </view>
+    <button class="share-btn" open-type="share">分享购物清单</button>
+  </view>
+</view>

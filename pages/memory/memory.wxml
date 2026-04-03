@@ -1,0 +1,41 @@
+<view class="page">
+  <view class="top-bar">
+    <view class="level-info">
+      <text class="label">关卡</text>
+      <text class="value">{{level}}</text>
+    </view>
+    <view class="level-info">
+      <text class="label">网格</text>
+      <text class="value">{{gridSize}}x{{gridSize}}</text>
+    </view>
+    <view class="level-info">
+      <text class="label">最高</text>
+      <text class="value accent">{{bestLevel}}</text>
+    </view>
+  </view>
+
+  <!-- Status message -->
+  <view class="status {{statusClass}}">{{statusText}}</view>
+
+  <!-- Grid with shake/celebrate animations -->
+  <view class="grid {{shakeGrid ? 'shake-anim' : ''}} {{celebrateGrid ? 'celebrate-anim' : ''}}" style="grid-template-columns: repeat({{gridSize}}, 1fr);">
+    <view
+      wx:for="{{cells}}"
+      wx:key="index"
+      class="cell {{item.state}} {{item.flip ? 'flip-in' : ''}}"
+      bindtap="tapCell"
+      data-index="{{index}}"
+    ></view>
+  </view>
+
+  <!-- Action buttons -->
+  <view class="actions" wx:if="{{phase === 'idle' || phase === 'fail'}}">
+    <button class="btn-primary" bindtap="startGame">
+      {{phase === 'fail' ? '重新开始' : '开始游戏'}}
+    </button>
+  </view>
+
+  <button class="share-btn" open-type="share" wx:if="{{phase === 'fail'}}">
+    分享我的记录: 第{{level}}关
+  </button>
+</view>

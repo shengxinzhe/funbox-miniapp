@@ -1,0 +1,49 @@
+<view class="page {{state}}" bindtap="handleTap">
+  <!-- Ripple effects -->
+  <view
+    wx:for="{{ripples}}"
+    wx:key="id"
+    class="ripple"
+    style="left: {{item.x}}px; top: {{item.y}}px;"
+  ></view>
+
+  <!-- Idle state -->
+  <block wx:if="{{state === 'idle'}}">
+    <view class="icon bounce-in">⚡</view>
+    <view class="title fade-in">反应速度测试</view>
+    <view class="hint fade-in-delay">点击屏幕开始</view>
+    <view class="best pill" wx:if="{{bestTime > 0}}">最佳记录: {{bestTime}}ms</view>
+  </block>
+
+  <!-- Waiting: red -->
+  <block wx:if="{{state === 'waiting'}}">
+    <view class="icon pulse">🔴</view>
+    <view class="title">等待变绿...</view>
+    <view class="hint">看到绿色后立刻点击</view>
+  </block>
+
+  <!-- Ready: green -->
+  <block wx:if="{{state === 'ready'}}">
+    <view class="icon scale-up">🟢</view>
+    <view class="title flash">点击!</view>
+  </block>
+
+  <!-- Too early -->
+  <block wx:if="{{state === 'early'}}">
+    <view class="icon shake">❌</view>
+    <view class="title">太早了!</view>
+    <view class="hint">点击重新开始</view>
+  </block>
+
+  <!-- Result with popup animation -->
+  <block wx:if="{{state === 'result'}}">
+    <view class="result-card {{resultAnim}}">
+      <view class="result-icon">🏆</view>
+      <view class="time count-up">{{reactionTime}}ms</view>
+      <view class="rating">{{rating}}</view>
+      <view class="best pill" wx:if="{{bestTime > 0}}">最佳记录: {{bestTime}}ms</view>
+    </view>
+    <view class="hint fade-in-delay">点击再试一次</view>
+    <button class="share-btn fade-in-delay2" open-type="share" catchtap="">分享成绩</button>
+  </block>
+</view>
