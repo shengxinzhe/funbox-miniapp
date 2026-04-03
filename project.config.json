@@ -1,5 +1,5 @@
 {
-  "description": "FunBox - 有趣的小游戏合集",
+  "description": "\u667a\u53d8\u7eaa\u8da3\u5473\u5b9e\u9a8c\u5ba4 - AI\u65f6\u4ee3\u7684\u8da3\u5473\u5c0f\u5b9e\u9a8c",
   "packOptions": {
     "ignore": [],
     "include": []
@@ -36,6 +36,6 @@
   "compileType": "miniprogram",
   "libVersion": "3.3.4",
   "appid": "",
-  "projectname": "funbox-miniapp",
+  "projectname": "zhibianji-miniapp",
   "condition": {}
 }

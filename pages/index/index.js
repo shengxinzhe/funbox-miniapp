@@ -43,14 +43,14 @@ Page({
 
   onShareAppMessage: function () {
     return {
-      title: 'FunBox - \u6709\u8da3\u7684\u5c0f\u6e38\u620f\u5408\u96c6',
+      title: '\u667a\u53d8\u7eaa\u8da3\u5473\u5b9e\u9a8c\u5ba4 - AI\u65f6\u4ee3\u7684\u8da3\u5473\u5c0f\u5b9e\u9a8c',
       path: '/pages/index/index'
     }
   },
 
   onShareTimeline: function () {
     return {
-      title: 'FunBox - \u7528\u5c0f\u6e38\u620f\u6253\u53d1\u65e0\u804a\u65f6\u5149'
+      title: '\u667a\u53d8\u7eaa\u8da3\u5473\u5b9e\u9a8c\u5ba4 - \u6765\u8bd5\u8bd5\u8fd9\u4e9b\u6709\u8da3\u7684\u5c0f\u5b9e\u9a8c'
     }
   }
 })

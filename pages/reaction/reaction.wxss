@@ -184,3 +184,12 @@
 .share-btn::after {
   border: none;
 }
+
+/* 关注智变纪 */
+.follow-hint {
+  text-align: center;
+  padding: 40rpx 32rpx 32rpx;
+  font-size: 22rpx;
+  color: #8888a0;
+  opacity: 0.8;
+}

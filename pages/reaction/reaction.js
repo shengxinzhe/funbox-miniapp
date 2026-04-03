@@ -88,14 +88,14 @@ Page({
   onShareAppMessage: function () {
     var time = this.data.reactionTime
     return {
-      title: '我的反应速度 ' + time + 'ms，你能超过我吗？',
+      title: '\u667a\u53d8\u7eaa | \u6211\u7684\u53cd\u5e94\u901f\u5ea6 ' + time + 'ms\uff0c\u4f60\u80fd\u8d85\u8fc7\u6211\u5417\uff1f',
       path: '/pages/reaction/reaction'
     }
   },
 
   onShareTimeline: function () {
     return {
-      title: '我的反应速度 ' + this.data.reactionTime + 'ms，来挑战！'
+      title: '\u667a\u53d8\u7eaa | \u6211\u7684\u53cd\u5e94\u901f\u5ea6 ' + this.data.reactionTime + 'ms\uff0c\u6765\u6311\u6218\uff01'
     }
   },
 

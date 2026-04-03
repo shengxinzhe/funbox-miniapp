@@ -165,14 +165,14 @@ Page({
   onShareAppMessage: function () {
     var pct = ((this.data.totalSpent / TOTAL) * 100).toFixed(1)
     return {
-      title: '我花掉了比尔盖茨 ' + pct + '% 的钱，你能花完吗？',
+      title: '\u667a\u53d8\u7eaa | \u6211\u82b1\u6389\u4e86\u6bd4\u5c14\u76d6\u8328 ' + pct + '% \u7684\u94b1\uff0c\u4f60\u80fd\u82b1\u5b8c\u5417\uff1f',
       path: '/pages/spend/spend'
     }
   },
 
   onShareTimeline: function () {
     return {
-      title: '花光比尔盖茨的1000亿，你试试？'
+      title: '\u667a\u53d8\u7eaa | \u82b1\u5149\u6bd4\u5c14\u76d6\u8328\u76841000\u4ebf\uff0c\u4f60\u8bd5\u8bd5\uff1f'
     }
   }
 })

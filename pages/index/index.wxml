@@ -1,14 +1,14 @@
 <view class="page">
   <!-- Header -->
   <view class="header">
-    <view class="logo">Fun<text class="accent">Box</text></view>
-    <view class="tagline">有趣的小实验</view>
+    <view class="logo">智变<text class="accent">纪</text></view>
+    <view class="tagline">智变纪趣味实验室</view>
   </view>
 
   <!-- Hero -->
   <view class="hero">
-    <view class="hero-title">用小游戏，打发无聊时光</view>
-    <view class="hero-desc">免费 / 即开即玩 / 不用注册</view>
+    <view class="hero-title">AI时代的趣味小实验</view>
+    <view class="hero-desc">智变纪出品 / 即开即玩 / 免费体验</view>
   </view>
 
   <!-- Game Grid -->
@@ -38,6 +38,6 @@
 
   <!-- Footer -->
   <view class="footer">
-    <text>FunBox - 用小游戏打发无聊时光</text>
+    <text>关注公众号「智变纪」获取更多AI时代趣味内容</text>
   </view>
 </view>

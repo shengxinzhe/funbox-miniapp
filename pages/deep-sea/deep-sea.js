@@ -167,14 +167,14 @@ Page({
 
   onShareAppMessage: function () {
     return {
-      title: '我已下潜到' + this.data.currentDepth + '米深海，来探索深海世界！',
+      title: '\u667a\u53d8\u7eaa | \u6211\u5df2\u4e0b\u6f5c\u5230' + this.data.currentDepth + '\u7c73\u6df1\u6d77\uff0c\u6765\u63a2\u7d22\u6df1\u6d77\u4e16\u754c\uff01',
       path: '/pages/deep-sea/deep-sea'
     }
   },
 
   onShareTimeline: function () {
     return {
-      title: '深海探索 - 从海面一直下潜到11000米'
+      title: '\u667a\u53d8\u7eaa | \u6df1\u6d77\u63a2\u7d22 - \u4ece\u6d77\u9762\u4e00\u76f4\u4e0b\u6f5c\u523011000\u7c73'
     }
   },
 

@@ -162,14 +162,14 @@ Page({
 
   onShareAppMessage: function () {
     return {
-      title: '记忆矩阵我到了第' + this.data.level + '关，你能超过我吗？',
+      title: '\u667a\u53d8\u7eaa | \u8bb0\u5fc6\u77e9\u9635\u6211\u5230\u4e86\u7b2c' + this.data.level + '\u5173\uff0c\u4f60\u80fd\u8d85\u8fc7\u6211\u5417\uff1f',
       path: '/pages/memory/memory'
     }
   },
 
   onShareTimeline: function () {
     return {
-      title: '记忆矩阵第' + this.data.level + '关，来挑战！'
+      title: '\u667a\u53d8\u7eaa | \u8bb0\u5fc6\u77e9\u9635\u7b2c' + this.data.level + '\u5173\uff0c\u6765\u6311\u6218\uff01'
     }
   },
 
