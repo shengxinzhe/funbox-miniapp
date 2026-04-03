@@ -80,9 +80,6 @@
       <view class="bottom-text">你已到达地球最深处</view>
       <view class="bottom-sub">挑战者深渊 10,935m</view>
       <button class="share-btn" open-type="share">分享深海之旅</button>
-      <view class="follow-hint">
-        <text>关注公众号「智变纪」获取更多AI时代趣味内容</text>
-      </view>
     </view>
   </scroll-view>
 

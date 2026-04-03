@@ -47,8 +47,4 @@
     <button class="share-btn fade-in-delay2" open-type="share" catchtap="">分享成绩</button>
   </block>
 
-  <!-- 关注智变纪 -->
-  <view class="follow-hint">
-    <text>关注公众号「智变纪」获取更多AI时代趣味内容</text>
-  </view>
 </view>
