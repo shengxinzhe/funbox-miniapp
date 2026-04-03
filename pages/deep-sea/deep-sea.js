@@ -76,6 +76,7 @@ Page({
   data: {
     zones: [],
     currentDepth: 0,
+    maxRevealed: 0,
     scrollTop: 0,
     showBio: false,
     bioCreature: null,
@@ -145,7 +146,8 @@ Page({
     var ratio = scrollTop / (this.totalHeight * 0.5)
     var depth = Math.min(Math.floor(ratio * MAX_DEPTH), MAX_DEPTH)
     if (Math.abs(depth - this.data.currentDepth) > 3) {
-      this.setData({ currentDepth: depth })
+      var revealed = Math.max(this.data.maxRevealed, depth + 80)
+      this.setData({ currentDepth: depth, maxRevealed: revealed })
     }
   },
 

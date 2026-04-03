@@ -119,7 +119,23 @@
 }
 
 .swim-anim {
-  animation: swim 4s ease-in-out infinite;
+  /* applied via creature-visible which chains appear + swim */
+}
+
+/* Creature reveal on scroll */
+.creature-hidden {
+  opacity: 0;
+  transform: translateX(-40rpx);
+  pointer-events: none;
+}
+
+@keyframes creature-appear {
+  from { opacity: 0; transform: translateX(-40rpx); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.creature-visible {
+  animation: creature-appear 0.6s ease-out forwards, swim 4s ease-in-out 0.6s infinite;
 }
 
 /* Creatures with local images */

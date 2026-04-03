@@ -46,7 +46,7 @@
         wx:for="{{item.creatures}}"
         wx:for-item="c"
         wx:key="name"
-        class="creature creature-{{c.size}} swim-anim"
+        class="creature creature-{{c.size}} {{c.depth <= maxRevealed ? 'creature-visible swim-anim' : 'creature-hidden'}}"
         style="margin-top: {{c.offset}}rpx;"
         bindtap="showCreatureBio"
         data-name="{{c.name}}"
