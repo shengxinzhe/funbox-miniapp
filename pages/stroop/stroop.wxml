@@ -1,0 +1,133 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <!-- Intro -->
+  <block wx:if="{{phase === 'intro'}}">
+    <view class="intro">
+      <view class="intro-demo">
+        <text class="demo-word" style="color: #3b82f6;">红</text>
+      </view>
+      <view class="intro-title">斯特鲁普效应</view>
+      <view class="intro-subtitle">你的大脑能战胜自己吗？</view>
+      <view class="intro-desc">
+        屏幕会显示一个颜色词，但文字的颜色和含义不同。
+        你需要快速点击文字实际显示的颜色，而不是文字的含义。
+      </view>
+      <view class="intro-example">
+        <view class="example-row">
+          <view class="example-item">
+            <text style="color: #ef4444; font-size: 36rpx; font-weight: 700;">红</text>
+            <text class="example-label">选"红色" (一致)</text>
+          </view>
+          <view class="example-item">
+            <text style="color: #3b82f6; font-size: 36rpx; font-weight: 700;">红</text>
+            <text class="example-label">选"蓝色" (冲突!)</text>
+          </view>
+        </view>
+      </view>
+      <view class="start-btn" bindtap="startGame">开始实验</view>
+    </view>
+  </block>
+
+  <!-- Countdown -->
+  <block wx:if="{{phase === 'countdown'}}">
+    <view class="countdown-wrap">
+      <view class="countdown-num">{{countdownNum}}</view>
+      <view class="countdown-text">准备好...</view>
+    </view>
+  </block>
+
+  <!-- Playing -->
+  <block wx:if="{{phase === 'playing'}}">
+    <view class="play-header">
+      <view class="round-text">{{round + 1}} / {{total}}</view>
+      <view class="score-text">{{score}} 分</view>
+    </view>
+    <view class="play-progress">
+      <view class="play-progress-fill" style="width: {{(round + 1) / total * 100}}%"></view>
+    </view>
+
+    <!-- Combo -->
+    <view wx:if="{{combo >= 3}}" class="stroop-combo">
+      COMBO x{{combo}}
+    </view>
+
+    <!-- Instruction -->
+    <view class="instruction">点击文字显示的<text class="instruction-em">颜色</text></view>
+
+    <!-- Big word -->
+    <view class="word-area {{flashCorrect ? 'flash-green' : ''}} {{flashWrong ? 'flash-red' : ''}}">
+      <view
+        class="big-word {{showWord ? 'word-pop' : 'word-hidden'}}"
+        style="color: {{currentQ.displayHex}};"
+      >
+        {{currentQ.text}}
+      </view>
+    </view>
+
+    <!-- Color buttons -->
+    <view class="color-options">
+      <view
+        wx:for="{{options}}" wx:key="name"
+        class="color-btn {{chosen === item.name ? (isCorrect ? 'btn-correct' : 'btn-wrong') : ''}}"
+        style="background: {{item.hex}};"
+        bindtap="tapOption"
+        data-name="{{item.name}}"
+      >
+        {{item.name}}
+      </view>
+    </view>
+  </block>
+
+  <!-- Result -->
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result">
+      <view class="result-badge">实验报告</view>
+      <view class="result-score">{{score}} / {{total}}</view>
+      <view class="result-title">
+        {{score >= total * 0.9 ? '认知大师' : (score >= total * 0.7 ? '灵活思维者' : (score >= total * 0.5 ? '正常水平' : '需要更多练习'))}}
+      </view>
+
+      <!-- Stroop effect visualization -->
+      <view class="stroop-chart">
+        <view class="chart-title">斯特鲁普效应对比</view>
+        <view class="chart-bars">
+          <view class="bar-group">
+            <view class="bar-label">一致条件</view>
+            <view class="bar-track">
+              <view class="bar-fill bar-green" style="width: {{congruentAvgTime > 0 ? (congruentAvgTime / (incongruentAvgTime > congruentAvgTime ? incongruentAvgTime : congruentAvgTime) * 100) : 0}}%"></view>
+            </view>
+            <view class="bar-value">{{congruentAvgTime}} ms</view>
+          </view>
+          <view class="bar-group">
+            <view class="bar-label">冲突条件</view>
+            <view class="bar-track">
+              <view class="bar-fill bar-red" style="width: {{incongruentAvgTime > 0 ? (incongruentAvgTime / (incongruentAvgTime > congruentAvgTime ? incongruentAvgTime : congruentAvgTime) * 100) : 0}}%"></view>
+            </view>
+            <view class="bar-value">{{incongruentAvgTime}} ms</view>
+          </view>
+        </view>
+        <view class="chart-explain">
+          冲突条件下反应更慢，说明大脑在处理矛盾信息时需要额外的认知资源，这就是斯特鲁普效应。
+        </view>
+      </view>
+
+      <view class="result-stats">
+        <view class="rstat">
+          <view class="rstat-num">{{maxCombo}}</view>
+          <view class="rstat-label">最大连击</view>
+        </view>
+        <view class="rstat">
+          <view class="rstat-num">{{totalTime > 0 ? Math.round(totalTime / total) : 0}}</view>
+          <view class="rstat-label">平均反应(ms)</view>
+        </view>
+      </view>
+
+      <view class="result-actions">
+        <view class="retry-btn" bindtap="restart">再测一次</view>
+        <button class="share-result-btn" open-type="share">分享结果</button>
+      </view>
+      <view class="back-link" bindtap="backToHome">返回首页</view>
+    </view>
+  </block>
+
+</view>

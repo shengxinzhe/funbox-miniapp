@@ -32,6 +32,22 @@ Page({
         desc: '\u4ece\u6d77\u9762\u4e00\u76f4\u4e0b\u6f5c\u5230 11000 \u7c73\u6df1\u5904',
         color: '#0077be',
         page: '/pages/deep-sea/deep-sea'
+      },
+      {
+        id: 'ai-judge',
+        icon: '\ud83e\udd16',
+        title: 'AI vs \u4eba\u7c7b\uff1a\u8c01\u753b\u7684\uff1f',
+        desc: '\u4f60\u80fd\u5206\u8fa8AI\u548c\u4eba\u7c7b\u7684\u4f5c\u54c1\u5417\uff1f',
+        color: '#a855f7',
+        page: '/pages/ai-judge/ai-judge'
+      },
+      {
+        id: 'stroop',
+        icon: '\ud83c\udfa8',
+        title: '\u65af\u7279\u9c81\u666e\u6548\u5e94',
+        desc: '\u4f60\u7684\u5927\u8111\u80fd\u6218\u80dc\u8ba4\u77e5\u51b2\u7a81\u5417\uff1f',
+        color: '#ef4444',
+        page: '/pages/stroop/stroop'
       }
     ]
   },
