@@ -1,0 +1,218 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <!-- ===== HOME ===== -->
+  <block wx:if="{{phase === 'home'}}">
+    <view class="home">
+      <view class="home-badge">每日认知训练</view>
+      <view class="home-icon-row">
+        <view class="home-icon-item" wx:for="{{testIcons}}" wx:key="*this">
+          <view class="home-icon icon-{{item}}"></view>
+          <text class="home-icon-label">{{testNames[index]}}</text>
+        </view>
+      </view>
+      <view class="home-title">Brain Daily</view>
+      <view class="home-subtitle">4项测试 综合评分 追踪你的认知状态</view>
+
+      <view class="home-streak-card" wx:if="{{streak > 0}}">
+        <view class="streak-num">{{streak}}</view>
+        <view class="streak-label">天连续训练</view>
+      </view>
+
+      <block wx:if="{{todayDone}}">
+        <view class="today-done-card">
+          <view class="done-score">{{todayScore}}</view>
+          <view class="done-label">今日得分</view>
+        </view>
+        <view class="start-btn btn-secondary" bindtap="startDaily">再测一次</view>
+      </block>
+      <block wx:else>
+        <view class="start-btn" bindtap="startDaily">开始今日训练</view>
+      </block>
+
+      <!-- History chart -->
+      <view class="history-section" wx:if="{{history.length > 0}}">
+        <view class="history-title">近期趋势</view>
+        <view class="history-chart">
+          <view class="chart-bar-wrap" wx:for="{{history}}" wx:key="date" wx:if="{{index >= history.length - 14}}">
+            <view class="chart-bar" style="height: {{item.score * 1.6}}rpx;"></view>
+            <text class="chart-date">{{item.date}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="back-link" bindtap="backToIndex">返回首页</view>
+    </view>
+  </block>
+
+  <!-- ===== TEST PHASE ===== -->
+  <block wx:if="{{phase === 'test'}}">
+    <!-- Progress bar -->
+    <view class="test-progress">
+      <view class="test-progress-step {{currentTest >= i ? 'step-active' : ''}}" wx:for="{{testNames}}" wx:for-index="i" wx:key="*this">
+        <view class="step-dot {{currentTest === i ? 'step-current' : ''}} {{testScores[i] > 0 && currentTest > i ? 'step-done' : ''}}">{{i + 1}}</view>
+        <text class="step-name">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- Test 0: Reaction -->
+    <block wx:if="{{currentTest === 0}}">
+      <view class="test-card {{testAnim ? 'test-slide-in' : ''}}">
+        <view class="test-header">
+          <view class="test-icon icon-flash"></view>
+          <text class="test-title">反应速度</text>
+        </view>
+
+        <block wx:if="{{reactionPhase === 'done'}}">
+          <view class="reaction-result">
+            <view class="reaction-time-big">{{reactionTime}}</view>
+            <view class="reaction-unit">毫秒</view>
+            <view class="reaction-score">得分: {{testScores[0]}}</view>
+          </view>
+          <view class="next-btn" bindtap="nextFromReaction">下一项</view>
+        </block>
+        <block wx:else>
+          <view class="reaction-area {{reactionPhase === 'go' ? 'reaction-go' : ''}} {{reactionBg === '#ef4444' ? 'reaction-early' : ''}}" bindtap="tapReaction" style="{{reactionBg ? 'background:' + reactionBg + ';' : ''}}">
+            <block wx:if="{{reactionPhase === 'wait' && !reactionBg}}">
+              <view class="reaction-hint">等待绿色出现...</view>
+              <view class="reaction-sub">不要提前点击</view>
+            </block>
+            <block wx:if="{{reactionBg === '#ef4444'}}">
+              <view class="reaction-hint">太早了!</view>
+              <view class="reaction-sub">等绿色再点击</view>
+            </block>
+            <block wx:if="{{reactionPhase === 'go'}}">
+              <view class="reaction-hint reaction-go-text">点击!</view>
+            </block>
+          </view>
+        </block>
+      </view>
+    </block>
+
+    <!-- Test 1: Memory -->
+    <block wx:if="{{currentTest === 1}}">
+      <view class="test-card {{testAnim ? 'test-slide-in' : ''}}">
+        <view class="test-header">
+          <view class="test-icon icon-brain"></view>
+          <text class="test-title">数字记忆</text>
+        </view>
+        <view class="memory-level">等级 {{memoryLevel}} · 第 {{memoryRound + 1}} 轮</view>
+
+        <block wx:if="{{memoryShow}}">
+          <view class="memory-digits-display">
+            <text class="memory-digit" wx:for="{{memoryDigits}}" wx:key="*this">{{item}}</text>
+          </view>
+          <view class="memory-hint">记住这些数字</view>
+        </block>
+        <block wx:else>
+          <view class="memory-input-area">
+            <input class="memory-input" type="number" placeholder="输入刚才的数字" value="{{memoryInput}}" bindinput="inputMemory" focus="{{true}}" />
+            <view class="memory-submit" bindtap="submitMemory">确认</view>
+          </view>
+        </block>
+
+        <block wx:if="{{testScores[1] > 0 && memoryRound >= 4 || (!memoryShow && memoryRound > 0 && memoryCorrect < memoryRound && memoryInput !== memoryDigits)}}">
+        </block>
+        <view wx:if="{{testScores[1] > 0}}" class="memory-result">
+          <text>正确 {{memoryCorrect}}/{{memoryRound}} · 得分: {{testScores[1]}}</text>
+        </view>
+        <view wx:if="{{testScores[1] > 0}}" class="next-btn" bindtap="nextFromMemory">下一项</view>
+      </view>
+    </block>
+
+    <!-- Test 2: Schulte Grid -->
+    <block wx:if="{{currentTest === 2}}">
+      <view class="test-card {{testAnim ? 'test-slide-in' : ''}}">
+        <view class="test-header">
+          <view class="test-icon icon-grid"></view>
+          <text class="test-title">注意力方格</text>
+        </view>
+        <view class="schulte-info">按顺序点击 1 → {{schulteTotal}} · 下一个: {{schulteNext}}</view>
+
+        <view class="schulte-grid">
+          <view
+            wx:for="{{schulteCells}}" wx:key="num"
+            class="schulte-cell {{item.found ? 'cell-found' : ''}} {{item.num === schulteNext ? '' : ''}}"
+            data-idx="{{index}}"
+            bindtap="tapSchulteCell"
+          >{{item.num}}</view>
+        </view>
+
+        <view wx:if="{{schulteWrong > 0}}" class="schulte-wrong">错误: {{schulteWrong}} 次</view>
+
+        <block wx:if="{{schulteNext > schulteTotal}}">
+          <view class="schulte-result">
+            <view class="schulte-time-big">{{schulteTime}}</view>
+            <view class="schulte-unit">秒</view>
+            <view class="schulte-score">得分: {{testScores[2]}}</view>
+          </view>
+          <view class="next-btn" bindtap="nextFromSchulte">下一项</view>
+        </block>
+      </view>
+    </block>
+
+    <!-- Test 3: Math -->
+    <block wx:if="{{currentTest === 3}}">
+      <view class="test-card {{testAnim ? 'test-slide-in' : ''}}">
+        <view class="test-header">
+          <view class="test-icon icon-calc"></view>
+          <text class="test-title">极速心算</text>
+        </view>
+        <view class="math-progress">第 {{mathRound + 1}} / {{mathTotal}} 题 · 正确 {{mathCorrect}}</view>
+
+        <block wx:if="{{mathRound < mathTotal && mathQ}}">
+          <view class="math-question">{{mathQ.question}}</view>
+          <view class="math-options">
+            <view
+              wx:for="{{mathQ.options}}" wx:key="*this"
+              class="math-option {{mathChosen === item ? (item === mathQ.answer ? 'opt-correct' : 'opt-wrong') : ''}} {{mathChosen >= 0 && item === mathQ.answer ? 'opt-correct' : ''}}"
+              data-val="{{item}}"
+              bindtap="tapMathOption"
+            >{{item}}</view>
+          </view>
+        </block>
+
+        <block wx:if="{{mathRound >= mathTotal}}">
+          <view class="math-result">
+            <text>正确 {{mathCorrect}}/{{mathTotal}} · 得分: {{testScores[3]}}</text>
+          </view>
+          <view class="next-btn finish-btn" bindtap="finishDaily">查看结果</view>
+        </block>
+      </view>
+    </block>
+  </block>
+
+  <!-- ===== RESULT ===== -->
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result">
+      <view class="result-ring">
+        <view class="ring-score">{{totalScore}}</view>
+        <view class="ring-label">综合得分</view>
+      </view>
+      <view class="result-level">{{brainLevel}}</view>
+
+      <view class="result-breakdown">
+        <view class="breakdown-item" wx:for="{{testNames}}" wx:key="*this">
+          <view class="bd-icon icon-{{testIcons[index]}}"></view>
+          <view class="bd-info">
+            <text class="bd-name">{{item}}</text>
+            <view class="bd-bar-bg">
+              <view class="bd-bar-fill" style="width: {{testScores[index]}}%;"></view>
+            </view>
+          </view>
+          <text class="bd-score">{{testScores[index]}}</text>
+        </view>
+      </view>
+
+      <view class="streak-badge" wx:if="{{streak > 0}}">
+        连续训练 {{streak}} 天
+      </view>
+
+      <view class="result-actions">
+        <view class="retry-btn" bindtap="startDaily">再测一次</view>
+        <button class="share-btn" open-type="share">分享成绩</button>
+      </view>
+      <view class="back-link" bindtap="goHome">返回</view>
+    </view>
+  </block>
+
+</view>

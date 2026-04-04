@@ -1,0 +1,152 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <!-- Intro -->
+  <block wx:if="{{phase === 'intro'}}">
+    <view class="intro">
+      <view class="intro-badge">科学认知训练</view>
+      <view class="intro-grid-demo">
+        <view class="demo-cell active-demo"></view>
+        <view class="demo-cell"></view>
+        <view class="demo-cell"></view>
+        <view class="demo-cell"></view>
+        <view class="demo-cell"></view>
+        <view class="demo-cell"></view>
+        <view class="demo-cell"></view>
+        <view class="demo-cell"></view>
+        <view class="demo-cell active-demo-2"></view>
+      </view>
+      <view class="intro-title">双重 N-Back</view>
+      <view class="intro-subtitle">工作记忆极限挑战</view>
+      <view class="intro-desc">
+        方块会在九宫格中闪现并带有颜色。你需要判断当前的位置或颜色是否与N步之前相同。同时追踪两条信息流，考验你的工作记忆极限。
+      </view>
+      <view class="intro-rules">
+        <view class="rule">
+          <view class="rule-icon" style="background:rgba(59,130,246,0.15);color:#3b82f6;">位</view>
+          <view class="rule-text">位置与N步前相同时，点"位置匹配"</view>
+        </view>
+        <view class="rule">
+          <view class="rule-icon" style="background:rgba(168,85,247,0.15);color:#a855f7;">色</view>
+          <view class="rule-text">颜色与N步前相同时，点"颜色匹配"</view>
+        </view>
+      </view>
+      <view class="best-record" wx:if="{{bestLevel > 1}}">
+        历史最佳: {{bestLevel}}-Back
+      </view>
+      <view class="start-btn" bindtap="startGame">开始挑战</view>
+    </view>
+  </block>
+
+  <!-- Playing -->
+  <block wx:if="{{phase === 'playing'}}">
+    <!-- Header -->
+    <view class="play-header">
+      <view class="level-badge">{{nLevel}}-Back</view>
+      <view class="round-info">{{round}} / {{totalRounds}}</view>
+      <view class="score-info">{{score}} 分</view>
+    </view>
+    <view class="play-progress">
+      <view class="play-progress-fill" style="width:{{round/totalRounds*100}}%"></view>
+    </view>
+
+    <!-- Streak -->
+    <view wx:if="{{streak >= 3}}" class="nback-combo">
+      连续正确 x{{streak}}
+    </view>
+
+    <!-- Level up overlay -->
+    <view wx:if="{{levelUpAnim}}" class="levelup-overlay">
+      <view class="levelup-text">LEVEL UP!</view>
+      <view class="levelup-level">{{nLevel + 1}}-Back</view>
+    </view>
+
+    <!-- Grid -->
+    <view class="grid-container">
+      <view class="grid-3x3">
+        <view
+          wx:for="{{cells}}" wx:key="id"
+          class="grid-cell {{activeCell === item.id ? 'cell-active' : ''}} {{cellPulse && activeCell === item.id ? 'cell-pulse' : ''}}"
+          style="{{activeCell === item.id ? 'background:' + activeColor + ';box-shadow:0 0 30rpx ' + activeColor + '60;' : ''}}"
+        ></view>
+      </view>
+    </view>
+
+    <!-- Feedback flash -->
+    <view wx:if="{{showFeedback}}" class="feedback-row">
+      <view wx:if="{{feedbackPos === 'correct'}}" class="fb-tag fb-correct">位置 正确</view>
+      <view wx:if="{{feedbackPos === 'wrong'}}" class="fb-tag fb-wrong">位置 错误</view>
+      <view wx:if="{{feedbackPos === 'missed'}}" class="fb-tag fb-missed">位置 漏按</view>
+      <view wx:if="{{feedbackCol === 'correct'}}" class="fb-tag fb-correct">颜色 正确</view>
+      <view wx:if="{{feedbackCol === 'wrong'}}" class="fb-tag fb-wrong">颜色 错误</view>
+      <view wx:if="{{feedbackCol === 'missed'}}" class="fb-tag fb-missed">颜色 漏按</view>
+    </view>
+
+    <!-- Action buttons -->
+    <view class="action-buttons">
+      <view
+        class="action-btn pos-btn {{pressedPos ? 'btn-pressed' : ''}}"
+        bindtap="tapPosition"
+      >
+        <view class="btn-label">位置匹配</view>
+        <view class="btn-hint">位置与{{nLevel}}步前相同</view>
+      </view>
+      <view
+        class="action-btn col-btn {{pressedCol ? 'btn-pressed' : ''}}"
+        bindtap="tapColor"
+      >
+        <view class="btn-label">颜色匹配</view>
+        <view class="btn-hint">颜色与{{nLevel}}步前相同</view>
+      </view>
+    </view>
+
+    <!-- Stats -->
+    <view class="live-stats">
+      <text>位置 {{posCorrect}}/{{posMatches}}</text>
+      <text>颜色 {{colCorrect}}/{{colMatches}}</text>
+    </view>
+  </block>
+
+  <!-- Result -->
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result">
+      <view class="result-level-ring">
+        <view class="ring-num">{{finalLevel}}</view>
+        <view class="ring-label">Back</view>
+      </view>
+      <view class="result-title">
+        {{finalLevel >= 5 ? '超强工作记忆!' : (finalLevel >= 3 ? '记忆力不错!' : (finalLevel >= 2 ? '初露锋芒' : '继续加油'))}}
+      </view>
+      <view class="result-desc">
+        {{finalLevel >= 5 ? '你的工作记忆容量超越了绝大多数人，堪称认知精英！' : (finalLevel >= 3 ? '你能同时追踪多条信息流，工作记忆表现优秀。' : (finalLevel >= 2 ? '你已经掌握了基本的双重追踪能力，继续练习会更强。' : '工作记忆需要长期训练，每天练习15分钟效果最佳。'))}}
+      </view>
+
+      <view class="result-stats">
+        <view class="rstat">
+          <view class="rstat-num">{{totalCorrect}}</view>
+          <view class="rstat-label">正确</view>
+        </view>
+        <view class="rstat">
+          <view class="rstat-num">{{totalWrong}}</view>
+          <view class="rstat-label">错误</view>
+        </view>
+        <view class="rstat">
+          <view class="rstat-num">{{accuracy}}%</view>
+          <view class="rstat-label">准确率</view>
+        </view>
+        <view class="rstat">
+          <view class="rstat-num">{{maxStreak}}</view>
+          <view class="rstat-label">最大连击</view>
+        </view>
+      </view>
+
+      <view class="best-badge">历史最佳: {{bestLevel}}-Back</view>
+
+      <view class="result-actions">
+        <view class="retry-btn" bindtap="restart">再挑战一次</view>
+        <button class="share-result-btn" open-type="share">分享战绩</button>
+      </view>
+      <view class="back-link" bindtap="backToHome">返回首页</view>
+    </view>
+  </block>
+
+</view>

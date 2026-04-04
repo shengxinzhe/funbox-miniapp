@@ -48,6 +48,22 @@ Page({
         desc: '\u4f60\u7684\u5927\u8111\u80fd\u6218\u80dc\u8ba4\u77e5\u51b2\u7a81\u5417\uff1f',
         color: '#ef4444',
         page: '/pages/stroop/stroop'
+      },
+      {
+        id: 'nback',
+        icon: '\ud83e\udde9',
+        title: '\u53cc\u91cdN-Back\u8bb0\u5fc6\u6311\u6218',
+        desc: '\u5de5\u4f5c\u8bb0\u5fc6\u6781\u9650\u6d4b\u8bd5\uff0c\u4f60\u80fd\u8fbe\u5230\u51e0Back\uff1f',
+        color: '#6c63ff',
+        page: '/pages/nback/nback'
+      },
+      {
+        id: 'brain-daily',
+        icon: '\ud83e\udde0',
+        title: '\u6bcf\u65e5\u8ba4\u77e5\u8bad\u7ec3',
+        desc: '4\u9879\u6d4b\u8bd5\u7efc\u5408\u8bc4\u5206\uff0c\u8ffd\u8e2a\u4f60\u7684\u5927\u8111\u72b6\u6001',
+        color: '#22c55e',
+        page: '/pages/brain-daily/brain-daily'
       }
     ]
   },

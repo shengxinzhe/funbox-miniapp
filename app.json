@@ -20,6 +20,14 @@
     {
       "root": "pages/stroop",
       "pages": ["stroop"]
+    },
+    {
+      "root": "pages/nback",
+      "pages": ["nback"]
+    },
+    {
+      "root": "pages/brain-daily",
+      "pages": ["brain-daily"]
     }
   ],
   "window": {
