@@ -295,7 +295,8 @@
   font-size: 22rpx; color: #666; margin-top: 4rpx;
 }
 .result-actions {
-  display: flex; gap: 24rpx; justify-content: center;
+  display: flex; gap: 24rpx;
+  justify-content: center; align-items: center;
   margin-bottom: 32rpx;
 }
 .retry-btn {
@@ -304,10 +305,10 @@
   font-size: 28rpx; font-weight: 600;
   padding: 24rpx 48rpx;
   border-radius: 44rpx;
+  line-height: 1.5;
 }
 .retry-btn:active { opacity: 0.7; }
 .share-result-btn {
-  display: inline-block;
   background: linear-gradient(135deg, #6c63ff, #a855f7);
   color: #fff !important;
   font-size: 28rpx; font-weight: 600;
@@ -315,6 +316,7 @@
   border-radius: 44rpx;
   line-height: 1.5;
   border: none;
+  margin: 0; min-height: 0;
 }
 .share-result-btn::after { border: none; }
 .share-result-btn:active { opacity: 0.9; }

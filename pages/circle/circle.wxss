@@ -121,20 +121,23 @@
   font-size: 24rpx; color: #666; margin-bottom: 24rpx;
 }
 .result-actions {
-  display: flex; gap: 24rpx; justify-content: center; margin-bottom: 16rpx;
+  display: flex; gap: 24rpx;
+  justify-content: center; align-items: center;
+  margin-bottom: 16rpx;
 }
 .retry-btn {
   background: rgba(34,197,94,0.15); color: #22c55e;
   font-size: 28rpx; font-weight: 600;
   padding: 24rpx 48rpx; border-radius: 44rpx;
+  line-height: 1.5;
 }
 .retry-btn:active { opacity: 0.7; }
 .share-btn {
-  display: inline-block;
   background: linear-gradient(135deg, #22c55e, #16a34a);
   color: #fff !important; font-size: 28rpx; font-weight: 600;
   padding: 24rpx 48rpx; border-radius: 44rpx;
   line-height: 1.5; border: none;
+  margin: 0; min-height: 0;
 }
 .share-btn::after { border: none; }
 .share-btn:active { opacity: 0.9; }
