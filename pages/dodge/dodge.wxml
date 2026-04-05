@@ -1,0 +1,72 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <!-- Intro -->
+  <block wx:if="{{phase === 'intro'}}">
+    <view class="intro">
+      <view class="intro-emoji">🎯</view>
+      <view class="intro-title">躲避小球</view>
+      <view class="intro-subtitle">能活多久？</view>
+      <view class="intro-desc">
+        用手指控制绿色小球，躲避四面八方飞来的彩色弹幕。坚持越久分数越高，难度会逐渐提升，高等级小球还会追踪你！
+      </view>
+      <view class="intro-stats" wx:if="{{bestScore > 0}}">
+        <text class="stats-label">最佳纪录</text>
+        <text class="stats-val">{{bestScore}}</text>
+        <text class="stats-label">秒</text>
+      </view>
+      <view class="start-btn" bindtap="startGame">开始躲避</view>
+    </view>
+  </block>
+
+  <!-- Playing -->
+  <block wx:if="{{phase === 'playing'}}">
+    <view class="hud">
+      <view class="hud-score">{{score}}s</view>
+      <view class="hud-level">Lv.{{level}} {{levelName}}</view>
+    </view>
+    <canvas canvas-id="dodgeCanvas"
+      class="dodge-canvas"
+      style="width: {{canvasW}}px; height: {{canvasH}}px;"
+      bindtouchstart="onTouchStart"
+      bindtouchmove="onTouchMove"
+      bindtouchend="onTouchEnd">
+    </canvas>
+  </block>
+
+  <!-- Dead -->
+  <block wx:if="{{phase === 'dead'}}">
+    <view class="result">
+      <view class="result-emoji">💥</view>
+      <view class="result-title">游戏结束</view>
+
+      <view class="result-stats">
+        <view class="stat-item">
+          <view class="stat-val">{{score}}</view>
+          <view class="stat-label">存活秒数</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-val">Lv.{{level}}</view>
+          <view class="stat-label">达到等级</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-val">{{bestScore}}</view>
+          <view class="stat-label">最佳纪录</view>
+        </view>
+      </view>
+
+      <view class="result-rank">
+        <block wx:if="{{score >= 60}}">🏆 传奇级！你是躲避大师</block>
+        <block wx:elif="{{score >= 40}}">🥇 大神级！反应超群</block>
+        <block wx:elif="{{score >= 25}}">🥈 高手级！身手敏捷</block>
+        <block wx:elif="{{score >= 15}}">🥉 进阶级！还不错</block>
+        <block wx:elif="{{score >= 8}}">👍 入门级，继续加油</block>
+        <block wx:else>💀 秒杀...再试试？</block>
+      </view>
+
+      <view class="result-actions">
+        <view class="action-btn retry-btn" bindtap="restart">再来一次</view>
+        <button class="action-btn share-btn" open-type="share">分享战绩</button>
+      </view>
+    </view>
+  </block>
+</view>

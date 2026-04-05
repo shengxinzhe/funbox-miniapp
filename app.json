@@ -40,6 +40,10 @@
     {
       "root": "pages/captcha",
       "pages": ["captcha"]
+    },
+    {
+      "root": "pages/dodge",
+      "pages": ["dodge"]
     }
   ],
   "window": {

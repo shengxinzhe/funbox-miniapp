@@ -88,6 +88,14 @@ Page({
         desc: '\u5b8c\u6210\u9a8c\u8bc1\u6311\u6218\uff0c\u8bc1\u660e\u4f60\u662f\u4eba\u7c7b',
         color: '#3498db',
         page: '/pages/captcha/captcha'
+      },
+      {
+        id: 'dodge',
+        icon: '\ud83c\udfaf',
+        title: '\u8eb2\u907f\u5c0f\u7403',
+        desc: '\u624b\u6307\u63a7\u5236\u8eb2\u907f\u5f69\u8272\u5f39\u5e55\uff0c\u4f60\u80fd\u6d3b\u591a\u4e45\uff1f',
+        color: '#22c55e',
+        page: '/pages/dodge/dodge'
       }
     ]
   },
