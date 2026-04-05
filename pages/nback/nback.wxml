@@ -145,7 +145,6 @@
         <view class="retry-btn" bindtap="restart">再挑战一次</view>
         <button class="share-result-btn" open-type="share">分享战绩</button>
       </view>
-      <view class="back-link" bindtap="backToHome">返回首页</view>
     </view>
   </block>
 

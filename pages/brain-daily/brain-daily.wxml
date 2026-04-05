@@ -40,7 +40,6 @@
         </view>
       </view>
 
-      <view class="back-link" bindtap="backToIndex">返回首页</view>
     </view>
   </block>
 
@@ -211,7 +210,6 @@
         <view class="retry-btn" bindtap="startDaily">再测一次</view>
         <button class="share-btn" open-type="share">分享成绩</button>
       </view>
-      <view class="back-link" bindtap="goHome">返回</view>
     </view>
   </block>
 

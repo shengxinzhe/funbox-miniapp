@@ -9,15 +9,7 @@
       "root": "pages/spend",
       "pages": ["spend"]
     },
-    {
-      "root": "pages/deep-sea",
-      "pages": ["deep-sea"]
-    },
-    {
-      "root": "pages/ai-judge",
-      "pages": ["ai-judge"]
-    },
-    {
+{
       "root": "pages/stroop",
       "pages": ["stroop"]
     },

@@ -43,7 +43,6 @@
         </view>
       </view>
 
-      <view class="back-link" bindtap="backToIndex">返回首页</view>
     </view>
   </block>
 
@@ -107,7 +106,6 @@
         <view class="change-btn" bindtap="changeTarget">换个时间</view>
       </view>
       <button class="share-btn" open-type="share">分享结果</button>
-      <view class="back-link" bindtap="goHome">返回</view>
     </view>
   </block>
 

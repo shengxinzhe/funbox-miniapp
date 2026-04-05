@@ -1,5 +1,3 @@
-var GUIDE_RATIO = 0.35
-
 function fitCircle(pts) {
   var n = pts.length
   if (n < 10) return null
@@ -99,20 +97,14 @@ Page({
       phase: 'drawing', score: 0,
       scoreAnim: false, showFit: false, drawing: false
     })
-    // draw guide
-    var ctx = this.ctx
-    var s = this.data.canvasSize
-    ctx.clearRect(0, 0, s, s)
-    ctx.setStrokeStyle('rgba(255,255,255,0.06)')
-    ctx.setLineWidth(1)
-    ctx.beginPath()
-    ctx.arc(s / 2, s / 2, s * GUIDE_RATIO, 0, Math.PI * 2)
-    ctx.stroke()
-    ctx.setFillStyle('rgba(255,255,255,0.12)')
-    ctx.beginPath()
-    ctx.arc(s / 2, s / 2, 3, 0, Math.PI * 2)
-    ctx.fill()
-    ctx.draw()
+    // recreate context (canvas may have been re-mounted) and clear
+    var self = this
+    setTimeout(function () {
+      self.ctx = wx.createCanvasContext('circleCanvas', self)
+      var s = self.data.canvasSize
+      self.ctx.clearRect(0, 0, s, s)
+      self.ctx.draw()
+    }, 50)
   },
 
   onTouchStart: function (e) {

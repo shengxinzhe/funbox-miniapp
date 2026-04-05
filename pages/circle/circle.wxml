@@ -16,14 +16,14 @@
         最佳: {{bestScore}}%
       </view>
       <view class="start-btn" bindtap="startDraw">开始画圆</view>
-      <view class="back-link" bindtap="backToIndex">返回首页</view>
     </view>
   </block>
 
-  <!-- DRAWING -->
-  <block wx:if="{{phase === 'drawing'}}">
+  <!-- CANVAS (always in DOM, shown during drawing and result) -->
+  <block wx:if="{{phase === 'drawing' || phase === 'result'}}">
     <view class="draw-phase">
-      <view class="draw-hint {{drawing ? 'hint-hide' : ''}}">用手指画一个圆</view>
+      <view wx:if="{{phase === 'drawing'}}" class="draw-hint {{drawing ? 'hint-hide' : ''}}">用手指画一个圆</view>
+
       <view class="canvas-wrap" style="width:{{canvasSize}}px;height:{{canvasSize}}px;">
         <canvas
           canvas-id="circleCanvas"
@@ -32,39 +32,30 @@
           bindtouchmove="onTouchMove"
           bindtouchend="onTouchEnd"
         ></canvas>
-      </view>
-      <view class="draw-sub">松手即评分</view>
-    </view>
-  </block>
-
-  <!-- RESULT -->
-  <block wx:if="{{phase === 'result'}}">
-    <view class="result">
-      <view class="canvas-wrap result-canvas" style="width:{{canvasSize}}px;height:{{canvasSize}}px;">
-        <canvas
-          canvas-id="circleCanvas"
-          style="width:{{canvasSize}}px;height:{{canvasSize}}px;"
-        ></canvas>
         <view wx:if="{{showFit}}" class="fit-label">— 虚线为完美圆 —</view>
       </view>
 
-      <view class="score-area {{scoreAnim ? 'score-pop' : ''}}">
-        <view class="score-num">{{score}}<text class="score-pct">%</text></view>
-        <view class="score-rank">{{rank}}</view>
-      </view>
+      <view wx:if="{{phase === 'drawing'}}" class="draw-sub">松手即评分</view>
 
-      <view wx:if="{{score > bestScore - 1 && score === bestScore}}" class="new-best">新纪录!</view>
+      <!-- Result content below canvas -->
+      <block wx:if="{{phase === 'result'}}">
+        <view class="score-area {{scoreAnim ? 'score-pop' : ''}}">
+          <view class="score-num">{{score}}<text class="score-pct">%</text></view>
+          <view class="score-rank">{{rank}}</view>
+        </view>
 
-      <view class="result-meta">
-        <text>第 {{attempts}} 次尝试</text>
-        <text wx:if="{{bestScore > 0}}"> · 最佳 {{bestScore}}%</text>
-      </view>
+        <view wx:if="{{score === bestScore && attempts > 0}}" class="new-best">新纪录!</view>
 
-      <view class="result-actions">
-        <view class="retry-btn" bindtap="retry">再画一次</view>
-        <button class="share-btn" open-type="share">分享成绩</button>
-      </view>
-      <view class="back-link" bindtap="goHome">返回</view>
+        <view class="result-meta">
+          <text>第 {{attempts}} 次尝试</text>
+          <text wx:if="{{bestScore > 0}}"> · 最佳 {{bestScore}}%</text>
+        </view>
+
+        <view class="result-actions">
+          <view class="retry-btn" bindtap="retry">再画一次</view>
+          <button class="share-btn" open-type="share">分享成绩</button>
+        </view>
+      </block>
     </view>
   </block>
 

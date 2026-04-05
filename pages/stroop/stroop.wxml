@@ -126,7 +126,6 @@
         <view class="retry-btn" bindtap="restart">再测一次</view>
         <button class="share-result-btn" open-type="share">分享结果</button>
       </view>
-      <view class="back-link" bindtap="backToHome">返回首页</view>
     </view>
   </block>
 
