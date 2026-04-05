@@ -28,6 +28,14 @@
     {
       "root": "pages/brain-daily",
       "pages": ["brain-daily"]
+    },
+    {
+      "root": "pages/circle",
+      "pages": ["circle"]
+    },
+    {
+      "root": "pages/time-lab",
+      "pages": ["time-lab"]
     }
   ],
   "window": {

@@ -1,0 +1,114 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <!-- HOME -->
+  <block wx:if="{{phase === 'home'}}">
+    <view class="home">
+      <view class="home-icon-wrap">
+        <view class="home-icon">
+          <view class="clock-hand"></view>
+        </view>
+      </view>
+      <view class="home-title">时间感知实验室</view>
+      <view class="home-desc">不看时钟，你能准确估计时间吗？</view>
+
+      <view class="target-select">
+        <view class="target-label">选择目标时间</view>
+        <view class="target-row">
+          <view
+            wx:for="{{targets}}" wx:key="*this"
+            class="target-chip {{selectedTarget === item ? 'chip-active' : ''}}"
+            data-t="{{item}}" bindtap="selectTarget"
+          >{{targetLabels[index]}}</view>
+        </view>
+      </view>
+
+      <view wx:if="{{bestScores['t' + selectedTarget]}}" class="best-badge">
+        最佳: {{bestScores['t' + selectedTarget]}}分
+      </view>
+
+      <view class="start-btn" bindtap="startTest">开始计时</view>
+
+      <!-- Recent history for selected target -->
+      <view class="history-section" wx:if="{{history.length > 0}}">
+        <view class="history-title">近期记录</view>
+        <view class="history-list">
+          <view class="h-item" wx:for="{{history}}" wx:key="date"
+                wx:if="{{item.target === selectedTarget && index >= history.length - 8}}">
+            <text class="h-actual">{{item.actual}}s</text>
+            <text class="h-err {{item.error <= 5 ? 'err-good' : item.error <= 15 ? 'err-ok' : 'err-bad'}}">
+              误差{{item.error}}%
+            </text>
+            <text class="h-score">{{item.score}}分</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="back-link" bindtap="backToIndex">返回首页</view>
+    </view>
+  </block>
+
+  <!-- READY -->
+  <block wx:if="{{phase === 'ready'}}">
+    <view class="ready-screen">
+      <view class="ready-text">准备</view>
+      <view class="ready-num">{{readyCount}}</view>
+      <view class="ready-hint">倒计时结束后开始在心中计时</view>
+      <view class="ready-target">目标: {{selectedTarget}} 秒</view>
+    </view>
+  </block>
+
+  <!-- COUNTING -->
+  <block wx:if="{{phase === 'counting'}}">
+    <view class="counting-screen" bindtap="stopCounting">
+      <view class="counting-orb"></view>
+      <view class="counting-text">计时中...</view>
+      <view class="counting-hint">当你认为 {{selectedTarget}} 秒已过</view>
+      <view class="counting-stop">点击任意位置停止</view>
+    </view>
+  </block>
+
+  <!-- RESULT -->
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result">
+      <view class="result-ring {{score >= 80 ? 'ring-great' : score >= 50 ? 'ring-ok' : 'ring-low'}}">
+        <view class="ring-score">{{score}}</view>
+        <view class="ring-label">分</view>
+      </view>
+
+      <view class="result-compare">
+        <view class="compare-item">
+          <view class="cmp-num">{{targetTime}}s</view>
+          <view class="cmp-label">目标</view>
+        </view>
+        <view class="compare-arrow">→</view>
+        <view class="compare-item">
+          <view class="cmp-num cmp-actual">{{actualTime}}s</view>
+          <view class="cmp-label">你的估计</view>
+        </view>
+      </view>
+
+      <view class="error-bar-wrap">
+        <view class="error-bar">
+          <view class="error-fill {{errorPct <= 5 ? 'fill-great' : errorPct <= 15 ? 'fill-ok' : 'fill-bad'}}"
+                style="width: {{errorPct > 50 ? 100 : errorPct * 2}}%;"></view>
+        </view>
+        <view class="error-text">误差 {{errorPct}}% · {{direction}}</view>
+      </view>
+
+      <view class="insight-card">
+        <block wx:if="{{errorPct <= 3}}">你的内在时钟极其精准！</block>
+        <block wx:elif="{{errorPct <= 10}}">表现不错，你对时间的感知比较准确</block>
+        <block wx:elif="{{errorPct <= 25}}">一般水平，多数人的误差在这个范围</block>
+        <block wx:else>{{direction === '偏快' ? '你的内在时钟走得比现实快' : '你的内在时钟走得比现实慢'}}，试试再来一次？</block>
+      </view>
+
+      <view class="result-actions">
+        <view class="retry-btn" bindtap="tryAgain">再试一次</view>
+        <view class="change-btn" bindtap="changeTarget">换个时间</view>
+      </view>
+      <button class="share-btn" open-type="share">分享结果</button>
+      <view class="back-link" bindtap="goHome">返回</view>
+    </view>
+  </block>
+
+</view>

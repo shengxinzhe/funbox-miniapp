@@ -64,6 +64,22 @@ Page({
         desc: '4\u9879\u6d4b\u8bd5\u7efc\u5408\u8bc4\u5206\uff0c\u8ffd\u8e2a\u4f60\u7684\u5927\u8111\u72b6\u6001',
         color: '#22c55e',
         page: '/pages/brain-daily/brain-daily'
+      },
+      {
+        id: 'circle',
+        icon: '\u2b55',
+        title: '\u753b\u4e2a\u5b8c\u7f8e\u5706',
+        desc: '\u7528\u624b\u6307\u753b\u5706\uff0cAI\u8bc4\u5206\u4f60\u7684\u5706\u5ea6 0-100%',
+        color: '#22c55e',
+        page: '/pages/circle/circle'
+      },
+      {
+        id: 'time-lab',
+        icon: '\u23f1',
+        title: '\u65f6\u95f4\u611f\u77e5\u5b9e\u9a8c\u5ba4',
+        desc: '\u4e0d\u770b\u65f6\u949f\uff0c\u4f60\u80fd\u51c6\u786e\u4f30\u8ba1\u65f6\u95f4\u5417\uff1f',
+        color: '#818cf8',
+        page: '/pages/time-lab/time-lab'
       }
     ]
   },
