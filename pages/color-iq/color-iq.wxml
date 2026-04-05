@@ -1,0 +1,79 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <block wx:if="{{phase === 'intro'}}">
+    <view class="intro">
+      <view class="intro-mosaic">
+        <view class="mosaic-cell" style="background:#e74c3c;"></view>
+        <view class="mosaic-cell" style="background:#e74c3c;"></view>
+        <view class="mosaic-cell" style="background:#d63c2f;"></view>
+        <view class="mosaic-cell" style="background:#e74c3c;"></view>
+      </view>
+      <view class="intro-title">色觉辨别挑战</view>
+      <view class="intro-subtitle">找出不同颜色的方块</view>
+      <view class="intro-desc">
+        在一堆相同颜色的方块中，有一个颜色略有不同。随着关卡推进，色差越来越小、格子越来越多。3条命，你能到第几关？
+      </view>
+      <view class="intro-stats" wx:if="{{bestLevel > 1}}">
+        <text class="stats-label">最佳纪录</text>
+        <text class="stats-val">{{bestLevel}}</text>
+        <text class="stats-label">关</text>
+      </view>
+      <view class="start-btn" bindtap="startGame">开始挑战</view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase === 'playing'}}">
+    <view class="playing {{flash}}">
+      <view class="hud">
+        <view class="hud-level">第 {{level}} 关</view>
+        <view class="hud-score">{{score}} 分</view>
+        <view class="hud-lives">
+          <text wx:for="{{3}}" wx:key="*this" class="heart {{index < lives ? '' : 'heart-lost'}}">♥</text>
+        </view>
+      </view>
+      <view class="combo-hint" wx:if="{{comboCount >= 3}}">{{comboCount}}x 连击!</view>
+
+      <view class="grid grid-{{gridSize}}">
+        <view wx:for="{{cells}}" wx:key="index"
+          class="cell"
+          style="background: {{item.color}};"
+          bindtap="tapCell" data-idx="{{index}}">
+        </view>
+      </view>
+
+      <view class="hint-text">点击颜色不同的方块</view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result">
+      <view class="result-emoji">👁️</view>
+      <view class="result-title">挑战结束</view>
+      <view class="result-rank">
+        <block wx:if="{{level >= 30}}">传说之眼 - 你是色彩大师！</block>
+        <block wx:elif="{{level >= 20}}">鹰眼级别 - 极其敏锐！</block>
+        <block wx:elif="{{level >= 12}}">火眼金睛 - 相当厉害</block>
+        <block wx:elif="{{level >= 6}}">目光敏锐 - 不错</block>
+        <block wx:else>初出茅庐 - 继续训练</block>
+      </view>
+      <view class="result-stats">
+        <view class="stat-item">
+          <view class="stat-val">{{level}}</view>
+          <view class="stat-label">到达关卡</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-val">{{score}}</view>
+          <view class="stat-label">总分</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-val">{{bestLevel}}</view>
+          <view class="stat-label">最佳</view>
+        </view>
+      </view>
+      <view class="result-actions">
+        <view class="action-btn retry-btn" bindtap="restart">再来一次</view>
+        <button class="action-btn share-btn" open-type="share">分享成绩</button>
+      </view>
+    </view>
+  </block>
+</view>

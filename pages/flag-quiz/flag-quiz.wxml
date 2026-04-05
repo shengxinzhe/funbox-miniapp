@@ -1,0 +1,92 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <block wx:if="{{phase === 'intro'}}">
+    <view class="intro">
+      <view class="intro-flags">
+        <text class="flag-preview">🇨🇳</text>
+        <text class="flag-preview">🇺🇸</text>
+        <text class="flag-preview">🇯🇵</text>
+        <text class="flag-preview">🇬🇧</text>
+      </view>
+      <view class="intro-title">国旗猜国家</view>
+      <view class="intro-subtitle">测试你的地理知识</view>
+      <view class="intro-desc">
+        看国旗猜国家，每轮15题，限时作答。答得越快、连击越高，分数越多！
+      </view>
+      <view class="intro-stats" wx:if="{{bestScore > 0}}">
+        <text class="stats-label">最佳得分</text>
+        <text class="stats-val">{{bestScore}}</text>
+      </view>
+      <view class="start-btn" bindtap="startGame">开始挑战</view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase === 'playing'}}">
+    <view class="playing">
+      <view class="hud">
+        <view class="hud-progress">{{current + 1}} / {{total}}</view>
+        <view class="hud-score">{{score}} 分</view>
+      </view>
+      <view class="combo-hint" wx:if="{{combo >= 3}}">{{combo}}x 连击!</view>
+
+      <view class="timer-bar">
+        <view class="timer-fill {{timerWidth < 30 ? 'timer-danger' : ''}}" style="width: {{timerWidth}}%;"></view>
+      </view>
+
+      <view class="card {{cardAnim}}">
+        <view class="flag-display">{{flag.flag}}</view>
+        <view class="flag-question">这是哪个国家的国旗？</view>
+
+        <view class="options">
+          <view wx:for="{{options}}" wx:key="*this"
+            class="option-btn {{answered ? (index === correctIdx ? 'opt-correct' : (index === selectedIdx ? 'opt-wrong' : 'opt-dim')) : ''}}"
+            bindtap="answer" data-idx="{{index}}">
+            {{item}}
+          </view>
+        </view>
+
+        <view class="next-btn" wx:if="{{answered}}" bindtap="nextFlag">
+          {{current + 1 >= total ? '查看结果' : '下一题'}}
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result">
+      <view class="result-emoji">
+        <block wx:if="{{correctCount >= 14}}">🌍</block>
+        <block wx:elif="{{correctCount >= 11}}">🗺️</block>
+        <block wx:elif="{{correctCount >= 8}}">✈️</block>
+        <block wx:elif="{{correctCount >= 5}}">🧭</block>
+        <block wx:else>📍</block>
+      </view>
+      <view class="result-title">挑战完成</view>
+      <view class="result-rank">
+        <block wx:if="{{correctCount >= 14}}">地理大师 - 环游世界！</block>
+        <block wx:elif="{{correctCount >= 11}}">环球旅行家 - 相当厉害</block>
+        <block wx:elif="{{correctCount >= 8}}">地理达人 - 不错</block>
+        <block wx:elif="{{correctCount >= 5}}">初级探险家 - 继续加油</block>
+        <block wx:else>地理小白 - 多看看地图吧</block>
+      </view>
+      <view class="result-stats">
+        <view class="stat-item">
+          <view class="stat-val">{{correctCount}}/{{total}}</view>
+          <view class="stat-label">答对</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-val">{{score}}</view>
+          <view class="stat-label">得分</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-val">{{maxCombo}}</view>
+          <view class="stat-label">最高连击</view>
+        </view>
+      </view>
+      <view class="result-actions">
+        <view class="action-btn retry-btn" bindtap="restart">再来一次</view>
+        <button class="action-btn share-btn" open-type="share">分享成绩</button>
+      </view>
+    </view>
+  </block>
+</view>

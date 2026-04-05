@@ -1,0 +1,79 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <block wx:if="{{phase === 'intro'}}">
+    <view class="intro">
+      <view class="intro-icons">
+        <text class="el-icon">💧</text>
+        <text class="plus-icon">+</text>
+        <text class="el-icon">🔥</text>
+        <text class="equals-icon">=</text>
+        <text class="el-icon">♨️</text>
+      </view>
+      <view class="intro-title">元素合成</view>
+      <view class="intro-subtitle">从四大基础元素创造世界</view>
+      <view class="intro-desc">
+        从水、火、土、风开始，两两组合发现新元素。看看你能合成出多少种物质！
+      </view>
+      <view class="intro-stats" wx:if="{{bestCount > 4}}">
+        <text class="stats-label">最多发现</text>
+        <text class="stats-val">{{bestCount}}</text>
+        <text class="stats-label">种</text>
+      </view>
+      <view class="start-btn" bindtap="startGame">开始探索</view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase === 'playing'}}">
+    <view class="playing">
+      <view class="hud">
+        <view class="hud-count">已发现 {{discovered.length}} / {{totalPossible}}</view>
+        <view class="hud-clear" wx:if="{{selectedA && !showResult}}" bindtap="clearSelection">清除</view>
+      </view>
+
+      <!-- Crafting area -->
+      <view class="craft-area">
+        <view class="craft-slot {{selectedA ? 'slot-filled' : ''}}">
+          <text wx:if="{{selectedA}}">{{selectedA.emoji}}</text>
+          <text wx:else class="slot-hint">?</text>
+        </view>
+        <text class="craft-plus">+</text>
+        <view class="craft-slot {{selectedB ? 'slot-filled' : ''}}">
+          <text wx:if="{{selectedB}}">{{selectedB.emoji}}</text>
+          <text wx:else class="slot-hint">?</text>
+        </view>
+      </view>
+
+      <!-- Result overlay -->
+      <view class="result-overlay {{showResult ? 'show' : ''}}" bindtap="dismissResult" wx:if="{{showResult}}">
+        <view class="result-card" wx:if="{{resultElement}}">
+          <view class="result-emoji {{isNew ? 'result-new' : ''}}">{{resultElement.emoji}}</view>
+          <view class="result-name">{{resultElement.name}}</view>
+          <view class="result-badge" wx:if="{{isNew}}">新发现!</view>
+          <view class="result-badge result-old" wx:else>已发现</view>
+          <view class="result-formula">{{selectedA.emoji}} + {{selectedB.emoji}} = {{resultElement.emoji}}</view>
+        </view>
+        <view class="result-card result-fail" wx:else>
+          <view class="result-emoji">❌</view>
+          <view class="result-name">合成失败</view>
+          <view class="result-formula">{{selectedA.emoji}} + {{selectedB.emoji}} = ?</view>
+        </view>
+        <view class="tap-hint">点击继续</view>
+      </view>
+
+      <!-- Element grid -->
+      <view class="hint-text" wx:if="{{hintText}}">{{hintText}}</view>
+      <view class="hint-text" wx:elif="{{!selectedA}}">选择第一个元素</view>
+      <view class="hint-text" wx:elif="{{!selectedB}}">选择第二个元素</view>
+
+      <view class="element-grid">
+        <view wx:for="{{discovered}}" wx:key="key"
+          class="element-item {{selectedA.key === item.key && !selectedB ? 'el-selected' : ''}}"
+          bindtap="tapElement" data-key="{{item.key}}"
+          style="animation-delay: {{index * 30}}ms;">
+          <text class="el-emoji">{{item.emoji}}</text>
+          <text class="el-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

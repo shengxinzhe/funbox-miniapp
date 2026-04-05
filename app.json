@@ -44,6 +44,22 @@
     {
       "root": "pages/dodge",
       "pages": ["dodge"]
+    },
+    {
+      "root": "pages/color-iq",
+      "pages": ["color-iq"]
+    },
+    {
+      "root": "pages/fact-or-fiction",
+      "pages": ["fact-or-fiction"]
+    },
+    {
+      "root": "pages/flag-quiz",
+      "pages": ["flag-quiz"]
+    },
+    {
+      "root": "pages/element-craft",
+      "pages": ["element-craft"]
     }
   ],
   "window": {

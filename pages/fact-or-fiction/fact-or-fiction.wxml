@@ -1,0 +1,103 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <block wx:if="{{phase === 'intro'}}">
+    <view class="intro">
+      <view class="intro-icon">
+        <text class="icon-q">?</text>
+        <text class="icon-check">✓</text>
+      </view>
+      <view class="intro-title">真假冷知识</view>
+      <view class="intro-subtitle">你能辨别事实与谣言吗？</view>
+      <view class="intro-desc">
+        每轮15道冷知识题，判断它们是真是假。连续答对可获得连击加分！
+      </view>
+      <view class="intro-stats" wx:if="{{bestScore > 0}}">
+        <text class="stats-label">最佳得分</text>
+        <text class="stats-val">{{bestScore}}</text>
+      </view>
+      <view class="start-btn" bindtap="startGame">开始挑战</view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase === 'playing'}}">
+    <view class="playing">
+      <view class="hud">
+        <view class="hud-progress">{{current + 1}} / {{total}}</view>
+        <view class="hud-score">{{score}} 分</view>
+      </view>
+      <view class="combo-hint" wx:if="{{combo >= 3}}">{{combo}}x 连击!</view>
+
+      <view class="card {{cardAnim}}">
+        <view class="card-badge">冷知识 #{{current + 1}}</view>
+        <view class="card-text">{{fact.text}}</view>
+
+        <block wx:if="{{!answered}}">
+          <view class="card-actions">
+            <view class="choice-btn true-btn" bindtap="answer" data-choice="true">
+              <text class="choice-icon">✓</text>
+              <text>真的</text>
+            </view>
+            <view class="choice-btn false-btn" bindtap="answer" data-choice="false">
+              <text class="choice-icon">✗</text>
+              <text>假的</text>
+            </view>
+          </view>
+        </block>
+
+        <block wx:if="{{answered}}">
+          <view class="card-result {{wasCorrect ? 'result-correct' : 'result-wrong'}}">
+            <view class="result-icon">{{wasCorrect ? '✓' : '✗'}}</view>
+            <view class="result-label">{{wasCorrect ? '回答正确！' : '回答错误'}}</view>
+            <view class="result-answer">答案：{{fact.real ? '真的' : '假的'}}</view>
+            <view class="result-explain">{{fact.explain}}</view>
+          </view>
+          <view class="next-btn" bindtap="nextFact">
+            {{current + 1 >= total ? '查看结果' : '下一题'}}
+          </view>
+        </block>
+      </view>
+
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{(current + 1) / total * 100}}%;"></view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result">
+      <view class="result-emoji">
+        <block wx:if="{{correctCount >= 14}}">🧠</block>
+        <block wx:elif="{{correctCount >= 11}}">🎓</block>
+        <block wx:elif="{{correctCount >= 8}}">📚</block>
+        <block wx:elif="{{correctCount >= 5}}">🤔</block>
+        <block wx:else>😅</block>
+      </view>
+      <view class="result-title">挑战完成</view>
+      <view class="result-rank">
+        <block wx:if="{{correctCount >= 14}}">冷知识大师 - 博学多闻！</block>
+        <block wx:elif="{{correctCount >= 11}}">知识达人 - 相当厉害</block>
+        <block wx:elif="{{correctCount >= 8}}">见多识广 - 不错</block>
+        <block wx:elif="{{correctCount >= 5}}">略有了解 - 继续加油</block>
+        <block wx:else>知识小白 - 学到很多吧</block>
+      </view>
+      <view class="result-stats">
+        <view class="stat-item">
+          <view class="stat-val">{{correctCount}}/{{total}}</view>
+          <view class="stat-label">答对</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-val">{{score}}</view>
+          <view class="stat-label">得分</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-val">{{maxCombo}}</view>
+          <view class="stat-label">最高连击</view>
+        </view>
+      </view>
+      <view class="result-actions">
+        <view class="action-btn retry-btn" bindtap="restart">再来一次</view>
+        <button class="action-btn share-btn" open-type="share">分享成绩</button>
+      </view>
+    </view>
+  </block>
+</view>

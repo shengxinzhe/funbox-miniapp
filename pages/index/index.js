@@ -96,6 +96,38 @@ Page({
         desc: '\u624b\u6307\u63a7\u5236\u8eb2\u907f\u5f69\u8272\u5f39\u5e55\uff0c\u4f60\u80fd\u6d3b\u591a\u4e45\uff1f',
         color: '#22c55e',
         page: '/pages/dodge/dodge'
+      },
+      {
+        id: 'color-iq',
+        icon: '\ud83c\udfa8',
+        title: '\u8272\u89c9\u8fa8\u522b\u6311\u6218',
+        desc: '\u627e\u51fa\u989c\u8272\u4e0d\u540c\u7684\u65b9\u5757\uff0c\u8003\u9a8c\u4f60\u7684\u8272\u89c9\u654f\u9510\u5ea6',
+        color: '#a78bfa',
+        page: '/pages/color-iq/color-iq'
+      },
+      {
+        id: 'fact-or-fiction',
+        icon: '\u2753',
+        title: '\u771f\u5047\u51b7\u77e5\u8bc6',
+        desc: '\u8fa8\u522b\u51b7\u77e5\u8bc6\u771f\u5047\uff0c\u770b\u4f60\u80fd\u7b54\u5bf9\u51e0\u9898',
+        color: '#f59e0b',
+        page: '/pages/fact-or-fiction/fact-or-fiction'
+      },
+      {
+        id: 'flag-quiz',
+        icon: '\ud83c\uddf0\ud83c\uddf7',
+        title: '\u56fd\u65d7\u731c\u56fd\u5bb6',
+        desc: '\u770b\u56fd\u65d7\u731c\u56fd\u5bb6\uff0c\u6d4b\u8bd5\u4f60\u7684\u5730\u7406\u77e5\u8bc6',
+        color: '#3b82f6',
+        page: '/pages/flag-quiz/flag-quiz'
+      },
+      {
+        id: 'element-craft',
+        icon: '\u2697\ufe0f',
+        title: '\u5143\u7d20\u5408\u6210',
+        desc: '\u4ece\u56db\u5927\u5143\u7d20\u5f00\u59cb\uff0c\u5408\u6210\u521b\u9020\u65b0\u7269\u8d28',
+        color: '#8b5cf6',
+        page: '/pages/element-craft/element-craft'
       }
     ]
   },
