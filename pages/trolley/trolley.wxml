@@ -1,0 +1,85 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <!-- Intro -->
+  <block wx:if="{{phase === 'intro'}}">
+    <view class="intro">
+      <view class="intro-emoji">🚃</view>
+      <view class="intro-title">荒诞电车难题</view>
+      <view class="intro-subtitle">考验你的道德直觉</view>
+      <view class="intro-desc">
+        经典电车难题的荒诞变体。每轮10道题，没有正确答案，只有你的选择。选完后可以看看"大家"怎么选的。
+      </view>
+      <view class="intro-stats" wx:if="{{streak > 0}}">
+        <text class="stats-label">已完成</text>
+        <text class="stats-val">{{streak}}</text>
+        <text class="stats-label">轮</text>
+      </view>
+      <view class="start-btn" bindtap="startGame">开始抉择</view>
+    </view>
+  </block>
+
+  <!-- Playing -->
+  <block wx:if="{{phase === 'playing'}}">
+    <view class="playing">
+      <!-- Progress -->
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{(current + 1) / total * 100}}%;"></view>
+      </view>
+      <view class="progress-text">{{current + 1}} / {{total}}</view>
+
+      <!-- Problem Card -->
+      <view class="problem-card {{cardAnim}}">
+        <view class="scene-emoji">{{problem.emoji}}</view>
+        <view class="scene-text">{{problem.scene}}</view>
+
+        <view class="options">
+          <view class="option option-a {{chosen === 'A' ? 'chosen' : ''}} {{chosen === 'B' ? 'not-chosen' : ''}} {{showPct ? 'show-bar' : ''}}"
+            bindtap="choose" data-choice="A">
+            <view class="option-label">A</view>
+            <view class="option-text">{{problem.optionA}}</view>
+            <view class="vote-bar" wx:if="{{showPct}}" style="width: {{pctA}}%;"></view>
+            <view class="vote-pct" wx:if="{{showPct}}">{{pctA}}%</view>
+          </view>
+
+          <view class="option option-b {{chosen === 'B' ? 'chosen' : ''}} {{chosen === 'A' ? 'not-chosen' : ''}} {{showPct ? 'show-bar' : ''}}"
+            bindtap="choose" data-choice="B">
+            <view class="option-label">B</view>
+            <view class="option-text">{{problem.optionB}}</view>
+            <view class="vote-bar" wx:if="{{showPct}}" style="width: {{pctB}}%;"></view>
+            <view class="vote-pct" wx:if="{{showPct}}">{{pctB}}%</view>
+          </view>
+        </view>
+
+        <view class="next-btn" wx:if="{{chosen}}" bindtap="nextProblem">
+          {{current < total - 1 ? '下一题' : '查看结果'}}
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- Result -->
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result">
+      <view class="result-emoji">🎭</view>
+      <view class="result-title">抉择完毕</view>
+      <view class="result-subtitle">你完成了10道荒诞电车难题</view>
+
+      <view class="result-summary">
+        <view class="summary-item" wx:for="{{choices}}" wx:key="idx">
+          <text class="summary-num">Q{{item.idx + 1}}</text>
+          <text class="summary-choice {{item.choice === 'A' ? 'choice-a' : 'choice-b'}}">选了 {{item.choice}}</text>
+        </view>
+      </view>
+
+      <view class="result-streak">
+        <text class="streak-icon">🔥</text>
+        <text>已完成 {{streak}} 轮</text>
+      </view>
+
+      <view class="result-actions">
+        <view class="action-btn retry-btn" bindtap="restart">再来一轮</view>
+        <button class="action-btn share-btn" open-type="share">分享给朋友</button>
+      </view>
+    </view>
+  </block>
+</view>

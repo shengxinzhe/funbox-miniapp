@@ -28,6 +28,18 @@
     {
       "root": "pages/time-lab",
       "pages": ["time-lab"]
+    },
+    {
+      "root": "pages/trolley",
+      "pages": ["trolley"]
+    },
+    {
+      "root": "pages/password-game",
+      "pages": ["password-game"]
+    },
+    {
+      "root": "pages/captcha",
+      "pages": ["captcha"]
     }
   ],
   "window": {

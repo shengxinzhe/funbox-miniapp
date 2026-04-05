@@ -64,6 +64,30 @@ Page({
         desc: '\u4e0d\u770b\u65f6\u949f\uff0c\u4f60\u80fd\u51c6\u786e\u4f30\u8ba1\u65f6\u95f4\u5417\uff1f',
         color: '#818cf8',
         page: '/pages/time-lab/time-lab'
+      },
+      {
+        id: 'trolley',
+        icon: '\ud83d\ude83',
+        title: '\u8352\u8bde\u7535\u8f66\u96be\u9898',
+        desc: '\u8d8a\u6765\u8d8a\u79bb\u8c31\u7684\u9053\u5fb7\u56f0\u5883\uff0c\u4f60\u4f1a\u600e\u4e48\u9009\uff1f',
+        color: '#e74c3c',
+        page: '/pages/trolley/trolley'
+      },
+      {
+        id: 'password-game',
+        icon: '\ud83d\udd10',
+        title: '\u5bc6\u7801\u6311\u6218',
+        desc: '\u89c4\u5219\u8d8a\u6765\u8d8a\u8352\u8c2c\uff0c\u4f60\u80fd\u901a\u8fc7\u51e0\u5173\uff1f',
+        color: '#f39c12',
+        page: '/pages/password-game/password-game'
+      },
+      {
+        id: 'captcha',
+        icon: '\ud83e\udd16',
+        title: '\u6211\u4e0d\u662f\u673a\u5668\u4eba',
+        desc: '\u5b8c\u6210\u9a8c\u8bc1\u6311\u6218\uff0c\u8bc1\u660e\u4f60\u662f\u4eba\u7c7b',
+        color: '#3498db',
+        page: '/pages/captcha/captcha'
       }
     ]
   },
