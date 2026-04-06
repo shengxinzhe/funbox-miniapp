@@ -16,6 +16,8 @@ Page({
   targets: [],
   found: [],
   timer: null,
+  _staggerTimers: [],
+  _autoAdvanceTimer: null,
 
   onLoad: function () {
     var best = wx.getStorageSync('memory_best') || 0
@@ -73,19 +75,25 @@ Page({
     this.found = []
 
     // Flash targets one by one for dramatic effect
-    var cells = this.data.cells.slice()
     var self = this
+
+    // Clear previous stagger timers
+    for (var si = 0; si < this._staggerTimers.length; si++) {
+      clearTimeout(this._staggerTimers[si])
+    }
+    this._staggerTimers = []
 
     // Show all targets with staggered flash
     var showDelay = 0
     for (var i = 0; i < targets.length; i++) {
       (function (idx, delay) {
-        setTimeout(function () {
+        var t = setTimeout(function () {
           var c = self.data.cells.slice()
           c[idx] = { state: 'highlight', flip: true }
           self.setData({ cells: c })
           sound.play('tap')
         }, delay)
+        self._staggerTimers.push(t)
       })(targets[i], showDelay)
       showDelay += 80
     }
@@ -136,7 +144,7 @@ Page({
           celebrateGrid: true
         })
         var self = this
-        setTimeout(function () {
+        this._autoAdvanceTimer = setTimeout(function () {
           self.setData({ level: nextLevel, celebrateGrid: false })
           self.startGame()
         }, 1200)
@@ -175,5 +183,10 @@ Page({
 
   onUnload: function () {
     clearTimeout(this.timer)
+    if (this._autoAdvanceTimer) clearTimeout(this._autoAdvanceTimer)
+    for (var i = 0; i < this._staggerTimers.length; i++) {
+      clearTimeout(this._staggerTimers[i])
+    }
+    this._staggerTimers = []
   }
 })

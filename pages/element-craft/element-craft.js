@@ -7,7 +7,7 @@ var ELEMENTS = {
   air: { emoji: '\ud83d\udca8', name: '\u98ce' },
   steam: { emoji: '\u2668\ufe0f', name: '\u84b8\u6c14' },
   mud: { emoji: '\ud83d\udfe4', name: '\u6ce5' },
-  lava: { emoji: '\ud83c\udf0b', name: '\u5ca9\u6d46' },
+  lava: { emoji: '\ud83d\udfe0', name: '\u5ca9\u6d46' },
   dust: { emoji: '\ud83c\udf2b\ufe0f', name: '\u5c18\u57c3' },
   rain: { emoji: '\ud83c\udf27\ufe0f', name: '\u96e8' },
   stone: { emoji: '\ud83e\udea8', name: '\u77f3\u5934' },
@@ -40,7 +40,7 @@ var ELEMENTS = {
   star: { emoji: '\u2b50', name: '\u661f\u661f' },
   human: { emoji: '\ud83e\uddd1', name: '\u4eba\u7c7b' },
   tool: { emoji: '\ud83d\udd28', name: '\u5de5\u5177' },
-  wheel: { emoji: '\u2699\ufe0f', name: '\u8f6e\u5b50' },
+  wheel: { emoji: '\u2638\ufe0f', name: '\u8f6e\u5b50' },
   paper: { emoji: '\ud83d\udcc4', name: '\u7eb8' },
   book: { emoji: '\ud83d\udcd6', name: '\u4e66' },
   idea: { emoji: '\ud83d\udca1', name: '\u7075\u611f' },
@@ -210,7 +210,12 @@ Page({
 
       if (isNew) {
         discovered = discovered.concat([{ key: resultKey, emoji: el.emoji, name: el.name }])
-        discoveredMap[resultKey] = true
+        // Create a new object to avoid mutating data before setData
+        var newMap = {}
+        var mapKeys = Object.keys(discoveredMap)
+        for (var mi = 0; mi < mapKeys.length; mi++) newMap[mapKeys[mi]] = true
+        newMap[resultKey] = true
+        discoveredMap = newMap
 
         if (discovered.length > this.data.bestCount) {
           wx.setStorageSync('elementcraft_best', discovered.length)

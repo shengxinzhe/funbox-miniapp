@@ -48,7 +48,7 @@
     <!-- Progress bar -->
     <view class="test-progress">
       <view class="test-progress-step {{currentTest >= i ? 'step-active' : ''}}" wx:for="{{testNames}}" wx:for-index="i" wx:key="*this">
-        <view class="step-dot {{currentTest === i ? 'step-current' : ''}} {{testScores[i] > 0 && currentTest > i ? 'step-done' : ''}}">{{i + 1}}</view>
+        <view class="step-dot {{currentTest === i ? 'step-current' : ''}} {{currentTest > i ? 'step-done' : ''}}">{{i + 1}}</view>
         <text class="step-name">{{item}}</text>
       </view>
     </view>
@@ -109,12 +109,10 @@
           </view>
         </block>
 
-        <block wx:if="{{testScores[1] > 0 && memoryRound >= 4 || (!memoryShow && memoryRound > 0 && memoryCorrect < memoryRound && memoryInput !== memoryDigits)}}">
-        </block>
-        <view wx:if="{{testScores[1] > 0}}" class="memory-result">
+        <view wx:if="{{memoryDone}}" class="memory-result">
           <text>正确 {{memoryCorrect}}/{{memoryRound}} · 得分: {{testScores[1]}}</text>
         </view>
-        <view wx:if="{{testScores[1] > 0}}" class="next-btn" bindtap="nextFromMemory">下一项</view>
+        <view wx:if="{{memoryDone}}" class="next-btn" bindtap="nextFromMemory">下一项</view>
       </view>
     </block>
 

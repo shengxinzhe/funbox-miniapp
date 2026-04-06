@@ -97,6 +97,7 @@ Page({
     memoryLevel: 1,
     memoryRound: 0,
     memoryCorrect: 0,
+    memoryDone: false,
     // Schulte
     schulteSize: 4,
     schulteCells: [],
@@ -216,9 +217,11 @@ Page({
       memoryInput: '',
       memoryLevel: 1,
       memoryRound: 0,
-      memoryCorrect: 0
+      memoryCorrect: 0,
+      memoryDone: false
     })
     var self = this
+    if (this.memoryTimer) clearTimeout(this.memoryTimer)
     this.memoryTimer = setTimeout(function () {
       self.setData({ memoryShow: false })
     }, 2500)
@@ -247,6 +250,7 @@ Page({
       })
       var self = this
       var showTime = 2500 + level * 500
+      if (this.memoryTimer) clearTimeout(this.memoryTimer)
       this.memoryTimer = setTimeout(function () {
         self.setData({ memoryShow: false })
       }, showTime)
@@ -259,7 +263,8 @@ Page({
         memoryRound: round,
         memoryCorrect: correctCount,
         testScores: scores,
-        memoryShow: false
+        memoryShow: false,
+        memoryDone: true
       })
     }
   },
@@ -413,6 +418,8 @@ Page({
       else break
     }
 
+    // Keep only last 30 entries to prevent unbounded storage growth
+    if (history.length > 30) history = history.slice(-30)
     wx.setStorageSync('brain_daily_history', history)
     wx.setStorageSync('brain_daily_streak', streak)
 

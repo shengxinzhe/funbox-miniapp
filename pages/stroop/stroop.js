@@ -91,6 +91,7 @@ Page({
   },
 
   startGame: function () {
+    if (this.countdownTimer) clearInterval(this.countdownTimer)
     this.congruentTimes = []
     this.incongruentTimes = []
     this.setData({

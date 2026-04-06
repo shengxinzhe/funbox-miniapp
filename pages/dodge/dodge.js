@@ -24,10 +24,12 @@ Page({
     var self = this
     setTimeout(function () { self.setData({ fadeIn: true }) }, 50)
 
-    // Get canvas size from system
+    // Get canvas size from system - use actual nav bar height for notch devices
     var sys = wx.getSystemInfoSync()
     var w = sys.windowWidth
-    var h = sys.windowHeight - 44 // nav bar
+    var navH = (sys.statusBarHeight || 20) + 44
+    var h = sys.windowHeight - navH
+    this._navH = navH
     this.setData({ canvasW: w, canvasH: h })
   },
 
@@ -62,15 +64,17 @@ Page({
     if (!this._alive) return
     this._touching = true
     var t = e.touches[0]
+    var navH = this._navH || 44
     this.player.x = t.clientX
-    this.player.y = t.clientY - 44
+    this.player.y = t.clientY - navH
   },
 
   onTouchMove: function (e) {
     if (!this._alive || !this._touching) return
     var t = e.touches[0]
+    var navH = this._navH || 44
     this.player.x = Math.max(PLAYER_R, Math.min(this.data.canvasW - PLAYER_R, t.clientX))
-    this.player.y = Math.max(PLAYER_R, Math.min(this.data.canvasH - PLAYER_R, t.clientY - 44))
+    this.player.y = Math.max(PLAYER_R, Math.min(this.data.canvasH - PLAYER_R, t.clientY - navH))
   },
 
   onTouchEnd: function () {

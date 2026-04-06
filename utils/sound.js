@@ -147,23 +147,8 @@ function levelUpSound() {
   return generateWav(samples, sr)
 }
 
-// ArrayBuffer to base64
-function arrayBufferToBase64(buffer) {
-  var binary = ''
-  var bytes = new Uint8Array(buffer)
-  for (var i = 0; i < bytes.byteLength; i++) {
-    binary += String.fromCharCode(bytes[i])
-  }
-  // WeChat mini program has btoa-equivalent via wx.arrayBufferToBase64
-  return wx.arrayBufferToBase64(buffer)
-}
-
-// Cache audio contexts for reuse
-var audioPool = []
-var MAX_POOL = 4
-
 function playBuffer(wavBuffer) {
-  var base64 = arrayBufferToBase64(wavBuffer)
+  var base64 = wx.arrayBufferToBase64(wavBuffer)
   var filePath = wx.env.USER_DATA_PATH + '/sfx_' + Date.now() + '.wav'
 
   var fs = wx.getFileSystemManager()
