@@ -74,7 +74,7 @@ var RECIPES = {
   'earth+plant': 'tree',
   'fire+tree': 'charcoal',
   'tree+tool': 'wood',
-  'cloud+energy': 'lightning',
+  'air+cloud': 'lightning',
   'fire+lightning': 'energy',
   'life+mud': 'human',
   'energy+mud': 'life',
