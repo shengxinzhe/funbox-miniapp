@@ -215,6 +215,11 @@
 .pos-btn .btn-label { color: #3b82f6; }
 .col-btn .btn-label { color: #a855f7; }
 .btn-hint { font-size: 20rpx; color: #555; }
+.btn-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+.btn-disabled .btn-label { color: #555 !important; }
 
 .live-stats {
   display: flex; justify-content: center; gap: 40rpx;

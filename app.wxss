@@ -4,6 +4,7 @@ page {
   color: #e8e8f0;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Common utility */

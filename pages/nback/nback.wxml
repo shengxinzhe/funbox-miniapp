@@ -84,18 +84,18 @@
     <!-- Action buttons -->
     <view class="action-buttons">
       <view
-        class="action-btn pos-btn {{pressedPos ? 'btn-pressed' : ''}}"
+        class="action-btn pos-btn {{pressedPos ? 'btn-pressed' : ''}} {{round < nLevel ? 'btn-disabled' : ''}}"
         bindtap="tapPosition"
       >
         <view class="btn-label">位置匹配</view>
-        <view class="btn-hint">位置与{{nLevel}}步前相同</view>
+        <view class="btn-hint">{{round < nLevel ? '前' + nLevel + '步后可用' : '位置与' + nLevel + '步前相同'}}</view>
       </view>
       <view
-        class="action-btn col-btn {{pressedCol ? 'btn-pressed' : ''}}"
+        class="action-btn col-btn {{pressedCol ? 'btn-pressed' : ''}} {{round < nLevel ? 'btn-disabled' : ''}}"
         bindtap="tapColor"
       >
         <view class="btn-label">颜色匹配</view>
-        <view class="btn-hint">颜色与{{nLevel}}步前相同</view>
+        <view class="btn-hint">{{round < nLevel ? '前' + nLevel + '步后可用' : '颜色与' + nLevel + '步前相同'}}</view>
       </view>
     </view>
 

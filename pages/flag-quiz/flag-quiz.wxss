@@ -34,7 +34,7 @@
 .card { background:#14141f; border:2rpx solid #2a2a3e; border-radius:24rpx; padding:40rpx 32rpx; text-align:center; }
 .card-enter { animation:cardSlide .35s ease; }
 @keyframes cardSlide { from{opacity:0;transform:translateY(40rpx)} to{opacity:1;transform:translateY(0)} }
-.flag-display { font-size:160rpx; margin:16rpx 0; animation:flagReveal .4s ease; }
+.flag-display { font-size:160rpx; margin:16rpx 0; animation:flagReveal .4s ease; min-height:180rpx; display:flex; align-items:center; justify-content:center; background:rgba(59,130,246,0.06); border-radius:24rpx; line-height:1.2; }
 @keyframes flagReveal { from{opacity:0;transform:scale(.5)} to{opacity:1;transform:scale(1)} }
 .flag-question { font-size:28rpx; color:#8888a0; margin-bottom:32rpx; }
 

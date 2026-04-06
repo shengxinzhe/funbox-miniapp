@@ -2,12 +2,12 @@
 // 斯特鲁普效应实验 - 测试大脑认知冲突处理能力
 
 var COLORS = [
-  { name: '红', hex: '#ef4444' },
-  { name: '蓝', hex: '#3b82f6' },
-  { name: '绿', hex: '#22c55e' },
-  { name: '黄', hex: '#eab308' },
-  { name: '紫', hex: '#a855f7' },
-  { name: '橙', hex: '#f97316' }
+  { name: '红', hex: '#ef4444', textColor: '#fff' },
+  { name: '蓝', hex: '#3b82f6', textColor: '#fff' },
+  { name: '绿', hex: '#22c55e', textColor: '#fff' },
+  { name: '黄', hex: '#eab308', textColor: '#1a1a2e' },
+  { name: '紫', hex: '#a855f7', textColor: '#fff' },
+  { name: '橙', hex: '#f97316', textColor: '#fff' }
 ]
 
 var TOTAL_ROUNDS = 20
@@ -52,7 +52,7 @@ function generateOptions(correctName) {
   }
   return opts.map(function (name) {
     var c = COLORS.filter(function (x) { return x.name === name })[0]
-    return { name: c.name, hex: c.hex }
+    return { name: c.name, hex: c.hex, textColor: c.textColor }
   })
 }
 
@@ -205,7 +205,7 @@ Page({
         flashWrong: false
       })
       self.nextRound()
-    }, 600)
+    }, 900)
   },
 
   showResult: function () {

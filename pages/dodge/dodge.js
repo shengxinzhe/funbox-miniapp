@@ -24,12 +24,14 @@ Page({
     var self = this
     setTimeout(function () { self.setData({ fadeIn: true }) }, 50)
 
-    // Get canvas size from system - use actual nav bar height for notch devices
+    // Get canvas size from system - account for nav bar + inline HUD (~40px)
     var sys = wx.getSystemInfoSync()
     var w = sys.windowWidth
     var navH = (sys.statusBarHeight || 20) + 44
-    var h = sys.windowHeight - navH
+    var hudH = 36
+    var h = sys.windowHeight - navH - hudH
     this._navH = navH
+    this._hudH = hudH
     this.setData({ canvasW: w, canvasH: h })
   },
 
@@ -64,17 +66,17 @@ Page({
     if (!this._alive) return
     this._touching = true
     var t = e.touches[0]
-    var navH = this._navH || 44
+    var offset = (this._navH || 44) + (this._hudH || 36)
     this.player.x = t.clientX
-    this.player.y = t.clientY - navH
+    this.player.y = t.clientY - offset
   },
 
   onTouchMove: function (e) {
     if (!this._alive || !this._touching) return
     var t = e.touches[0]
-    var navH = this._navH || 44
+    var offset = (this._navH || 44) + (this._hudH || 36)
     this.player.x = Math.max(PLAYER_R, Math.min(this.data.canvasW - PLAYER_R, t.clientX))
-    this.player.y = Math.max(PLAYER_R, Math.min(this.data.canvasH - PLAYER_R, t.clientY - navH))
+    this.player.y = Math.max(PLAYER_R, Math.min(this.data.canvasH - PLAYER_R, t.clientY - offset))
   },
 
   onTouchEnd: function () {
@@ -242,13 +244,76 @@ Page({
     this._stop()
     wx.vibrateShort({ type: 'heavy' })
 
-    var score = this._score
-    var best = this.data.bestScore
-    if (score > best) {
-      wx.setStorageSync('dodge_best', score)
-      best = score
+    // Death explosion animation
+    var self = this
+    var px = this.player.x
+    var py = this.player.y
+    var particles = []
+    for (var p = 0; p < 20; p++) {
+      var angle = (Math.PI * 2 / 20) * p
+      var speed = 2 + Math.random() * 4
+      particles.push({
+        x: px, y: py,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        r: 2 + Math.random() * 4,
+        life: 1,
+        hue: Math.floor(Math.random() * 360)
+      })
     }
-    this.setData({ phase: 'dead', score: score, bestScore: best })
+    var frames = 0
+    var explodeTimer = setInterval(function () {
+      frames++
+      if (frames > 30) {
+        clearInterval(explodeTimer)
+        var score = self._score
+        var best = self.data.bestScore
+        if (score > best) {
+          wx.setStorageSync('dodge_best', score)
+          best = score
+        }
+        self.setData({ phase: 'dead', score: score, bestScore: best })
+        return
+      }
+      var ctx = self.ctx
+      var W = self.data.canvasW
+      var H = self.data.canvasH
+      ctx.clearRect(0, 0, W, H)
+      ctx.setFillStyle('#0a0a1a')
+      ctx.fillRect(0, 0, W, H)
+      // Draw remaining balls frozen
+      for (var i = 0; i < self.balls.length; i++) {
+        var b = self.balls[i]
+        ctx.beginPath()
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2)
+        ctx.setFillStyle('hsl(' + b.hue + ',100%,70%)')
+        ctx.fill()
+      }
+      // Draw explosion particles
+      for (var j = 0; j < particles.length; j++) {
+        var pt = particles[j]
+        pt.x += pt.vx
+        pt.y += pt.vy
+        pt.life -= 0.033
+        if (pt.life <= 0) continue
+        ctx.beginPath()
+        ctx.arc(pt.x, pt.y, pt.r * pt.life, 0, Math.PI * 2)
+        ctx.setFillStyle('hsla(' + pt.hue + ',100%,70%,' + pt.life + ')')
+        ctx.fill()
+      }
+      // Flash circle
+      var flashAlpha = Math.max(0, 1 - frames / 15)
+      if (flashAlpha > 0) {
+        var flashGrad = ctx.createCircularGradient(px, py, 60)
+        flashGrad.addColorStop(0, 'rgba(255,255,255,' + (flashAlpha * 0.8) + ')')
+        flashGrad.addColorStop(1, 'rgba(255,255,255,0)')
+        ctx.beginPath()
+        ctx.arc(px, py, 60, 0, Math.PI * 2)
+        ctx.setFillStyle(flashGrad)
+        ctx.fill()
+      }
+      ctx.draw()
+    }, 33)
   },
 
   restart: function () {

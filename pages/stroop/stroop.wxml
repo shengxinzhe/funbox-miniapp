@@ -69,7 +69,7 @@
       <view
         wx:for="{{options}}" wx:key="name"
         class="color-btn {{chosen === item.name ? (isCorrect ? 'btn-correct' : 'btn-wrong') : ''}}"
-        style="background: {{item.hex}};"
+        style="background: {{item.hex}}; color: {{item.textColor}};"
         bindtap="tapOption"
         data-name="{{item.name}}"
       >

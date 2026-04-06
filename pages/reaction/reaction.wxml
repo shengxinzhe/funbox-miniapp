@@ -17,6 +17,9 @@
 
   <!-- Waiting: red -->
   <block wx:if="{{state === 'waiting'}}">
+    <view class="waiting-ring">
+      <view class="waiting-ring-inner"></view>
+    </view>
     <view class="icon pulse">🔴</view>
     <view class="title">等待变绿...</view>
     <view class="hint">看到绿色后立刻点击</view>

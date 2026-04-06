@@ -104,7 +104,7 @@
         </block>
         <block wx:else>
           <view class="memory-input-area">
-            <input class="memory-input" type="number" placeholder="输入刚才的数字" value="{{memoryInput}}" bindinput="inputMemory" focus="{{true}}" />
+            <input class="memory-input" type="digit" placeholder="输入刚才的数字" value="{{memoryInput}}" bindinput="inputMemory" focus="{{true}}" />
             <view class="memory-submit" bindtap="submitMemory">确认</view>
           </view>
         </block>

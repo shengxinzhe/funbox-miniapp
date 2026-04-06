@@ -47,7 +47,7 @@ var ELEMENTS = {
   music: { emoji: '\ud83c\udfb5', name: '\u97f3\u4e50' },
   love: { emoji: '\u2764\ufe0f', name: '\u7231' },
   time: { emoji: '\u231b', name: '\u65f6\u95f4' },
-  phoenix: { emoji: '\ud83d\udd25', name: '\u51e4\u51f0' },
+  phoenix: { emoji: '\ud83e\udda4', name: '\u51e4\u51f0' },
   dragon: { emoji: '\ud83d\udc09', name: '\u9f99' },
   robot: { emoji: '\ud83e\udd16', name: '\u673a\u5668\u4eba' },
   rocket: { emoji: '\ud83d\ude80', name: '\u706b\u7bad' },

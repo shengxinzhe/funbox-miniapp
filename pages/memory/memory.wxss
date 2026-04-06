@@ -62,8 +62,10 @@
 .grid {
   display: grid;
   gap: 10rpx;
-  width: 620rpx;
-  max-width: 100%;
+  width: 92vw;
+  max-width: 686rpx;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Grid animations */

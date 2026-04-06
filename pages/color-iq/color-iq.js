@@ -64,17 +64,21 @@ Page({
     var diffBase = 50
     var diff = Math.max(3, diffBase - lv * 2)
 
-    // Random base color
+    // Random base color - use higher saturation for better visibility
     var hue = Math.floor(Math.random() * 360)
-    var sat = 50 + Math.floor(Math.random() * 30)
+    var sat = 55 + Math.floor(Math.random() * 25)
     var light = 40 + Math.floor(Math.random() * 20)
 
     var baseHex = hslToHex(hue, sat, light)
-    // Shift lightness for odd one
+    // Shift both lightness AND hue slightly for consistent difficulty across color ranges
+    var hueDiff = Math.max(1, Math.floor(diff * 0.3))
+    var oddHue = hue + (Math.random() > 0.5 ? hueDiff : -hueDiff)
+    if (oddHue < 0) oddHue += 360
+    if (oddHue >= 360) oddHue -= 360
     var oddLight = light + (Math.random() > 0.5 ? diff : -diff)
     if (oddLight > 85) oddLight = light - diff
     if (oddLight < 15) oddLight = light + diff
-    var oddHex = hslToHex(hue, sat, oddLight)
+    var oddHex = hslToHex(oddHue, sat, oddLight)
 
     var oddIndex = Math.floor(Math.random() * total)
     var cells = []
