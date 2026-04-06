@@ -171,8 +171,12 @@ Page({
     var H = this.data.canvasH
     ctx.clearRect(0, 0, W, H)
 
+    // Dark background fill
+    ctx.setFillStyle('#0a0a1a')
+    ctx.fillRect(0, 0, W, H)
+
     // Draw grid bg (subtle)
-    ctx.setStrokeStyle('rgba(255,255,255,0.03)')
+    ctx.setStrokeStyle('rgba(255,255,255,0.05)')
     ctx.setLineWidth(1)
     for (var gx = 0; gx < W; gx += 40) {
       ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke()
@@ -181,21 +185,26 @@ Page({
       ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke()
     }
 
-    // Draw balls with glow
+    // Draw balls with glow - bright neon colors
     for (var i = 0; i < this.balls.length; i++) {
       var b = this.balls[i]
       // Outer glow
-      var gradient = ctx.createCircularGradient(b.x, b.y, b.r * 2)
-      gradient.addColorStop(0, 'hsla(' + b.hue + ',80%,60%,0.3)')
-      gradient.addColorStop(1, 'hsla(' + b.hue + ',80%,60%,0)')
+      var gradient = ctx.createCircularGradient(b.x, b.y, b.r * 2.5)
+      gradient.addColorStop(0, 'hsla(' + b.hue + ',100%,70%,0.4)')
+      gradient.addColorStop(1, 'hsla(' + b.hue + ',100%,70%,0)')
       ctx.beginPath()
-      ctx.arc(b.x, b.y, b.r * 2, 0, Math.PI * 2)
+      ctx.arc(b.x, b.y, b.r * 2.5, 0, Math.PI * 2)
       ctx.setFillStyle(gradient)
       ctx.fill()
-      // Ball
+      // Ball core - bright neon
       ctx.beginPath()
       ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2)
-      ctx.setFillStyle('hsl(' + b.hue + ',80%,60%)')
+      ctx.setFillStyle('hsl(' + b.hue + ',100%,70%)')
+      ctx.fill()
+      // White highlight
+      ctx.beginPath()
+      ctx.arc(b.x - b.r * 0.25, b.y - b.r * 0.25, b.r * 0.35, 0, Math.PI * 2)
+      ctx.setFillStyle('rgba(255,255,255,0.5)')
       ctx.fill()
     }
 

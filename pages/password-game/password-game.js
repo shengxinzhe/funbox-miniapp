@@ -1,7 +1,7 @@
 var RULES = [
   {
     id: 1,
-    text: '密码至少 5 个字符',
+    text: '密码至少 5 个字符（1个汉字=1个字符，1个emoji=2个字符）',
     check: function (pw) { return pw.length >= 5 }
   },
   {
@@ -57,7 +57,7 @@ var RULES = [
   },
   {
     id: 9,
-    text: '密码长度必须是质数',
+    text: '密码的字符数必须是质数（如2,3,5,7,11,13...）',
     check: function (pw) {
       var n = pw.length
       if (n < 2) return false
@@ -127,7 +127,8 @@ Page({
     won: false,
     fadeIn: false,
     bestLevel: 0,
-    shakeRule: -1
+    shakeRule: -1,
+    charCount: 0
   },
 
   onLoad: function () {
@@ -152,7 +153,7 @@ Page({
 
   onInput: function (e) {
     var pw = e.detail.value
-    this.setData({ password: pw })
+    this.setData({ password: pw, charCount: pw.length })
     this._checkRules(pw)
   },
 
@@ -169,10 +170,16 @@ Page({
       if (!pass) allPass = false
     }
 
-    // Unlock next rule if all current pass
-    if (allPass && unlocked < RULES.length) {
+    // Keep unlocking next rules as long as all current rules pass
+    while (allPass && unlocked < RULES.length) {
       unlocked++
-      results.push({ id: RULES[unlocked - 1].id, text: RULES[unlocked - 1].text, pass: RULES[unlocked - 1].check(pw) })
+      var newRule = RULES[unlocked - 1]
+      var newPass = newRule.check(pw)
+      results.push({ id: newRule.id, text: newRule.text, pass: newPass })
+      if (!newPass) {
+        allPass = false
+        firstFail = unlocked - 1
+      }
       wx.vibrateShort({ type: 'light' })
     }
 
