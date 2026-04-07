@@ -1,0 +1,115 @@
+<!--one-stroke.wxml-->
+<view class="page">
+
+  <!-- INTRO SCREEN -->
+  <view class="intro" wx:if="{{phase === 'intro'}}">
+    <view class="intro-hero">
+      <view class="intro-icon">✏️</view>
+      <view class="intro-title">一笔画完</view>
+      <view class="intro-subtitle">一笔连通所有线段</view>
+    </view>
+
+    <view class="level-grid">
+      <view
+        class="level-cell {{item.unlocked ? '' : 'locked'}} {{currentLevel === index ? 'current' : ''}}"
+        wx:for="{{levelMeta}}"
+        wx:key="index"
+        bindtap="selectLevel"
+        data-index="{{index}}"
+      >
+        <view class="level-cell-num">{{index + 1}}</view>
+        <view class="level-stars" wx:if="{{item.unlocked}}">
+          <text class="star {{item.stars >= 1 ? 'lit' : ''}}">★</text>
+          <text class="star {{item.stars >= 2 ? 'lit' : ''}}">★</text>
+          <text class="star {{item.stars >= 3 ? 'lit' : ''}}">★</text>
+        </view>
+        <view class="level-lock" wx:else>🔒</view>
+      </view>
+    </view>
+
+    <view class="start-btn-wrap">
+      <view class="start-btn" bindtap="startLevel">
+        <text>开始挑战</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- GAME SCREEN -->
+  <view class="game" wx:if="{{phase === 'playing'}}">
+    <view class="hud">
+      <view class="hud-left">
+        <view class="hud-level">关卡 {{currentLevel + 1}}</view>
+      </view>
+      <view class="hud-center">
+        <view class="hud-progress">
+          <text class="hud-done">{{visitedEdges}}</text>
+          <text class="hud-sep">/</text>
+          <text class="hud-total">{{totalEdges}}</text>
+          <text class="hud-label"> 线段</text>
+        </view>
+      </view>
+      <view class="hud-right">
+        <view class="reset-btn" bindtap="resetLevel">重置</view>
+      </view>
+    </view>
+
+    <view class="canvas-wrap {{shaking ? 'shake' : ''}}">
+      <canvas
+        type="2d"
+        id="stroke-canvas"
+        class="stroke-canvas"
+        bindtap="onCanvasTap"
+      ></canvas>
+    </view>
+
+    <view class="hint-text" wx:if="{{!gameStarted}}">点击节点开始，依次连通所有线段</view>
+    <view class="hint-text active" wx:else>已连通 {{visitedEdges}} / {{totalEdges}} 段</view>
+
+    <view class="tap-count">操作次数: {{tapCount}}</view>
+  </view>
+
+  <!-- COMPLETE OVERLAY -->
+  <view class="complete-overlay" wx:if="{{phase === 'complete'}}">
+    <view class="complete-card">
+      <view class="complete-emoji">🎉</view>
+      <view class="complete-title">关卡 {{currentLevel + 1}} 完成!</view>
+      <view class="complete-stars">
+        <view class="star-wrap {{starAnim >= 1 ? 'pop' : ''}}">
+          <text class="big-star {{earnedStars >= 1 ? 'lit' : ''}}">★</text>
+        </view>
+        <view class="star-wrap {{starAnim >= 2 ? 'pop' : ''}}">
+          <text class="big-star {{earnedStars >= 2 ? 'lit' : ''}}">★</text>
+        </view>
+        <view class="star-wrap {{starAnim >= 3 ? 'pop' : ''}}">
+          <text class="big-star {{earnedStars >= 3 ? 'lit' : ''}}">★</text>
+        </view>
+      </view>
+      <view class="complete-info">
+        <text wx:if="{{earnedStars === 3}}">完美！最优路径！</text>
+        <text wx:elif="{{earnedStars === 2}}">不错！操作 {{tapCount}} 次完成</text>
+        <text wx:else>完成！操作 {{tapCount}} 次</text>
+      </view>
+      <view class="complete-btns">
+        <view class="btn-secondary" bindtap="resetLevel">再来一次</view>
+        <view class="btn-primary" bindtap="nextLevel" wx:if="{{currentLevel < 14}}">下一关 →</view>
+        <view class="btn-primary" bindtap="goIntro" wx:else>返回选关</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ALL COMPLETE SCREEN -->
+  <view class="all-complete" wx:if="{{phase === 'allComplete'}}">
+    <view class="all-complete-inner">
+      <view class="all-emoji">🏆</view>
+      <view class="all-title">全部通关！</view>
+      <view class="all-subtitle">你已完成所有 15 关卡</view>
+      <view class="total-stars-row">
+        <text class="total-stars-icon">★</text>
+        <text class="total-stars-num">{{totalStars}}</text>
+        <text class="total-stars-max"> / 45</text>
+      </view>
+      <view class="btn-primary wide" bindtap="goIntro">返回选关</view>
+    </view>
+  </view>
+
+</view>

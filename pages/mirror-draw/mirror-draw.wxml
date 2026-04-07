@@ -1,0 +1,192 @@
+<!-- mirror-draw.wxml -->
+<view class="page-container">
+
+  <!-- INTRO SCREEN -->
+  <view class="screen intro-screen" wx:if="{{screen === 'intro'}}">
+    <view class="intro-hero">
+      <view class="intro-icon-wrap">
+        <text class="intro-icon">🪞</text>
+      </view>
+      <text class="intro-title">镜像画室</text>
+      <text class="intro-subtitle">当你的手不听使唤...</text>
+      <text class="intro-desc">你的笔画会被镜像翻转\n试着画出指定图形</text>
+    </view>
+
+    <view class="mode-list">
+      <view
+        class="mode-card {{idx === 0 || progress.unlockedModes >= idx + 1 ? '' : 'locked'}}"
+        wx:for="{{modes}}"
+        wx:key="id"
+        wx:for-index="idx"
+        bindtap="selectMode"
+        data-idx="{{idx}}"
+      >
+        <view class="mode-card-left">
+          <text class="mode-icon">{{item.icon}}</text>
+          <view class="mode-info">
+            <text class="mode-name">{{item.name}}</text>
+            <text class="mode-desc">{{item.desc}}</text>
+          </view>
+        </view>
+        <view class="mode-card-right">
+          <view class="stars-row" wx:if="{{progress.unlockedModes >= idx + 1 || idx === 0}}">
+            <text class="star {{progress.modeStars[idx] >= 1 ? 'filled' : ''}}">★</text>
+            <text class="star {{progress.modeStars[idx] >= 2 ? 'filled' : ''}}">★</text>
+            <text class="star {{progress.modeStars[idx] >= 3 ? 'filled' : ''}}">★</text>
+          </view>
+          <text class="lock-icon" wx:else>🔒</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- GAME SCREEN -->
+  <view class="screen game-screen" wx:if="{{screen === 'game'}}">
+    <!-- HUD -->
+    <view class="hud-bar">
+      <view class="hud-item">
+        <text class="hud-label">模式</text>
+        <text class="hud-value">{{modes[currentMode].shortName}}</text>
+      </view>
+      <view class="hud-item center">
+        <text class="hud-label">图形</text>
+        <text class="hud-value">{{currentShape + 1}}/10</text>
+      </view>
+      <view class="hud-item right">
+        <text class="hud-label">用时</text>
+        <text class="hud-value timer">{{timerDisplay}}</text>
+      </view>
+    </view>
+
+    <!-- Shape name -->
+    <view class="shape-name-bar">
+      <text class="shape-name">{{shapeNames[currentMode][currentShape]}}</text>
+    </view>
+
+    <!-- Canvas area -->
+    <view class="canvas-wrap">
+      <canvas
+        type="2d"
+        id="draw-canvas"
+        class="draw-canvas"
+        bindtouchstart="onTouchStart"
+        bindtouchmove="onTouchMove"
+        bindtouchend="onTouchEnd"
+      ></canvas>
+      <view class="canvas-hint">
+        <text class="hint-dot finger-dot"></text>
+        <text class="hint-text">手指位置</text>
+        <text class="hint-dot draw-dot"></text>
+        <text class="hint-text">实际笔画</text>
+      </view>
+    </view>
+
+    <!-- Controls -->
+    <view class="controls-row">
+      <view class="btn btn-ghost" bindtap="clearCanvas">
+        <text>清除</text>
+      </view>
+      <view class="btn btn-ghost" bindtap="exitGame">
+        <text>退出</text>
+      </view>
+      <view class="btn btn-primary" bindtap="submitDrawing">
+        <text>完成</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- RESULT SCREEN -->
+  <view class="screen result-screen" wx:if="{{screen === 'result'}}">
+    <view class="result-card">
+      <text class="result-title">画完了！</text>
+
+      <!-- Score circle -->
+      <view class="score-circle-wrap">
+        <view class="score-circle {{accuracyClass}}">
+          <text class="score-number">{{displayScore}}</text>
+          <text class="score-pct">%</text>
+        </view>
+      </view>
+
+      <!-- Stars -->
+      <view class="result-stars">
+        <text class="result-star {{resultStars >= 1 ? 'lit' : ''}}">★</text>
+        <text class="result-star {{resultStars >= 2 ? 'lit' : ''}}">★</text>
+        <text class="result-star {{resultStars >= 3 ? 'lit' : ''}}">★</text>
+      </view>
+
+      <!-- Label -->
+      <text class="result-label">{{resultLabel}}</text>
+
+      <!-- Comparison canvas -->
+      <view class="compare-canvas-wrap">
+        <canvas type="2d" id="compare-canvas" class="compare-canvas"></canvas>
+      </view>
+      <text class="compare-legend">
+        <text style="color:#E5E5EA">■</text> 目标
+        <text style="color:#5856D6">■</text> 你画的
+      </text>
+
+      <!-- Buttons -->
+      <view class="result-btns">
+        <view class="btn btn-ghost" bindtap="retryShape">
+          <text>再试一次</text>
+        </view>
+        <view class="btn btn-primary" bindtap="nextShape">
+          <text>{{currentShape < 9 ? '下一个图形' : '完成模式'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- MODE COMPLETE SCREEN -->
+  <view class="screen mode-complete-screen" wx:if="{{screen === 'modeComplete'}}">
+    <view class="complete-card">
+      <text class="complete-emoji">🎉</text>
+      <text class="complete-title">模式完成！</text>
+      <text class="complete-mode-name">{{modes[currentMode].name}}</text>
+
+      <view class="complete-stats">
+        <view class="stat-item">
+          <text class="stat-num">{{totalStarsEarned}}</text>
+          <text class="stat-label">颗星星</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{bestAccuracyDisplay}}%</text>
+          <text class="stat-label">最高准确率</text>
+        </view>
+      </view>
+
+      <!-- Shape results grid -->
+      <view class="shape-grid">
+        <view
+          class="shape-cell"
+          wx:for="{{shapeResults}}"
+          wx:key="index"
+        >
+          <text class="cell-num">{{index + 1}}</text>
+          <view class="cell-stars">
+            <text class="cs {{item >= 1 ? 'lit' : ''}}">★</text>
+            <text class="cs {{item >= 2 ? 'lit' : ''}}">★</text>
+            <text class="cs {{item >= 3 ? 'lit' : ''}}">★</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- Unlock banner -->
+      <view class="unlock-banner" wx:if="{{unlockedNew}}">
+        <text class="unlock-text">🔓 解锁新模式：{{modes[currentMode + 1].name}}</text>
+      </view>
+
+      <view class="complete-btns">
+        <view class="btn btn-ghost" bindtap="goIntro">
+          <text>返回主页</text>
+        </view>
+        <view class="btn btn-primary" wx:if="{{unlockedNew}}" bindtap="playNextMode">
+          <text>挑战下一模式</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

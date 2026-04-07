@@ -1,0 +1,110 @@
+<!-- 错觉实验室 -->
+<view class="page">
+
+  <!-- 介绍页 -->
+  <view class="intro" wx:if="{{phase === 'intro'}}">
+    <view class="intro-icon">
+      <view class="eye-icon">👁</view>
+    </view>
+    <text class="intro-title">错觉实验室</text>
+    <text class="intro-subtitle">你的眼睛在欺骗你吗?</text>
+    <text class="intro-desc">10道经典视觉错觉测试，看看你能识破几个！你的大脑会诚实地告诉你答案吗？</text>
+
+    <view class="best-score-card" wx:if="{{bestScore >= 0}}">
+      <text class="best-score-label">历史最佳</text>
+      <text class="best-score-value">被骗 {{bestScore}}/10 次</text>
+    </view>
+
+    <view class="start-btn" bindtap="startGame">
+      <text class="start-btn-text">开始挑战</text>
+    </view>
+  </view>
+
+  <!-- 游戏页 -->
+  <view class="game" wx:if="{{phase === 'playing' || phase === 'reveal'}}">
+
+    <!-- 进度 HUD -->
+    <view class="hud">
+      <view class="progress-wrap">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{progressPct}}%"></view>
+        </view>
+        <text class="progress-text">{{currentIndex + 1}} / 10</text>
+      </view>
+      <view class="score-badge">
+        <text class="score-label">被骗</text>
+        <text class="score-num">{{fooledCount}}</text>
+      </view>
+    </view>
+
+    <!-- 画布区域 -->
+    <view class="canvas-wrap">
+      <canvas type="2d" id="illusion-canvas" class="illusion-canvas"></canvas>
+      <!-- 答对/错覆盖层 -->
+      <view class="result-overlay {{answerResult}}" wx:if="{{phase === 'reveal'}}">
+        <text class="overlay-icon">{{answerResult === 'correct' ? '✓' : '✗'}}</text>
+      </view>
+    </view>
+
+    <!-- 问题 -->
+    <text class="question-text">{{currentIllusion.question}}</text>
+
+    <!-- 选项按钮 -->
+    <view class="options" wx:if="{{phase === 'playing'}}">
+      <view
+        class="option-btn {{selectedOption === index ? 'selected' : ''}}"
+        wx:for="{{currentIllusion.options}}"
+        wx:key="index"
+        bindtap="answer"
+        data-index="{{index}}"
+      >
+        <text class="option-text">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 揭晓说明 -->
+    <view class="reveal-panel" wx:if="{{phase === 'reveal'}}">
+      <view class="reveal-result {{answerResult}}">
+        <text class="reveal-result-text">{{answerResult === 'correct' ? '答对了！你没被骗 🎉' : '答错了！你被骗了 😅'}}</text>
+      </view>
+      <text class="explanation-text">{{currentIllusion.explanation}}</text>
+      <view class="next-btn" bindtap="nextQuestion">
+        <text class="next-btn-text">{{currentIndex < 9 ? '下一题 →' : '查看结果'}}</text>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 结果页 -->
+  <view class="result" wx:if="{{phase === 'result'}}">
+    <view class="result-card">
+      <text class="result-emoji">{{resultEmoji}}</text>
+      <text class="result-headline">你被骗了</text>
+      <view class="result-score-wrap">
+        <text class="result-score-num">{{fooledCount}}</text>
+        <text class="result-score-total">/10 次</text>
+      </view>
+      <text class="result-rating">{{resultRating}}</text>
+    </view>
+
+    <view class="result-breakdown">
+      <text class="breakdown-title">答题详情</text>
+      <view class="breakdown-list">
+        <view class="breakdown-item" wx:for="{{answerLog}}" wx:key="index">
+          <text class="breakdown-name">{{item.name}}</text>
+          <text class="breakdown-mark {{item.fooled ? 'fooled' : 'correct'}}">{{item.fooled ? '被骗' : '识破'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="result-actions">
+      <view class="action-btn retry-btn" bindtap="retryGame">
+        <text>再试一次</text>
+      </view>
+      <view class="action-btn share-btn" bindtap="shareResult">
+        <text>分享结果</text>
+      </view>
+    </view>
+  </view>
+
+</view>

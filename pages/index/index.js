@@ -112,6 +112,30 @@ Page({
         desc: '\u4ece\u56db\u5927\u5143\u7d20\u5f00\u59cb\uff0c\u5408\u6210\u521b\u9020\u65b0\u7269\u8d28',
         color: '#5856D6',
         page: '/pages/element-craft/element-craft'
+      },
+      {
+        id: 'illusion',
+        icon: '\ud83d\udc41',
+        title: '\u9519\u89c9\u5b9e\u9a8c\u5ba4',
+        desc: '\u4f60\u7684\u773c\u775b\u5728\u6b3a\u9a97\u4f60\u5417\uff1f10\u9053\u89c6\u9519\u89c9\u6311\u6218',
+        color: '#FF9F0A',
+        page: '/pages/illusion/illusion'
+      },
+      {
+        id: 'one-stroke',
+        icon: '\u270d\ufe0f',
+        title: '\u4e00\u7b14\u753b\u5b8c',
+        desc: '\u4e00\u7b14\u8fde\u901a\u6240\u6709\u7ebf\u6bb5\uff0c15\u5173\u8d8a\u6765\u8d8a\u70e7\u8111',
+        color: '#5856D6',
+        page: '/pages/one-stroke/one-stroke'
+      },
+      {
+        id: 'mirror-draw',
+        icon: '\ud83e\ude9e',
+        title: '\u955c\u50cf\u753b\u5ba4',
+        desc: '\u7b14\u753b\u88ab\u955c\u50cf\u7ffb\u8f6c\uff0c\u8003\u9a8c\u4f60\u7684\u7a7a\u95f4\u8ba4\u77e5',
+        color: '#AF52DE',
+        page: '/pages/mirror-draw/mirror-draw'
       }
     ]
   },

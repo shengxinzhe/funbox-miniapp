@@ -52,6 +52,18 @@
     {
       "root": "pages/element-craft",
       "pages": ["element-craft"]
+    },
+    {
+      "root": "pages/illusion",
+      "pages": ["illusion"]
+    },
+    {
+      "root": "pages/one-stroke",
+      "pages": ["one-stroke"]
+    },
+    {
+      "root": "pages/mirror-draw",
+      "pages": ["mirror-draw"]
     }
   ],
   "window": {
