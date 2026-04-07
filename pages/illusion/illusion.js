@@ -404,13 +404,23 @@ function drawFick(ctx, w, h) {
   const gap = 80;
   ctx.fillStyle = '#5856D6';
   ctx.beginPath();
-  ctx.roundRect(cx - gap - vw, cy - vh / 2, vw, vh, 8);
-  ctx.fill();
+  var x1 = cx - gap - vw, y1 = cy - vh / 2;
+  ctx.moveTo(x1 + 8, y1);
+  ctx.lineTo(x1 + vw - 8, y1); ctx.arcTo(x1 + vw, y1, x1 + vw, y1 + 8, 8);
+  ctx.lineTo(x1 + vw, y1 + vh - 8); ctx.arcTo(x1 + vw, y1 + vh, x1 + vw - 8, y1 + vh, 8);
+  ctx.lineTo(x1 + 8, y1 + vh); ctx.arcTo(x1, y1 + vh, x1, y1 + vh - 8, 8);
+  ctx.lineTo(x1, y1 + 8); ctx.arcTo(x1, y1, x1 + 8, y1, 8);
+  ctx.closePath(); ctx.fill();
 
   ctx.fillStyle = '#AF52DE';
   ctx.beginPath();
-  ctx.roundRect(cx + gap, cy - hh / 2, hw, hh, 8);
-  ctx.fill();
+  var x2 = cx + gap, y2 = cy - hh / 2;
+  ctx.moveTo(x2 + 8, y2);
+  ctx.lineTo(x2 + hw - 8, y2); ctx.arcTo(x2 + hw, y2, x2 + hw, y2 + 8, 8);
+  ctx.lineTo(x2 + hw, y2 + hh - 8); ctx.arcTo(x2 + hw, y2 + hh, x2 + hw - 8, y2 + hh, 8);
+  ctx.lineTo(x2 + 8, y2 + hh); ctx.arcTo(x2, y2 + hh, x2, y2 + hh - 8, 8);
+  ctx.lineTo(x2, y2 + 8); ctx.arcTo(x2, y2, x2 + 8, y2, 8);
+  ctx.closePath(); ctx.fill();
 
   ctx.fillStyle = '#86868B';
   ctx.font = '26px -apple-system, PingFang SC, sans-serif';

@@ -108,6 +108,7 @@ Page({
   _ctx: null,
   _canvasSize: 300,  // logical px matching coordinate space
   _ratio: 1,         // physical px per logical px
+  _canvasRect: null,  // cached bounding rect {left, top, width, height}
   _level: null,      // current level definition
   _edgeState: [],    // false = unvisited, true = visited
   _currentNode: -1,
@@ -221,6 +222,10 @@ Page({
       this._canvas = canvas
       this._ctx = canvas.getContext('2d')
       this._ratio = ratio * (w / 300)  // map 300 logical units to canvas px
+      // Cache bounding rect for tap coordinate conversion
+      wx.createSelectorQuery().select('#stroke-canvas').boundingClientRect(rect => {
+        if (rect) this._canvasRect = rect
+      }).exec()
       this._drawLevel()
       this._startPulse()
     })
@@ -347,20 +352,27 @@ Page({
   onCanvasTap(e) {
     if (this.data.phase !== 'playing') return
 
-    const touch = e.touches ? e.touches[0] : e
-    // e.detail.x/y are in rpx context; need to convert to logical canvas units
-    const rect = e.currentTarget
-    // WeChat provides e.detail.x, e.detail.y relative to the element
+    // e.detail.x/y are page-level coordinates in WeChat
     const tapX = e.detail.x
     const tapY = e.detail.y
 
-    // Map from element px to logical 0-300 space
-    // Element is 600rpx wide. On a 375pt screen, 600rpx = 300pt
-    // e.detail gives values in px (logical pixels)
-    const elW = rect.offsetWidth || 300
-    const elH = rect.offsetHeight || 300
-    const lx = (tapX / elW) * 300
-    const ly = (tapY / elH) * 300
+    const rect = this._canvasRect
+    if (!rect) {
+      // Fallback: try to get rect now
+      wx.createSelectorQuery().select('#stroke-canvas').boundingClientRect(r => {
+        if (r) {
+          this._canvasRect = r
+          const lx = ((tapX - r.left) / r.width) * 300
+          const ly = ((tapY - r.top) / r.height) * 300
+          this._handleTap(lx, ly)
+        }
+      }).exec()
+      return
+    }
+
+    // Convert page coords to element-relative, then map to 0-300 logical space
+    const lx = ((tapX - rect.left) / rect.width) * 300
+    const ly = ((tapY - rect.top) / rect.height) * 300
 
     this._handleTap(lx, ly)
   },
