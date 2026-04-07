@@ -112,6 +112,14 @@ Page({
         desc: '\u4ece\u56db\u5927\u5143\u7d20\u5f00\u59cb\uff0c\u5408\u6210\u521b\u9020\u65b0\u7269\u8d28',
         color: '#8b5cf6',
         page: '/pages/element-craft/element-craft'
+      },
+      {
+        id: 'neural-ink',
+        icon: '\ud83e\uddec',
+        title: '\u795e\u7ecf\u58a8\u8ff9',
+        desc: '\u5f15\u5bfc\u6df7\u6c8c\u6d8c\u73b0\uff0c\u57f9\u80b2\u72ec\u4e00\u65e0\u4e8c\u7684\u610f\u8bc6\u7ed3\u6676',
+        color: '#0ef0c0',
+        page: '/pages/neural-ink/neural-ink'
       }
     ]
   },

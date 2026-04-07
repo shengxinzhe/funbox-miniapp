@@ -1,0 +1,220 @@
+<!-- ======== HOME SCREEN ======== -->
+<view class="page" wx:if="{{phase === 'home'}}">
+  <view class="home-header">
+    <view class="home-icon">🧬</view>
+    <view class="home-title">神经墨迹</view>
+    <view class="home-subtitle">意识结晶实验室</view>
+    <view class="home-desc">用指尖引导混沌中涌现的秩序，培育独一无二的意识标本</view>
+  </view>
+
+  <!-- Level List -->
+  <view class="section-title">实验序列</view>
+  <view class="level-list">
+    <view class="level-card {{index <= unlockedLevel ? 'unlocked' : 'locked'}}"
+          wx:for="{{10}}" wx:key="index"
+          bindtap="onStartLevel" data-level="{{index}}">
+      <view class="level-num">{{index < 9 ? '0' : ''}}{{index + 1}}</view>
+      <view class="level-info" wx:if="{{index <= unlockedLevel}}">
+        <view class="level-name">
+          {{index === 0 ? '初始涌现' :
+            index === 1 ? '珊瑚迷宫' :
+            index === 2 ? '斑点分裂' :
+            index === 3 ? '神经树突' :
+            index === 4 ? '蠕虫行进' :
+            index === 5 ? '混沌边缘' :
+            index === 6 ? '脉冲之花' :
+            index === 7 ? '迷宫编织' :
+            index === 8 ? '晶格排列' : '意识风暴'}}
+        </view>
+        <view class="level-diff">
+          <text wx:for="{{index < 2 ? 1 : index < 4 ? 2 : index < 6 ? 3 : index < 8 ? 4 : 5}}" wx:for-item="s" wx:key="*this" class="diff-dot active"></text>
+        </view>
+      </view>
+      <view class="level-locked" wx:else>
+        <text class="lock-icon">🔒</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Free Mode -->
+  <view class="free-btn" bindtap="onStartFree">
+    <text class="free-icon">🔬</text>
+    <view class="free-text">
+      <view class="free-title">自由实验模式</view>
+      <view class="free-desc">无目标限制，自由探索参数空间</view>
+    </view>
+  </view>
+
+  <!-- Gallery Entry -->
+  <view class="gallery-btn" bindtap="onOpenGallery">
+    <text class="gallery-icon">📋</text>
+    <view class="gallery-text">
+      <view class="gallery-title">意识标本图鉴</view>
+      <view class="gallery-desc">已收集 {{specimenCount}} / 60 个标本</view>
+    </view>
+  </view>
+</view>
+
+<!-- ======== PLAYING / FREE MODE ======== -->
+<view class="page playing-page" wx:if="{{phase === 'playing' || phase === 'free'}}">
+  <!-- Top Bar -->
+  <view class="play-topbar">
+    <view class="topbar-left" bindtap="onGoHome">
+      <text class="back-arrow">&lt;</text>
+    </view>
+    <view class="topbar-center">
+      <text class="topbar-title" wx:if="{{!freeMode}}">{{levelName}}</text>
+      <text class="topbar-title" wx:else>自由实验</text>
+    </view>
+    <view class="topbar-right">
+      <text class="time-display">{{elapsedTime < 600 ? '0' : ''}}{{elapsedTime < 60 ? '0:' : ''}}{{elapsedTime >= 60 ? '' : ''}}{{elapsedTime}}</text>s
+    </view>
+  </view>
+
+  <!-- Canvas -->
+  <view class="canvas-container" style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;">
+    <canvas type="2d" id="rdCanvas"
+            style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;"
+            bindtouchstart="onCanvasTouchStart"
+            bindtouchmove="onCanvasTouchMove"
+            bindtouchend="onCanvasTouchEnd">
+    </canvas>
+    <!-- Glow border -->
+    <view class="canvas-glow"></view>
+  </view>
+
+  <!-- Stats Panel -->
+  <view class="stats-panel">
+    <view class="stat-item">
+      <view class="stat-label">A 浓度</view>
+      <view class="stat-value cyan">{{statsA}}</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-label">B 浓度</view>
+      <view class="stat-value purple">{{statsB}}</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-label">结晶度</view>
+      <view class="stat-value green">{{statsCrystal}}</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-label">系统熵</view>
+      <view class="stat-value orange">{{statsEntropy}}</view>
+    </view>
+  </view>
+
+  <!-- Free mode controls -->
+  <view class="free-controls" wx:if="{{freeMode}}">
+    <view class="param-row">
+      <text class="param-label">进料率 f</text>
+      <slider min="10" max="60" value="37" block-size="16"
+              activeColor="#0ef0c0" backgroundColor="#1a1a2e"
+              bindchange="onParamChange" data-param="f"/>
+    </view>
+    <view class="param-row">
+      <text class="param-label">衰减率 k</text>
+      <slider min="40" max="70" value="60" block-size="16"
+              activeColor="#a855f7" backgroundColor="#1a1a2e"
+              bindchange="onParamChange" data-param="k"/>
+    </view>
+    <view class="free-actions">
+      <view class="action-btn" bindtap="onResetField">重置培养皿</view>
+    </view>
+  </view>
+
+  <!-- Touch counter -->
+  <view class="touch-counter">触控 {{touchCount}} 次</view>
+
+  <!-- Finish button -->
+  <view class="finish-btn" bindtap="onFinishExperiment">
+    <text>结束实验</text>
+  </view>
+
+  <!-- Tutorial Overlay -->
+  <view class="tutorial-overlay" wx:if="{{showTutorial}}">
+    <view class="tutorial-card">
+      <view class="tutorial-step" wx:if="{{tutorialStep === 0}}">
+        <view class="tutorial-icon">👆</view>
+        <view class="tutorial-text">点触培养皿注入激活剂</view>
+        <view class="tutorial-hint">观察图案从触点向外爆发生长</view>
+      </view>
+      <view class="tutorial-step" wx:if="{{tutorialStep === 1}}">
+        <view class="tutorial-icon">👉</view>
+        <view class="tutorial-text">滑动手指绘制抑制屏障</view>
+        <view class="tutorial-hint">截断生长方向，引导图案形态</view>
+      </view>
+      <view class="tutorial-step" wx:if="{{tutorialStep === 2}}">
+        <view class="tutorial-icon">🧪</view>
+        <view class="tutorial-text">实验开始！</view>
+        <view class="tutorial-hint">引导涌现，培育你的意识结晶</view>
+        <view class="tutorial-dismiss" bindtap="onDismissTutorial">开始实验</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- ======== RESULT SCREEN ======== -->
+<view class="page result-page" wx:if="{{phase === 'result'}}">
+  <view class="result-header">
+    <view class="result-grade grade-{{resultGrade}}">{{resultGrade}}</view>
+    <view class="result-score-label">综合评分</view>
+    <view class="result-score-num">{{resultScore}}</view>
+  </view>
+
+  <view class="specimen-card">
+    <view class="specimen-title">意识标本记录</view>
+    <view class="specimen-name">{{resultName}}</view>
+    <view class="specimen-details">
+      <view class="specimen-row">
+        <text class="specimen-key">结晶度</text>
+        <text class="specimen-val">{{resultCrystal}}%</text>
+      </view>
+      <view class="specimen-row">
+        <text class="specimen-key">系统熵值</text>
+        <text class="specimen-val">{{resultEntropy}}</text>
+      </view>
+      <view class="specimen-row">
+        <text class="specimen-key">触控次数</text>
+        <text class="specimen-val">{{resultTouches}}</text>
+      </view>
+      <view class="specimen-row">
+        <text class="specimen-key">实验时长</text>
+        <text class="specimen-val">{{resultTime}}s</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="result-actions">
+    <view class="result-btn secondary" bindtap="onRetry">重新实验</view>
+    <view class="result-btn primary" bindtap="onNextLevel" wx:if="{{level < totalLevels - 1}}">下一实验</view>
+    <view class="result-btn primary" bindtap="onGoHome" wx:else>返回首页</view>
+  </view>
+
+  <button class="share-btn" open-type="share">分享我的意识标本</button>
+</view>
+
+<!-- ======== GALLERY SCREEN ======== -->
+<view class="page gallery-page" wx:if="{{phase === 'gallery'}}">
+  <view class="gallery-header">
+    <view class="gallery-back" bindtap="onGoHome">&lt; 返回</view>
+    <view class="gallery-title-bar">意识标本图鉴</view>
+    <view class="gallery-count">{{specimenCount}} / 60</view>
+  </view>
+
+  <view class="specimen-list" wx:if="{{specimens.length > 0}}">
+    <view class="specimen-item" wx:for="{{specimens}}" wx:key="name">
+      <view class="specimen-item-icon">🧬</view>
+      <view class="specimen-item-info">
+        <view class="specimen-item-name">{{item.name}}</view>
+        <view class="specimen-item-meta">结晶 {{item.crystalRatio}}% | 熵 {{item.entropy}} | {{item.date}}</view>
+      </view>
+      <view class="specimen-item-score" wx:if="{{item.score}}">{{item.score}}</view>
+    </view>
+  </view>
+
+  <view class="gallery-empty" wx:else>
+    <view class="empty-icon">🔬</view>
+    <view class="empty-text">尚未收集任何标本</view>
+    <view class="empty-hint">完成实验即可获得意识标本</view>
+  </view>
+</view>

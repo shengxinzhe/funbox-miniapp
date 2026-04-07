@@ -52,6 +52,10 @@
     {
       "root": "pages/element-craft",
       "pages": ["element-craft"]
+    },
+    {
+      "root": "pages/neural-ink",
+      "pages": ["neural-ink"]
     }
   ],
   "window": {
