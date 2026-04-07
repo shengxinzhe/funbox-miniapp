@@ -296,54 +296,39 @@
   opacity: 0.9;
 }
 
-/* Tutorial Overlay */
-.tutorial-overlay {
+/* Tutorial Toast (non-blocking) */
+.tutorial-toast {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  bottom: 220rpx;
+  left: 50%;
+  transform: translateX(-50%) translateY(20rpx);
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 50;
+  pointer-events: auto;
+}
+.tutorial-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.tutorial-toast-inner {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-.tutorial-card {
-  background: #14141f;
-  border-radius: 28rpx;
-  padding: 60rpx 50rpx;
-  text-align: center;
-  border: 1px solid rgba(14, 240, 192, 0.2);
-  box-shadow: 0 0 60rpx rgba(14, 240, 192, 0.1);
-  width: 80%;
-}
-.tutorial-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.tutorial-icon {
-  font-size: 80rpx;
-  margin-bottom: 24rpx;
-  animation: pulse 2s ease-in-out infinite;
-}
-.tutorial-text {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #e8f4ff;
-  margin-bottom: 12rpx;
-}
-.tutorial-hint {
-  font-size: 24rpx;
-  color: #8888a0;
-  margin-bottom: 20rpx;
-}
-.tutorial-dismiss {
-  font-size: 28rpx;
-  color: #0a0a0f;
-  background: #0ef0c0;
-  padding: 16rpx 60rpx;
+  background: rgba(20, 20, 31, 0.92);
+  border: 1px solid rgba(14, 240, 192, 0.3);
   border-radius: 40rpx;
-  font-weight: 600;
-  margin-top: 20rpx;
+  padding: 18rpx 36rpx;
+  box-shadow: 0 4rpx 30rpx rgba(14, 240, 192, 0.15);
+}
+.tutorial-toast-icon {
+  font-size: 36rpx;
+  margin-right: 16rpx;
+}
+.tutorial-toast-text {
+  font-size: 26rpx;
+  color: #e8f4ff;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 /* ============ RESULT SCREEN ============ */

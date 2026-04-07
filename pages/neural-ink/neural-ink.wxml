@@ -11,23 +11,13 @@
   <view class="section-title">实验序列</view>
   <view class="level-list">
     <view class="level-card {{index <= unlockedLevel ? 'unlocked' : 'locked'}}"
-          wx:for="{{10}}" wx:key="index"
+          wx:for="{{levelList}}" wx:key="index"
           bindtap="onStartLevel" data-level="{{index}}">
       <view class="level-num">{{index < 9 ? '0' : ''}}{{index + 1}}</view>
       <view class="level-info" wx:if="{{index <= unlockedLevel}}">
-        <view class="level-name">
-          {{index === 0 ? '初始涌现' :
-            index === 1 ? '珊瑚迷宫' :
-            index === 2 ? '斑点分裂' :
-            index === 3 ? '神经树突' :
-            index === 4 ? '蠕虫行进' :
-            index === 5 ? '混沌边缘' :
-            index === 6 ? '脉冲之花' :
-            index === 7 ? '迷宫编织' :
-            index === 8 ? '晶格排列' : '意识风暴'}}
-        </view>
+        <view class="level-name">{{item.name}}</view>
         <view class="level-diff">
-          <text wx:for="{{index < 2 ? 1 : index < 4 ? 2 : index < 6 ? 3 : index < 8 ? 4 : 5}}" wx:for-item="s" wx:key="*this" class="diff-dot active"></text>
+          <text wx:for="{{item.dots}}" wx:for-item="d" wx:key="*this" class="diff-dot active"></text>
         </view>
       </view>
       <view class="level-locked" wx:else>
@@ -67,7 +57,7 @@
       <text class="topbar-title" wx:else>自由实验</text>
     </view>
     <view class="topbar-right">
-      <text class="time-display">{{elapsedTime < 600 ? '0' : ''}}{{elapsedTime < 60 ? '0:' : ''}}{{elapsedTime >= 60 ? '' : ''}}{{elapsedTime}}</text>s
+      <text class="time-display">{{timeDisplay}}</text>
     </view>
   </view>
 
@@ -130,25 +120,19 @@
     <text>结束实验</text>
   </view>
 
-  <!-- Tutorial Overlay -->
-  <view class="tutorial-overlay" wx:if="{{showTutorial}}">
-    <view class="tutorial-card">
-      <view class="tutorial-step" wx:if="{{tutorialStep === 0}}">
-        <view class="tutorial-icon">👆</view>
-        <view class="tutorial-text">点触培养皿注入激活剂</view>
-        <view class="tutorial-hint">观察图案从触点向外爆发生长</view>
-      </view>
-      <view class="tutorial-step" wx:if="{{tutorialStep === 1}}">
-        <view class="tutorial-icon">👉</view>
-        <view class="tutorial-text">滑动手指绘制抑制屏障</view>
-        <view class="tutorial-hint">截断生长方向，引导图案形态</view>
-      </view>
-      <view class="tutorial-step" wx:if="{{tutorialStep === 2}}">
-        <view class="tutorial-icon">🧪</view>
-        <view class="tutorial-text">实验开始！</view>
-        <view class="tutorial-hint">引导涌现，培育你的意识结晶</view>
-        <view class="tutorial-dismiss" bindtap="onDismissTutorial">开始实验</view>
-      </view>
+  <!-- Tutorial Hint (non-blocking, bottom toast) -->
+  <view class="tutorial-toast {{showTutorial ? 'show' : ''}}" wx:if="{{showTutorial}}">
+    <view class="tutorial-toast-inner" wx:if="{{tutorialStep === 0}}">
+      <text class="tutorial-toast-icon">👆</text>
+      <text class="tutorial-toast-text">点触培养皿，注入激活剂</text>
+    </view>
+    <view class="tutorial-toast-inner" wx:if="{{tutorialStep === 1}}">
+      <text class="tutorial-toast-icon">👉</text>
+      <text class="tutorial-toast-text">滑动手指，绘制抑制屏障</text>
+    </view>
+    <view class="tutorial-toast-inner" wx:if="{{tutorialStep === 2}}" bindtap="onDismissTutorial">
+      <text class="tutorial-toast-icon">🧪</text>
+      <text class="tutorial-toast-text">开始探索！点此关闭提示</text>
     </view>
   </view>
 </view>

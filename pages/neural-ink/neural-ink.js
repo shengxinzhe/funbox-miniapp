@@ -87,6 +87,10 @@ Page({
     specimenCount: 0,
     // Free mode
     freeMode: false,
+    // Time display
+    timeDisplay: '00:00',
+    // Level list for WXML rendering
+    levelList: [],
     // Stats display
     statsA: '0.00',
     statsB: '0.00',
@@ -133,10 +137,18 @@ Page({
     this._canvasW = canvasSize
     this._canvasH = canvasSize
 
+    // Build level list for WXML
+    var levelList = LEVELS.map(function (lv) {
+      var dots = []
+      for (var d = 0; d < lv.difficulty; d++) dots.push(d)
+      return { name: lv.name, desc: lv.desc, difficulty: lv.difficulty, dots: dots }
+    })
+
     this.setData({
       canvasWidth: canvasSize,
       canvasHeight: canvasSize,
-      pixelRatio: pr
+      pixelRatio: pr,
+      levelList: levelList
     })
 
     // Load progress
@@ -157,8 +169,7 @@ Page({
   },
 
   onReady: function () {
-    // Pre-init canvas context
-    this._initCanvas()
+    // Canvas will be initialized when entering playing/free phase
   },
 
   onUnload: function () {
@@ -237,11 +248,9 @@ Page({
     var self = this
     setTimeout(function () {
       self._initCanvas()
-      setTimeout(function () {
-        self._startTimeCounter()
-        self._startLoop()
-      }, 100)
-    }, 50)
+      // Wait for canvas to be ready, then start
+      self._waitCanvasAndStart()
+    }, 100)
   },
 
   onStartFree: function () {
@@ -260,11 +269,23 @@ Page({
     var self = this
     setTimeout(function () {
       self._initCanvas()
-      setTimeout(function () {
+      self._waitCanvasAndStart()
+    }, 100)
+  },
+
+  _waitCanvasAndStart: function () {
+    var self = this
+    var retries = 0
+    function check() {
+      if (self._canvasCtx) {
         self._startTimeCounter()
         self._startLoop()
-      }, 100)
-    }, 50)
+      } else if (retries < 20) {
+        retries++
+        setTimeout(check, 100)
+      }
+    }
+    setTimeout(check, 150)
   },
 
   onFinishExperiment: function () {
@@ -343,7 +364,11 @@ Page({
   _startTimeCounter: function () {
     var self = this
     this._timeTimer = setInterval(function () {
-      self.setData({ elapsedTime: Math.floor((Date.now() - self._startTime) / 1000) })
+      var s = Math.floor((Date.now() - self._startTime) / 1000)
+      var m = Math.floor(s / 60)
+      var sec = s % 60
+      var display = (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec
+      self.setData({ elapsedTime: s, timeDisplay: display })
     }, 1000)
   },
 
