@@ -1,0 +1,155 @@
+<view class="page {{fadeIn ? 'fade-in' : ''}}">
+
+  <!-- Home Phase -->
+  <block wx:if="{{phase === 'home'}}">
+    <view class="home-screen">
+      <view class="home-icon-wrap">
+        <view class="home-icon">
+          <view class="cannon-icon"></view>
+          <view class="trajectory-arc"></view>
+        </view>
+      </view>
+      <view class="home-title">弹道预言</view>
+      <view class="home-subtitle">物理直觉实验</view>
+      <view class="home-desc">
+        观察炮台角度与障碍物，在炮弹发射前预测落点，挑战你的物理直觉！
+      </view>
+      <view class="home-best" wx:if="{{bestScore > 0}}">
+        <view class="best-label">历史最佳</view>
+        <view class="best-score">{{bestScore}}</view>
+        <view class="best-unit">/ 1000</view>
+      </view>
+      <view class="home-rules">
+        <view class="rule-item">
+          <view class="rule-dot"></view>
+          <text>点击画面预测炮弹落点</text>
+        </view>
+        <view class="rule-item">
+          <view class="rule-dot"></view>
+          <text>距离越近得分越高</text>
+        </view>
+        <view class="rule-item">
+          <view class="rule-dot"></view>
+          <text>共10轮，满分1000分</text>
+        </view>
+      </view>
+      <view class="start-btn" bindtap="startGame">开始实验</view>
+    </view>
+  </block>
+
+  <!-- Playing Phase -->
+  <block wx:if="{{phase === 'playing'}}">
+    <view class="game-screen">
+      <!-- Top HUD -->
+      <view class="game-hud">
+        <view class="hud-round">
+          <text class="hud-label">回合</text>
+          <text class="hud-value">{{round}}/10</text>
+        </view>
+        <view class="hud-divider"></view>
+        <view class="hud-score-wrap">
+          <text class="hud-label">得分</text>
+          <text class="hud-value accent">{{totalScore}}</text>
+        </view>
+      </view>
+
+      <!-- Canvas container -->
+      <view class="canvas-wrap">
+        <canvas
+          type="2d"
+          id="trajCanvas"
+          class="traj-canvas"
+          style="width:{{canvasDisplayW}}px; height:{{canvasDisplayH}}px;"
+          bindtouchstart="onCanvasTouch"
+        ></canvas>
+
+        <!-- Instruction overlay -->
+        <view class="canvas-hint" wx:if="{{gameState === 'predict'}}">
+          <view class="hint-text">点击预测落点</view>
+        </view>
+
+        <!-- Round score popup -->
+        <view class="score-popup {{showScorePopup ? 'visible' : ''}}" wx:if="{{showScorePopup}}">
+          <view class="popup-pts {{lastPoints >= 80 ? 'pts-great' : lastPoints >= 40 ? 'pts-good' : 'pts-ok'}}">+{{lastPoints}}</view>
+          <view class="popup-dist">偏差 {{lastDistance}}px</view>
+        </view>
+      </view>
+
+      <!-- Bottom action bar -->
+      <view class="action-bar">
+        <view class="action-hint" wx:if="{{gameState === 'predict' && !hasPrediction}}">
+          点击画面中的位置预测落点
+        </view>
+        <view class="action-hint" wx:if="{{gameState === 'predict' && hasPrediction}}">
+          预测已标记，准备发射
+        </view>
+        <view class="action-hint" wx:if="{{gameState === 'flying'}}">
+          炮弹飞行中...
+        </view>
+        <view class="action-hint" wx:if="{{gameState === 'result'}}">
+          下一回合即将开始
+        </view>
+        <view
+          class="fire-btn {{hasPrediction && gameState === 'predict' ? 'active' : 'disabled'}}"
+          bindtap="onFireTap"
+        >发射</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- Result Phase -->
+  <block wx:if="{{phase === 'result'}}">
+    <view class="result-screen">
+      <view class="result-header">
+        <view class="result-title">实验完成</view>
+        <view class="result-subtitle {{totalScore >= 800 ? 'grade-s' : totalScore >= 600 ? 'grade-a' : totalScore >= 400 ? 'grade-b' : 'grade-c'}}">
+          <block wx:if="{{totalScore >= 800}}">物理学家</block>
+          <block wx:elif="{{totalScore >= 600}}">预言达人</block>
+          <block wx:elif="{{totalScore >= 400}}">直觉不错</block>
+          <block wx:elif="{{totalScore >= 200}}">初露锋芒</block>
+          <block wx:else>继续练习</block>
+        </view>
+      </view>
+
+      <view class="score-card">
+        <view class="score-main">
+          <view class="score-num">{{totalScore}}</view>
+          <view class="score-max">/ 1000</view>
+        </view>
+        <view class="score-bar-wrap">
+          <view class="score-bar-bg">
+            <view class="score-bar-fill" style="width:{{totalScore / 10}}%"></view>
+          </view>
+        </view>
+        <view class="score-pct">准确率 {{accuracy}}%</view>
+      </view>
+
+      <view class="stats-row">
+        <view class="stat-box">
+          <view class="stat-n">{{perfectCount}}</view>
+          <view class="stat-l">完美预测</view>
+        </view>
+        <view class="stat-box">
+          <view class="stat-n accent">{{totalScore}}</view>
+          <view class="stat-l">本次得分</view>
+        </view>
+        <view class="stat-box">
+          <view class="stat-n">{{bestScore}}</view>
+          <view class="stat-l">历史最佳</view>
+        </view>
+      </view>
+
+      <view class="new-best" wx:if="{{isNewBest}}">
+        新纪录！
+      </view>
+
+      <view class="result-actions">
+        <view class="retry-btn" bindtap="restartGame">再来一次</view>
+        <view class="home-btn" bindtap="goHome">返回</view>
+      </view>
+
+      <button class="share-btn" open-type="share">分享成绩</button>
+    </view>
+  </block>
+
+</view>

@@ -6,10 +6,22 @@
   ],
   "subpackages": [
     {
+      "root": "pages/trajectory",
+      "pages": ["trajectory"]
+    },
+    {
+      "root": "pages/flash-count",
+      "pages": ["flash-count"]
+    },
+    {
+      "root": "pages/probability",
+      "pages": ["probability"]
+    },
+    {
       "root": "pages/spend",
       "pages": ["spend"]
     },
-{
+    {
       "root": "pages/stroop",
       "pages": ["stroop"]
     },
@@ -52,10 +64,6 @@
     {
       "root": "pages/element-craft",
       "pages": ["element-craft"]
-    },
-    {
-      "root": "pages/neural-ink",
-      "pages": ["neural-ink"]
     }
   ],
   "window": {

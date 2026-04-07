@@ -1,148 +1,130 @@
 .page {
   padding: 0 32rpx 60rpx;
   min-height: 100vh;
+  background: #F5F5F7;
+  color: #1D1D1F;
 }
 
 /* Header */
 .header {
-  padding: 40rpx 0 16rpx;
+  padding: 48rpx 0 36rpx;
   text-align: center;
-  animation: fadeDown 0.5s ease;
-}
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-20rpx); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .logo {
-  font-size: 52rpx;
+  font-size: 56rpx;
   font-weight: 800;
+  color: #1D1D1F;
   letter-spacing: -2rpx;
 }
 
 .accent {
-  color: #6c63ff;
+  background: linear-gradient(135deg, #5856D6, #AF52DE);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .tagline {
   font-size: 26rpx;
-  color: #8888a0;
-  margin-top: 4rpx;
+  color: #86868B;
+  margin-top: 8rpx;
+  letter-spacing: 2rpx;
+}
+
+/* Section */
+.section-label {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #86868B;
+  letter-spacing: 1rpx;
+  margin: 28rpx 0 16rpx 8rpx;
+  text-transform: uppercase;
 }
 
 /* Game Grid */
 .grid {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 16rpx;
 }
 
 .card {
   display: flex;
   align-items: center;
-  background: #14141f;
+  background: #FFFFFF;
   border-radius: 24rpx;
-  padding: 32rpx 28rpx;
-  transition: all 0.2s;
-  animation: cardStagger 0.4s ease both;
-}
-.card:nth-child(1) { animation-delay: 0.05s; }
-.card:nth-child(2) { animation-delay: 0.1s; }
-.card:nth-child(3) { animation-delay: 0.15s; }
-.card:nth-child(4) { animation-delay: 0.2s; }
-.card:nth-child(5) { animation-delay: 0.25s; }
-.card:nth-child(6) { animation-delay: 0.3s; }
-.card:nth-child(7) { animation-delay: 0.35s; }
-.card:nth-child(8) { animation-delay: 0.4s; }
-.card:nth-child(9) { animation-delay: 0.45s; }
-.card:nth-child(10) { animation-delay: 0.5s; }
-.card:nth-child(11) { animation-delay: 0.55s; }
-.card:nth-child(12) { animation-delay: 0.6s; }
-.card:nth-child(13) { animation-delay: 0.65s; }
-.card:nth-child(14) { animation-delay: 0.7s; }
-@keyframes cardStagger {
-  from { opacity: 0; transform: translateY(24rpx); }
-  to { opacity: 1; transform: translateY(0); }
+  padding: 28rpx 24rpx;
+  box-shadow: 0 1rpx 8rpx rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease;
 }
 
 .card:active {
-  background: #1a1a2e;
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 .card-icon {
-  font-size: 56rpx;
-  width: 88rpx;
-  height: 88rpx;
+  font-size: 44rpx;
+  width: 76rpx;
+  height: 76rpx;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(108, 99, 255, 0.1);
-  border-radius: 20rpx;
+  border-radius: 18rpx;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
-}
-.card:active .card-icon {
-  transform: scale(1.1);
 }
 
 .card-info {
   flex: 1;
-  margin-left: 24rpx;
+  margin-left: 20rpx;
 }
 
 .card-title {
-  font-size: 32rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  margin-bottom: 6rpx;
+  color: #1D1D1F;
+  margin-bottom: 4rpx;
 }
 
 .card-desc {
   font-size: 24rpx;
-  color: #8888a0;
-  line-height: 1.4;
+  color: #86868B;
+  line-height: 1.5;
 }
 
 .card-arrow {
   font-size: 28rpx;
-  color: #8888a0;
-  margin-left: 12rpx;
+  color: #C7C7CC;
+  margin-left: 8rpx;
+  font-weight: 300;
 }
 
 /* Share */
 .share-hint {
-  margin-top: 48rpx;
+  margin-top: 40rpx;
   text-align: center;
 }
 
 .share-btn {
   display: inline-block;
-  background: rgba(108, 99, 255, 0.12);
-  color: #6c63ff;
-  border: 1rpx solid rgba(108, 99, 255, 0.25);
-  border-radius: 48rpx;
-  padding: 20rpx 48rpx;
-  font-size: 28rpx;
+  background: #FFFFFF !important;
+  color: #5856D6 !important;
+  border: none !important;
+  border-radius: 48rpx !important;
+  padding: 20rpx 48rpx !important;
+  font-size: 28rpx !important;
   font-weight: 500;
-  line-height: 1.5;
+  box-shadow: 0 1rpx 8rpx rgba(0, 0, 0, 0.06);
+  line-height: 1.5 !important;
 }
 
 .share-btn::after {
-  border: none;
+  border: none !important;
 }
-
-/* Card icon breathing glow */
-@keyframes iconGlow {
-  0%, 100% { box-shadow: 0 0 0 rgba(108, 99, 255, 0); }
-  50% { box-shadow: 0 0 16rpx rgba(108, 99, 255, 0.15); }
-}
-.card:nth-child(odd) .card-icon { animation: iconGlow 4s ease-in-out infinite; }
-.card:nth-child(even) .card-icon { animation: iconGlow 4s ease-in-out 2s infinite; }
 
 /* Footer */
 .footer {
   text-align: center;
-  padding: 48rpx 0 32rpx;
+  padding: 40rpx 0 32rpx;
   font-size: 22rpx;
-  color: #555;
+  color: #AEAEB2;
 }

@@ -1,0 +1,609 @@
+/* ===== BASE ===== */
+.page {
+  min-height: 100vh;
+  background: #F5F5F7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 60rpx;
+  box-sizing: border-box;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(24rpx); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(40rpx); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.slide-up {
+  animation: slide-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+@keyframes pop-in {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.pop-in {
+  animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes countdown-anim {
+  0%   { transform: scale(1.4); opacity: 0; }
+  30%  { transform: scale(1); opacity: 1; }
+  80%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0; }
+}
+.countdown-pop {
+  animation: countdown-anim 0.75s ease both;
+}
+
+/* ===== SHARED COMPONENTS ===== */
+.round-indicator {
+  font-size: 26rpx;
+  color: #86868B;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  margin-top: 32rpx;
+  margin-bottom: 20rpx;
+  letter-spacing: 0.5rpx;
+}
+
+/* ===== HOME PHASE ===== */
+.home-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 40rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 48rpx;
+}
+
+.game-title {
+  font-size: 72rpx;
+  font-weight: 800;
+  color: #1D1D1F;
+  letter-spacing: -1rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, #FF9F0A, #FF6723);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.game-subtitle {
+  font-size: 30rpx;
+  color: #86868B;
+  margin-top: 8rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  letter-spacing: 4rpx;
+}
+
+.info-card {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  padding: 40rpx;
+  box-sizing: border-box;
+  margin-bottom: 32rpx;
+}
+
+.info-text {
+  font-size: 28rpx;
+  color: #3A3A3C;
+  line-height: 1.7;
+  margin-bottom: 20rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.info-text:last-of-type {
+  margin-bottom: 28rpx;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.info-badge {
+  background: rgba(255, 159, 10, 0.1);
+  color: #FF9F0A;
+  border-radius: 20rpx;
+  padding: 8rpx 24rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.best-score-wrap {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  padding: 28rpx 48rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.best-label {
+  font-size: 24rpx;
+  color: #86868B;
+  margin-bottom: 4rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.best-value {
+  font-size: 72rpx;
+  font-weight: 800;
+  color: #FF9F0A;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  letter-spacing: -1rpx;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, #FF9F0A, #FF6723);
+  color: #FFFFFF;
+  border-radius: 48rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+  padding: 28rpx 0;
+  text-align: center;
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  box-shadow: 0 4rpx 20rpx rgba(255, 159, 10, 0.35);
+  margin-bottom: 24rpx;
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-secondary {
+  width: 100%;
+  background: #FFFFFF;
+  color: #FF9F0A;
+  border-radius: 48rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  padding: 24rpx 0;
+  text-align: center;
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.08);
+  margin-bottom: 20rpx;
+}
+
+.btn-secondary::after {
+  border: none;
+}
+
+.btn-ghost {
+  width: 100%;
+  background: transparent;
+  color: #86868B;
+  border-radius: 48rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  padding: 20rpx 0;
+  text-align: center;
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.btn-ghost::after {
+  border: none;
+}
+
+/* ===== READY PHASE ===== */
+.ready-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.countdown-label {
+  font-size: 30rpx;
+  color: #86868B;
+  margin-bottom: 48rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  letter-spacing: 2rpx;
+}
+
+.countdown-number {
+  font-size: 200rpx;
+  font-weight: 900;
+  color: #1D1D1F;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  line-height: 1;
+  background: linear-gradient(135deg, #FF9F0A, #FF6723);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  min-width: 240rpx;
+  text-align: center;
+}
+
+.countdown-hint {
+  font-size: 26rpx;
+  color: #AEAEB2;
+  margin-top: 48rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+/* ===== FLASH / RECALL PHASE ===== */
+.flash-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+.canvas-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 24rpx;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+}
+
+.flash-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.flash-hint {
+  margin-top: 28rpx;
+  font-size: 28rpx;
+  color: #86868B;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  letter-spacing: 1rpx;
+}
+
+.recall-hint {
+  color: #AEAEB2;
+}
+
+/* ===== GUESS PHASE ===== */
+.guess-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+.guess-question {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+  margin-bottom: 24rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.guess-display {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  min-height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32rpx;
+}
+
+.guess-number {
+  font-size: 120rpx;
+  font-weight: 800;
+  color: #1D1D1F;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  line-height: 1;
+}
+
+.guess-number.placeholder {
+  color: #AEAEB2;
+  font-size: 100rpx;
+}
+
+/* ===== KEYPAD ===== */
+.keypad {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.keypad-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16rpx;
+  justify-content: center;
+}
+
+.key-btn {
+  flex: 1;
+  background: #FFFFFF;
+  color: #1D1D1F;
+  border-radius: 20rpx;
+  font-size: 40rpx;
+  font-weight: 600;
+  padding: 28rpx 0;
+  text-align: center;
+  border: none;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+  transition: transform 0.1s;
+}
+
+.key-btn::after {
+  border: none;
+}
+
+.key-back {
+  background: #F5F5F7;
+  color: #3A3A3C;
+  font-size: 36rpx;
+}
+
+.key-confirm {
+  background: linear-gradient(135deg, #FF9F0A, #FF6723);
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.key-confirm.disabled {
+  opacity: 0.4;
+}
+
+/* ===== FEEDBACK PHASE ===== */
+.feedback-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+  min-height: 70vh;
+  justify-content: center;
+}
+
+.feedback-card {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  padding: 40rpx 48rpx;
+  box-sizing: border-box;
+  margin-bottom: 32rpx;
+}
+
+.feedback-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.feedback-label {
+  font-size: 28rpx;
+  color: #86868B;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.feedback-actual {
+  font-size: 72rpx;
+  font-weight: 800;
+  color: #1D1D1F;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  line-height: 1;
+}
+
+.feedback-guess {
+  font-size: 72rpx;
+  font-weight: 800;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  line-height: 1;
+  color: #86868B;
+}
+
+.feedback-card.correct .feedback-guess {
+  color: #30D158;
+}
+
+.feedback-card.close .feedback-guess {
+  color: #FF9F0A;
+}
+
+.feedback-card.wrong .feedback-guess {
+  color: #FF3B30;
+}
+
+.feedback-divider {
+  height: 1rpx;
+  background: #F2F2F7;
+  margin: 8rpx 0;
+}
+
+.feedback-diff {
+  font-size: 26rpx;
+  color: #86868B;
+  text-align: center;
+  margin-top: 16rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.points-earned {
+  font-size: 64rpx;
+  font-weight: 800;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  color: #FF9F0A;
+  margin-bottom: 8rpx;
+}
+
+.points-earned.correct {
+  color: #30D158;
+}
+
+.points-earned.close {
+  color: #FF9F0A;
+}
+
+.points-earned.wrong {
+  color: #FF3B30;
+}
+
+.total-score-hint {
+  font-size: 26rpx;
+  color: #AEAEB2;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+/* ===== RESULT PHASE ===== */
+.result-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 40rpx 60rpx;
+  box-sizing: border-box;
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.result-rating-badge {
+  font-size: 96rpx;
+  font-weight: 900;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  background: linear-gradient(135deg, #FF9F0A, #FF6723);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.result-rating-badge.rating-s {
+  background: linear-gradient(135deg, #FF9F0A, #FF6723);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.result-rating-badge.rating-a {
+  background: linear-gradient(135deg, #5856D6, #7C5CBF);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.result-rating-badge.rating-b {
+  background: linear-gradient(135deg, #30D158, #25A244);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.result-rating-badge.rating-c {
+  background: linear-gradient(135deg, #007AFF, #0055B3);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.result-rating-badge.rating-d {
+  background: linear-gradient(135deg, #86868B, #636366);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.result-rating-label {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+  margin-top: 8rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.result-card {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  padding: 8rpx 40rpx 16rpx;
+  box-sizing: border-box;
+  margin-bottom: 40rpx;
+}
+
+.result-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #F2F2F7;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-key {
+  font-size: 28rpx;
+  color: #86868B;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.result-val {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+  font-family: 'Courier New', 'SF Mono', monospace;
+}
+
+.result-val.accent {
+  color: #FF9F0A;
+  font-size: 48rpx;
+}
+
+.result-unit {
+  font-size: 24rpx;
+  color: #AEAEB2;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.result-val.new-best {
+  color: #30D158;
+}
+
+.result-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}

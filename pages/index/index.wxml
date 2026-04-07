@@ -2,7 +2,7 @@
   <!-- Header -->
   <view class="header">
     <view class="logo">智变<text class="accent">纪</text></view>
-    <view class="tagline">智变纪趣味实验室</view>
+    <view class="tagline">趣味实验室</view>
   </view>
 
   <!-- Game Grid -->
@@ -14,12 +14,12 @@
       bindtap="openGame"
       data-page="{{item.page}}"
     >
-      <view class="card-icon" style="background: {{item.color}}20;">{{item.icon}}</view>
+      <view class="card-icon" style="background: {{item.color}}12;">{{item.icon}}</view>
       <view class="card-info">
         <view class="card-title">{{item.title}}</view>
         <view class="card-desc">{{item.desc}}</view>
       </view>
-      <view class="card-arrow">></view>
+      <view class="card-arrow">&#x203A;</view>
     </view>
   </view>
 
