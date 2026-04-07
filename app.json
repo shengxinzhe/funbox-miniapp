@@ -64,10 +64,6 @@
     {
       "root": "pages/mirror-draw",
       "pages": ["mirror-draw"]
-    },
-    {
-      "root": "pages/cat-fishing",
-      "pages": ["cat-fishing"]
     }
   ],
   "window": {
