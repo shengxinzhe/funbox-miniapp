@@ -1,0 +1,127 @@
+<!--cat-fishing.wxml-->
+<view class="page">
+
+  <!-- INTRO -->
+  <view class="intro" wx:if="{{phase === 'intro'}}">
+    <view class="intro-hero">
+      <canvas type="2d" id="intro-canvas" class="intro-canvas"></canvas>
+    </view>
+    <view class="intro-title">猫猫钓鱼</view>
+    <view class="intro-subtitle">像素风休闲垂钓</view>
+    <view class="intro-desc">配置鱼饵、钓各种鱼、收集图鉴，还能挂机自动钓！</view>
+
+    <view class="stats-row" wx:if="{{totalCaught > 0}}">
+      <view class="stat-card">
+        <view class="stat-val">{{totalCaught}}</view>
+        <view class="stat-label">总钓获</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-val">{{albumCount}}/{{totalFishTypes}}</view>
+        <view class="stat-label">图鉴</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-val">{{coins}}</view>
+        <view class="stat-label">金币</view>
+      </view>
+    </view>
+
+    <view class="start-btn" bindtap="startGame">
+      <text>开始钓鱼</text>
+    </view>
+  </view>
+
+  <!-- FISHING -->
+  <block wx:if="{{phase === 'fishing'}}">
+    <view class="hud">
+      <view class="hud-coins">
+        <text class="coin-icon">●</text>
+        <text class="coin-num">{{coins}}</text>
+      </view>
+      <view class="hud-caught">
+        <text class="caught-label">钓获</text>
+        <text class="caught-num">{{sessionCaught}}</text>
+      </view>
+      <view class="hud-btns">
+        <view class="hud-btn" bindtap="toggleAlbum">图鉴</view>
+        <view class="hud-btn {{afkMode ? 'afk-active' : ''}}" bindtap="toggleAfk">
+          {{afkMode ? '挂机中' : '挂机'}}
+        </view>
+      </view>
+    </view>
+
+    <view class="canvas-area">
+      <canvas type="2d" id="fish-canvas" class="fish-canvas"
+        bindtap="onCanvasTap"></canvas>
+    </view>
+
+    <view class="controls">
+      <view class="bait-display" bindtap="toggleBaitSelect">
+        <text class="bait-icon">{{currentBaitEmoji}}</text>
+        <text class="bait-name">{{currentBaitName}}</text>
+        <text class="bait-arrow">▼</text>
+      </view>
+      <view class="cast-btn {{fishState !== 'idle' ? 'disabled' : ''}}" bindtap="castLine">
+        <text wx:if="{{fishState === 'idle'}}">抛竿</text>
+        <text wx:elif="{{fishState === 'casting'}}">抛出中...</text>
+        <text wx:elif="{{fishState === 'waiting'}}">等待中...</text>
+        <text wx:elif="{{fishState === 'bite'}}">快拉！</text>
+        <text wx:elif="{{fishState === 'reeling'}}">收线中...</text>
+        <text wx:else>...</text>
+      </view>
+    </view>
+
+    <!-- Toast -->
+    <view class="toast {{showToast ? 'show' : ''}}" wx:if="{{toastText}}">
+      <text class="toast-text">{{toastText}}</text>
+    </view>
+
+    <!-- Bait Selector -->
+    <view class="overlay" wx:if="{{showBaitSelect}}" bindtap="toggleBaitSelect">
+      <view class="bait-panel" catchtap="noop">
+        <view class="panel-title">选择鱼饵</view>
+        <view class="bait-list">
+          <view class="bait-item {{item.id === selectedBait ? 'selected' : ''}} {{!item.unlocked ? 'locked' : ''}}"
+            wx:for="{{baits}}" wx:key="id"
+            bindtap="selectBait" data-id="{{item.id}}">
+            <view class="bait-item-icon">{{item.emoji}}</view>
+            <view class="bait-item-info">
+              <view class="bait-item-name">{{item.name}}</view>
+              <view class="bait-item-desc">{{item.desc}}</view>
+            </view>
+            <view class="bait-item-cost" wx:if="{{item.cost > 0 && item.unlocked}}">
+              <text class="coin-icon small">●</text> {{item.cost}}
+            </view>
+            <view class="bait-item-lock" wx:if="{{!item.unlocked}}">
+              <text>{{item.unlockText}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="panel-close" bindtap="toggleBaitSelect">关闭</view>
+      </view>
+    </view>
+
+    <!-- Album Overlay -->
+    <view class="overlay" wx:if="{{showAlbum}}" bindtap="toggleAlbum">
+      <view class="album-panel" catchtap="noop">
+        <view class="panel-title">鱼类图鉴</view>
+        <view class="album-progress">
+          <view class="album-bar">
+            <view class="album-fill" style="width: {{albumCount / totalFishTypes * 100}}%"></view>
+          </view>
+          <text class="album-text">{{albumCount}} / {{totalFishTypes}} 已收集</text>
+        </view>
+        <view class="album-grid">
+          <view class="album-item {{item.caught ? 'caught' : 'unknown'}} rarity-{{item.rarity}}"
+            wx:for="{{albumList}}" wx:key="id">
+            <view class="album-emoji">{{item.caught ? item.emoji : '?'}}</view>
+            <view class="album-name">{{item.caught ? item.name : '???'}}</view>
+            <view class="album-count" wx:if="{{item.caught}}">x{{item.count}}</view>
+            <view class="album-rarity">{{item.rarityName}}</view>
+          </view>
+        </view>
+        <view class="panel-close" bindtap="toggleAlbum">关闭</view>
+      </view>
+    </view>
+  </block>
+
+</view>

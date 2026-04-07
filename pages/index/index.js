@@ -136,6 +136,14 @@ Page({
         desc: '\u7b14\u753b\u88ab\u955c\u50cf\u7ffb\u8f6c\uff0c\u8003\u9a8c\u4f60\u7684\u7a7a\u95f4\u8ba4\u77e5',
         color: '#AF52DE',
         page: '/pages/mirror-draw/mirror-draw'
+      },
+      {
+        id: 'cat-fishing',
+        icon: '\ud83c\udfa3',
+        title: '\u732b\u732b\u94d3\u9c7c',
+        desc: '\u50cf\u7d20\u98ce\u4f11\u95f2\u5782\u9493\uff0c\u6536\u96c6\u9c7c\u7c7b\u56fe\u9274',
+        color: '#5856D6',
+        page: '/pages/cat-fishing/cat-fishing'
       }
     ]
   },
