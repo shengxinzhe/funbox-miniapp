@@ -546,7 +546,7 @@ Page({
 
   // ─── TOOLS ───
   pickColor(e) {
-    const idx = e.currentTarget.dataset.idx
+    const idx = Number(e.currentTarget.dataset.idx)
     this.setData({ selectedColor: idx, tool: 'paint' })
   },
 
@@ -583,6 +583,12 @@ Page({
     if (show) {
       wx.nextTick(() => this._drawRefCanvas())
     }
+    // Refresh cached rect since toggling ref shifts board position
+    wx.nextTick(() => {
+      wx.createSelectorQuery().select('#board-canvas').boundingClientRect(rect => {
+        if (rect) this._rect = rect
+      }).exec()
+    })
   },
 
   // ─── FINISH ───
