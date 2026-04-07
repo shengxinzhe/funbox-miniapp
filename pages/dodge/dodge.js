@@ -177,12 +177,12 @@ Page({
     var H = this.data.canvasH
     ctx.clearRect(0, 0, W, H)
 
-    // Dark background fill
-    ctx.setFillStyle('#0a0a1a')
+    // Light background fill
+    ctx.setFillStyle('#FFFFFF')
     ctx.fillRect(0, 0, W, H)
 
     // Draw grid bg (subtle)
-    ctx.setStrokeStyle('rgba(255,255,255,0.05)')
+    ctx.setStrokeStyle('rgba(0,0,0,0.04)')
     ctx.setLineWidth(1)
     for (var gx = 0; gx < W; gx += 40) {
       ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke()
@@ -218,8 +218,8 @@ Page({
     var px = this.player.x
     var py = this.player.y
     var pglow = ctx.createCircularGradient(px, py, PLAYER_R * 3)
-    pglow.addColorStop(0, 'rgba(34,197,94,0.25)')
-    pglow.addColorStop(1, 'rgba(34,197,94,0)')
+    pglow.addColorStop(0, 'rgba(88,86,214,0.2)')
+    pglow.addColorStop(1, 'rgba(88,86,214,0)')
     ctx.beginPath()
     ctx.arc(px, py, PLAYER_R * 3, 0, Math.PI * 2)
     ctx.setFillStyle(pglow)
@@ -227,7 +227,7 @@ Page({
 
     ctx.beginPath()
     ctx.arc(px, py, PLAYER_R, 0, Math.PI * 2)
-    ctx.setFillStyle('#22c55e')
+    ctx.setFillStyle('#5856D6')
     ctx.fill()
 
     // Inner highlight
@@ -279,7 +279,7 @@ Page({
       var W = self.data.canvasW
       var H = self.data.canvasH
       ctx.clearRect(0, 0, W, H)
-      ctx.setFillStyle('#0a0a1a')
+      ctx.setFillStyle('#FFFFFF')
       ctx.fillRect(0, 0, W, H)
       // Draw remaining balls frozen
       for (var i = 0; i < self.balls.length; i++) {

@@ -22,11 +22,11 @@
       </view>
       <view class="intro-rules">
         <view class="rule">
-          <view class="rule-icon" style="background:rgba(59,130,246,0.15);color:#3b82f6;">位</view>
+          <view class="rule-icon" style="background:rgba(88,86,214,0.10);color:#5856D6;">位</view>
           <view class="rule-text">位置与N步前相同时，点"位置匹配"</view>
         </view>
         <view class="rule">
-          <view class="rule-icon" style="background:rgba(168,85,247,0.15);color:#a855f7;">色</view>
+          <view class="rule-icon" style="background:rgba(175,82,222,0.10);color:#AF52DE;">色</view>
           <view class="rule-text">颜色与N步前相同时，点"颜色匹配"</view>
         </view>
       </view>

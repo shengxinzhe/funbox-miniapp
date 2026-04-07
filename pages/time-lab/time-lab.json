@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "时间感知实验室",
-  "navigationBarBackgroundColor": "#0a0a0f",
-  "navigationBarTextStyle": "white",
-  "backgroundColor": "#0a0a0f",
+  "navigationBarBackgroundColor": "#F5F5F7",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#F5F5F7",
   "disableScroll": true
 }

@@ -92,10 +92,13 @@
 }
 
 .card-arrow {
-  font-size: 28rpx;
-  color: #C7C7CC;
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 3rpx solid #C7C7CC;
+  border-right: 3rpx solid #C7C7CC;
+  transform: rotate(45deg);
   margin-left: 8rpx;
-  font-weight: 300;
+  flex-shrink: 0;
 }
 
 /* Share */

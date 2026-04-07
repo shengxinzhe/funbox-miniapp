@@ -18,30 +18,6 @@ Page({
         page: '/pages/memory/memory'
       },
       {
-        id: 'trajectory',
-        icon: '\ud83c\udfaf',
-        title: '\u5f39\u9053\u9884\u8a00',
-        desc: '\u9884\u6d4b\u7269\u4f53\u8f68\u8ff9\uff0c\u68c0\u9a8c\u4f60\u7684\u7269\u7406\u76f4\u89c9',
-        color: '#5856D6',
-        page: '/pages/trajectory/trajectory'
-      },
-      {
-        id: 'flash-count',
-        icon: '\u2728',
-        title: '\u95ea\u6570\u6311\u6218',
-        desc: '\u4e00\u95ea\u800c\u8fc7\u7684\u6570\u91cf\uff0c\u4f60\u80fd\u4f30\u51c6\u5417\uff1f',
-        color: '#FF9F0A',
-        page: '/pages/flash-count/flash-count'
-      },
-      {
-        id: 'probability',
-        icon: '\ud83c\udfb2',
-        title: '\u6982\u7387\u76f4\u89c9',
-        desc: '\u4f60\u7684\u6982\u7387\u76f4\u89c9\u51c6\u5417\uff1f\u7528\u5b9e\u9a8c\u6765\u9a8c\u8bc1',
-        color: '#30D158',
-        page: '/pages/probability/probability'
-      },
-      {
         id: 'spend',
         icon: '\ud83d\udcb0',
         title: '\u82b1\u5149\u6bd4\u5c14\u76d6\u8328\u7684\u94b1',

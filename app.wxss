@@ -1,7 +1,7 @@
-/* Global Styles */
+/* Global Styles - Apple Light Theme */
 page {
-  background: #0a0a0f;
-  color: #e8e8f0;
+  background: #F5F5F7;
+  color: #1D1D1F;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
   padding-bottom: env(safe-area-inset-bottom);
@@ -19,7 +19,7 @@ page {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #6c63ff, #5a52d5);
+  background: linear-gradient(135deg, #5856D6, #AF52DE);
   color: #fff;
   border: none;
   border-radius: 24rpx;
@@ -33,6 +33,7 @@ page {
 }
 
 .card-bg {
-  background: #14141f;
+  background: #FFFFFF;
   border-radius: 24rpx;
+  box-shadow: 0 1rpx 8rpx rgba(0, 0, 0, 0.04);
 }

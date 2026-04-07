@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "记忆矩阵"
+  "navigationBarTitleText": "记忆矩阵",
+  "navigationBarBackgroundColor": "#F5F5F7",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#F5F5F7"
 }

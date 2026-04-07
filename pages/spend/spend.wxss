@@ -1,5 +1,6 @@
 .page {
   min-height: 100vh;
+  background: #F5F5F7;
   padding-bottom: 60rpx;
 }
 
@@ -8,14 +9,15 @@
   display: flex;
   align-items: center;
   padding: 32rpx;
-  background: linear-gradient(135deg, #14141f, #1a1a2e);
+  background: #FFFFFF;
+  box-shadow: 0 1rpx 8rpx rgba(0,0,0,0.04);
 }
 
 .gates-avatar {
   width: 120rpx;
   height: 120rpx;
   border-radius: 50%;
-  border: 4rpx solid rgba(108, 99, 255, 0.4);
+  border: 4rpx solid rgba(88, 86, 214, 0.2);
   flex-shrink: 0;
 }
 
@@ -26,11 +28,12 @@
 .gates-name {
   font-size: 36rpx;
   font-weight: 700;
+  color: #1D1D1F;
 }
 
 .gates-net {
   font-size: 26rpx;
-  color: #27ae60;
+  color: #34C759;
   margin-top: 4rpx;
 }
 
@@ -39,21 +42,22 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: linear-gradient(135deg, #1a1a2e, #14141f);
+  background: #FFFFFF;
   padding: 24rpx 32rpx;
   text-align: center;
-  border-bottom: 1rpx solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1rpx 8rpx rgba(0,0,0,0.04);
 }
 
 .money-label {
   font-size: 22rpx;
-  color: #8888a0;
+  color: #86868B;
 }
 
 .money-amount {
   font-size: 64rpx;
   font-weight: 800;
-  color: #27ae60;
+  color: #34C759;
   font-variant-numeric: tabular-nums;
   transition: transform 0.15s ease;
 }
@@ -61,13 +65,13 @@
 .money-unit {
   font-size: 26rpx;
   font-weight: 400;
-  color: #8888a0;
+  color: #86868B;
   margin-left: 8rpx;
 }
 
 @keyframes money-bounce {
   0% { transform: scale(1); }
-  50% { transform: scale(1.06); color: #ff6584; }
+  50% { transform: scale(1.06); color: #FF3B30; }
   100% { transform: scale(1); }
 }
 
@@ -78,7 +82,7 @@
 /* Progress bar */
 .progress-bar {
   height: 8rpx;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 4rpx;
   margin-top: 12rpx;
   overflow: hidden;
@@ -86,14 +90,14 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #6c63ff, #ff6584);
+  background: linear-gradient(90deg, #5856D6, #AF52DE);
   border-radius: 4rpx;
   transition: width 0.3s ease;
 }
 
 .money-spent {
   font-size: 22rpx;
-  color: #ff6584;
+  color: #FF3B30;
   margin-top: 8rpx;
 }
 
@@ -110,10 +114,11 @@
 .item {
   display: flex;
   align-items: center;
-  background: #14141f;
-  border-radius: 20rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
   padding: 24rpx 20rpx;
   margin-bottom: 14rpx;
+  box-shadow: 0 1rpx 8rpx rgba(0,0,0,0.04);
   transition: transform 0.15s ease;
 }
 
@@ -139,11 +144,12 @@
 .item-name {
   font-size: 28rpx;
   font-weight: 600;
+  color: #1D1D1F;
 }
 
 .item-price {
   font-size: 22rpx;
-  color: #8888a0;
+  color: #86868B;
   margin-top: 4rpx;
 }
 
@@ -170,12 +176,12 @@
 }
 
 .buy {
-  background: #27ae60;
+  background: #34C759;
   color: #fff;
 }
 
 .sell {
-  background: #e74c3c;
+  background: #FF3B30;
   color: #fff;
 }
 
@@ -189,19 +195,22 @@
   font-size: 28rpx;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+  color: #1D1D1F;
 }
 
 /* Receipt */
 .receipt {
   margin: 32rpx;
-  background: #14141f;
-  border-radius: 20rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
   padding: 32rpx;
+  box-shadow: 0 1rpx 8rpx rgba(0,0,0,0.04);
 }
 
 .receipt-title {
   font-size: 32rpx;
   font-weight: 700;
+  color: #1D1D1F;
   margin-bottom: 20rpx;
   text-align: center;
 }
@@ -211,8 +220,8 @@
   justify-content: space-between;
   padding: 12rpx 0;
   font-size: 26rpx;
-  color: #8888a0;
-  border-bottom: 1rpx solid rgba(255, 255, 255, 0.05);
+  color: #86868B;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
 }
 
 .receipt-total {
@@ -221,14 +230,14 @@
   padding-top: 16rpx;
   font-size: 30rpx;
   font-weight: 700;
-  color: #ff6584;
+  color: #FF3B30;
 }
 
 .share-btn {
   margin-top: 24rpx;
-  background: rgba(108, 99, 255, 0.12);
-  color: #6c63ff;
-  border: 1rpx solid rgba(108, 99, 255, 0.25);
+  background: rgba(88, 86, 214, 0.08);
+  color: #5856D6;
+  border: 1rpx solid rgba(88, 86, 214, 0.2);
   border-radius: 48rpx;
   padding: 16rpx 40rpx;
   font-size: 26rpx;
@@ -242,6 +251,6 @@
   text-align: center;
   padding: 40rpx 32rpx 32rpx;
   font-size: 22rpx;
-  color: #8888a0;
+  color: #86868B;
   opacity: 0.8;
 }

@@ -121,7 +121,7 @@ Page({
     var prev = this.points[this.points.length - 1]
     this.points.push({ x: t.x, y: t.y })
     var ctx = this.ctx
-    ctx.setStrokeStyle('#22c55e')
+    ctx.setStrokeStyle('#5856D6')
     ctx.setLineWidth(3)
     ctx.setLineCap('round')
     ctx.beginPath()
@@ -181,7 +181,7 @@ Page({
     ctx.clearRect(0, 0, s, s)
 
     // user path
-    ctx.setStrokeStyle('#22c55e')
+    ctx.setStrokeStyle('#5856D6')
     ctx.setLineWidth(3)
     ctx.setLineCap('round')
     ctx.setLineJoin('round')
@@ -193,7 +193,7 @@ Page({
     ctx.stroke()
 
     // fitted circle (dashed)
-    ctx.setStrokeStyle('rgba(255,255,255,0.45)')
+    ctx.setStrokeStyle('rgba(88,86,214,0.35)')
     ctx.setLineWidth(2)
     ctx.setLineDash([6, 4])
     ctx.beginPath()

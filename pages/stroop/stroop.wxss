@@ -1,6 +1,7 @@
 .page {
   min-height: 100vh;
   padding: 0 32rpx 60rpx;
+  background: #F5F5F7;
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -25,14 +26,15 @@
 }
 .intro-title {
   font-size: 48rpx; font-weight: 800;
+  color: #1D1D1F;
   margin-bottom: 8rpx;
 }
 .intro-subtitle {
-  font-size: 28rpx; color: #a78bfa; font-weight: 600;
+  font-size: 28rpx; color: #5856D6; font-weight: 600;
   margin-bottom: 28rpx;
 }
 .intro-desc {
-  font-size: 28rpx; color: #8888a0; line-height: 1.6;
+  font-size: 28rpx; color: #86868B; line-height: 1.6;
   padding: 0 24rpx;
   margin-bottom: 36rpx;
 }
@@ -49,21 +51,22 @@
   flex-direction: column;
   align-items: center;
   gap: 12rpx;
-  background: #14141f;
+  background: #FFFFFF;
   border-radius: 20rpx;
   padding: 24rpx 32rpx;
+  box-shadow: 0 1rpx 8rpx rgba(0,0,0,0.04);
 }
 .example-label {
-  font-size: 22rpx; color: #666;
+  font-size: 22rpx; color: #86868B;
 }
 .start-btn {
   display: inline-block;
-  background: linear-gradient(135deg, #6c63ff, #a855f7);
+  background: linear-gradient(135deg, #5856D6, #AF52DE);
   color: #fff;
   font-size: 32rpx; font-weight: 600;
   padding: 28rpx 100rpx;
   border-radius: 52rpx;
-  box-shadow: 0 8rpx 32rpx rgba(108,99,255,0.35);
+  box-shadow: 0 8rpx 32rpx rgba(88,86,214,0.30);
 }
 .start-btn:active { transform: scale(0.96); opacity: 0.9; }
 
@@ -78,7 +81,7 @@
 .countdown-num {
   font-size: 180rpx;
   font-weight: 900;
-  color: #6c63ff;
+  color: #5856D6;
   animation: countPop 1s ease infinite;
 }
 @keyframes countPop {
@@ -87,7 +90,7 @@
   100% { transform: scale(0.9); opacity: 0.5; }
 }
 .countdown-text {
-  font-size: 32rpx; color: #666; margin-top: 16rpx;
+  font-size: 32rpx; color: #86868B; margin-top: 16rpx;
 }
 
 /* ===== Playing ===== */
@@ -98,18 +101,18 @@
   padding: 20rpx 0 8rpx;
 }
 .round-text {
-  font-size: 28rpx; color: #8888a0; font-weight: 600;
+  font-size: 28rpx; color: #86868B; font-weight: 600;
 }
 .score-text {
-  font-size: 28rpx; color: #6c63ff; font-weight: 700;
+  font-size: 28rpx; color: #5856D6; font-weight: 700;
 }
 .play-progress {
-  height: 6rpx; background: #1a1a2e;
+  height: 6rpx; background: #E5E5EA;
   border-radius: 3rpx; margin-bottom: 16rpx; overflow: hidden;
 }
 .play-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #6c63ff, #a855f7);
+  background: linear-gradient(90deg, #5856D6, #AF52DE);
   transition: width 0.3s ease;
 }
 
@@ -128,11 +131,11 @@
 
 .instruction {
   text-align: center;
-  font-size: 26rpx; color: #666;
+  font-size: 26rpx; color: #86868B;
   margin-bottom: 24rpx;
 }
 .instruction-em {
-  color: #a78bfa; font-weight: 700;
+  color: #5856D6; font-weight: 700;
 }
 
 /* Word area */
@@ -143,14 +146,15 @@
   height: 360rpx;
   margin-bottom: 40rpx;
   border-radius: 32rpx;
-  background: #0e0e18;
+  background: #FFFFFF;
+  box-shadow: 0 1rpx 8rpx rgba(0,0,0,0.04);
   transition: background 0.2s;
 }
 .word-area.flash-green {
-  background: rgba(34,197,94,0.1);
+  background: rgba(34,197,94,0.08);
 }
 .word-area.flash-red {
-  background: rgba(239,68,68,0.1);
+  background: rgba(239,68,68,0.08);
 }
 .big-word {
   font-size: 140rpx;
@@ -188,15 +192,16 @@
   border-radius: 24rpx;
   font-size: 32rpx;
   font-weight: 700;
-  color: #fff;
+  background: #FFFFFF;
+  box-shadow: 0 1rpx 8rpx rgba(0,0,0,0.06);
   transition: all 0.15s;
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.3);
+  border: 3rpx solid transparent;
 }
 .color-btn:active {
   transform: scale(0.92);
 }
 .btn-correct {
-  box-shadow: 0 0 30rpx rgba(34,197,94,0.5);
+  box-shadow: 0 0 30rpx rgba(34,197,94,0.4);
   transform: scale(1.05);
 }
 .btn-wrong {
@@ -211,32 +216,35 @@
 }
 .result-badge {
   display: inline-block;
-  background: rgba(108,99,255,0.12);
-  color: #a78bfa;
+  background: rgba(88,86,214,0.10);
+  color: #5856D6;
   font-size: 24rpx; font-weight: 600;
   padding: 8rpx 28rpx;
   border-radius: 20rpx;
   margin-bottom: 20rpx;
 }
 .result-score {
-  font-size: 72rpx; font-weight: 900; color: #6c63ff;
+  font-size: 72rpx; font-weight: 900; color: #5856D6;
   margin-bottom: 8rpx;
 }
 .result-title {
   font-size: 40rpx; font-weight: 700;
+  color: #1D1D1F;
   margin-bottom: 32rpx;
 }
 
 /* Stroop chart */
 .stroop-chart {
-  background: #14141f;
+  background: #FFFFFF;
   border-radius: 24rpx;
   padding: 28rpx 32rpx;
   margin-bottom: 32rpx;
   text-align: left;
+  box-shadow: 0 1rpx 8rpx rgba(0,0,0,0.04);
 }
 .chart-title {
   font-size: 28rpx; font-weight: 700;
+  color: #1D1D1F;
   margin-bottom: 20rpx; text-align: center;
 }
 .chart-bars {
@@ -251,13 +259,13 @@
   gap: 12rpx;
 }
 .bar-label {
-  font-size: 22rpx; color: #888;
+  font-size: 22rpx; color: #86868B;
   width: 120rpx; flex-shrink: 0;
 }
 .bar-track {
   flex: 1;
   height: 28rpx;
-  background: #1a1a2e;
+  background: #F5F5F7;
   border-radius: 14rpx;
   overflow: hidden;
 }
@@ -273,11 +281,11 @@
   background: linear-gradient(90deg, #ef4444, #f97316);
 }
 .bar-value {
-  font-size: 24rpx; color: #aaa; font-weight: 600;
+  font-size: 24rpx; color: #86868B; font-weight: 600;
   width: 110rpx; flex-shrink: 0; text-align: right;
 }
 .chart-explain {
-  font-size: 22rpx; color: #666; line-height: 1.6;
+  font-size: 22rpx; color: #86868B; line-height: 1.6;
   text-align: center;
 }
 
@@ -289,10 +297,10 @@
 }
 .rstat { text-align: center; }
 .rstat-num {
-  font-size: 40rpx; font-weight: 700; color: #fff;
+  font-size: 40rpx; font-weight: 700; color: #1D1D1F;
 }
 .rstat-label {
-  font-size: 22rpx; color: #666; margin-top: 4rpx;
+  font-size: 22rpx; color: #86868B; margin-top: 4rpx;
 }
 .result-actions {
   display: flex; gap: 24rpx;
@@ -300,8 +308,8 @@
   margin-bottom: 32rpx;
 }
 .retry-btn {
-  background: rgba(108,99,255,0.15);
-  color: #a78bfa;
+  background: rgba(88,86,214,0.10);
+  color: #5856D6;
   font-size: 28rpx; font-weight: 600;
   padding: 24rpx 48rpx;
   border-radius: 44rpx;
@@ -309,7 +317,7 @@
 }
 .retry-btn:active { opacity: 0.7; }
 .share-result-btn {
-  background: linear-gradient(135deg, #6c63ff, #a855f7);
+  background: linear-gradient(135deg, #5856D6, #AF52DE);
   color: #fff !important;
   font-size: 28rpx; font-weight: 600;
   padding: 24rpx 48rpx;
@@ -321,6 +329,6 @@
 .share-result-btn::after { border: none; }
 .share-result-btn:active { opacity: 0.9; }
 .back-link {
-  font-size: 26rpx; color: #555;
+  font-size: 26rpx; color: #86868B;
   margin-top: 12rpx;
 }

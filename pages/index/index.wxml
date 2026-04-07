@@ -19,7 +19,7 @@
         <view class="card-title">{{item.title}}</view>
         <view class="card-desc">{{item.desc}}</view>
       </view>
-      <view class="card-arrow">&#x203A;</view>
+      <view class="card-arrow"></view>
     </view>
   </view>
 

@@ -6,18 +6,6 @@
   ],
   "subpackages": [
     {
-      "root": "pages/trajectory",
-      "pages": ["trajectory"]
-    },
-    {
-      "root": "pages/flash-count",
-      "pages": ["flash-count"]
-    },
-    {
-      "root": "pages/probability",
-      "pages": ["probability"]
-    },
-    {
       "root": "pages/spend",
       "pages": ["spend"]
     },
@@ -67,11 +55,11 @@
     }
   ],
   "window": {
-    "navigationBarBackgroundColor": "#0a0a0f",
+    "navigationBarBackgroundColor": "#F5F5F7",
     "navigationBarTitleText": "\u667a\u53d8\u7eaa\u8da3\u5473\u5b9e\u9a8c\u5ba4",
-    "navigationBarTextStyle": "white",
-    "backgroundColor": "#0a0a0f",
-    "backgroundTextStyle": "light"
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F5F5F7",
+    "backgroundTextStyle": "dark"
   },
   "sitemapLocation": "sitemap.json"
 }
