@@ -137,14 +137,6 @@ Page({
         color: '#AF52DE',
         page: '/pages/mirror-draw/mirror-draw'
       },
-      {
-        id: 'bead-art',
-        icon: '\ud83e\uddf1',
-        title: '\u62fc\u8c46\u5927\u5e08',
-        desc: '\u50cf\u7d20\u62fc\u8c46\u521b\u4f5c\uff0c\u7167\u56fe\u62fc\u6216\u81ea\u7531\u53d1\u6325',
-        color: '#FF9F0A',
-        page: '/pages/bead-art/bead-art'
-      }
     ]
   },
 

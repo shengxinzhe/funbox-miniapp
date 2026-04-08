@@ -116,7 +116,7 @@ Page({
 
   // ── Navigation ────────────────────────────────────────────────
   selectMode(e) {
-    const idx = e.currentTarget.dataset.idx;
+    const idx = Number(e.currentTarget.dataset.idx);
     if (idx > 0 && this.data.progress.unlockedModes < idx + 1) {
       wx.showToast({ title: '完成前一模式后解锁', icon: 'none' });
       return;
@@ -128,6 +128,7 @@ Page({
       currentShape: 0,
     }, () => {
       this._initCanvas();
+      this._cacheCanvasOffset();
       this._startTimer();
     });
   },

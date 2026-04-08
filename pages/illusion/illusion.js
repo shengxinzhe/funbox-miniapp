@@ -630,7 +630,7 @@ Page({
 
   answer(e) {
     if (this.data.phase !== 'playing') return;
-    const index = e.currentTarget.dataset.index;
+    const index = Number(e.currentTarget.dataset.index);
     const illusion = ILLUSIONS[this.data.currentIndex];
     const correct = index === illusion.correctIndex;
     const fooled = !correct;

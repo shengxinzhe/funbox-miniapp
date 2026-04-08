@@ -165,7 +165,7 @@ Page({
   // INTRO actions
   // ─────────────────────────────────────────────
   selectLevel(e) {
-    const idx = e.currentTarget.dataset.index
+    const idx = Number(e.currentTarget.dataset.index)
     const meta = this.data.levelMeta[idx]
     if (!meta.unlocked) return
     this.setData({ currentLevel: idx })
