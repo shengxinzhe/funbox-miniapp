@@ -64,6 +64,10 @@
     {
       "root": "pages/mirror-draw",
       "pages": ["mirror-draw"]
+    },
+    {
+      "root": "pages/sumplete",
+      "pages": ["sumplete"]
     }
   ],
   "window": {

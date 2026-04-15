@@ -137,6 +137,14 @@ Page({
         color: '#AF52DE',
         page: '/pages/mirror-draw/mirror-draw'
       },
+      {
+        id: 'sumplete',
+        icon: '🔢',
+        title: '数和删',
+        desc: '删掉多余数字，让行列之和等于目标值',
+        color: '#5856D6',
+        page: '/pages/sumplete/sumplete'
+      },
     ]
   },
 

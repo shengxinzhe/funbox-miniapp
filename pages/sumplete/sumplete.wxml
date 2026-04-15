@@ -1,0 +1,162 @@
+<!-- sumplete.wxml -->
+<view class="page-container">
+
+  <!-- INTRO SCREEN -->
+  <view class="screen intro-screen" wx:if="{{phase === 'intro'}}">
+    <view class="intro-hero">
+      <view class="intro-icon-wrap">
+        <text class="intro-icon">🔢</text>
+      </view>
+      <text class="intro-title">数和删</text>
+      <text class="intro-subtitle">删掉多余的数字</text>
+      <text class="intro-desc">让每行每列的剩余数字之和\n等于目标值</text>
+    </view>
+
+    <!-- Difficulty selector -->
+    <view class="diff-list">
+      <view
+        class="diff-card {{selectedDiff === idx ? 'selected' : ''}}"
+        wx:for="{{difficulties}}"
+        wx:key="label"
+        wx:for-index="idx"
+        bindtap="selectDifficulty"
+        data-idx="{{idx}}"
+      >
+        <view class="diff-left">
+          <text class="diff-label">{{item.label}}</text>
+          <text class="diff-desc">{{item.desc}}</text>
+        </view>
+        <view class="diff-right">
+          <view class="diff-best" wx:if="{{bestTimes['' + item.size]}}">
+            <text class="best-label">最佳</text>
+            <text class="best-val">{{bestTimes['' + item.size]}}s</text>
+          </view>
+          <view class="diff-stars" wx:if="{{bestStars['' + item.size]}}">
+            <text class="star {{bestStars['' + item.size] >= 1 ? 'filled' : ''}}">★</text>
+            <text class="star {{bestStars['' + item.size] >= 2 ? 'filled' : ''}}">★</text>
+            <text class="star {{bestStars['' + item.size] >= 3 ? 'filled' : ''}}">★</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- How to play -->
+    <view class="how-to-play">
+      <text class="how-title">玩法说明</text>
+      <text class="how-text">点击数字切换状态：\n默认 → 删除(X) → 保留(✓) → 默认\n删除多余数字，使每行每列的和等于目标值</text>
+    </view>
+
+    <view class="start-btn" bindtap="startGame">
+      <text>开始游戏</text>
+    </view>
+  </view>
+
+  <!-- PLAYING SCREEN -->
+  <view class="screen game-screen" wx:if="{{phase === 'playing'}}">
+    <!-- HUD -->
+    <view class="hud-bar">
+      <view class="hud-item">
+        <text class="hud-label">难度</text>
+        <text class="hud-value">{{size}}x{{size}}</text>
+      </view>
+      <view class="hud-item center">
+        <text class="hud-label">步数</text>
+        <text class="hud-value">{{moveCount}}</text>
+      </view>
+      <view class="hud-item right">
+        <text class="hud-label">用时</text>
+        <text class="hud-value">{{timerDisplay}}</text>
+      </view>
+    </view>
+
+    <!-- Grid with targets -->
+    <view class="grid-area">
+      <view class="grid-table" style="--grid-size: {{size}}">
+        <!-- Grid rows -->
+        <view class="grid-row" wx:for="{{grid}}" wx:key="index" wx:for-index="r">
+          <view
+            class="grid-cell {{cellStates[r][c] === 1 ? 'deleted' : ''}} {{cellStates[r][c] === 2 ? 'kept' : ''}}"
+            style="width:{{cellSize}}rpx;height:{{cellSize}}rpx"
+            wx:for="{{item}}"
+            wx:key="index"
+            wx:for-index="c"
+            wx:for-item="num"
+            bindtap="tapCell"
+            data-r="{{r}}"
+            data-c="{{c}}"
+          >
+            <text class="cell-num" style="font-size:{{cellSize > 70 ? 32 : (cellSize > 55 ? 26 : 22)}}rpx">{{num}}</text>
+            <text class="cell-mark" wx:if="{{cellStates[r][c] === 1}}">✕</text>
+            <text class="cell-mark keep-mark" wx:if="{{cellStates[r][c] === 2}}">✓</text>
+          </view>
+          <!-- Row target -->
+          <view class="target-cell row-target {{rowMatch[r] ? 'matched' : ''}}" style="width:{{cellSize}}rpx;height:{{cellSize}}rpx">
+            <text class="target-num" style="font-size:{{cellSize > 70 ? 30 : (cellSize > 55 ? 24 : 20)}}rpx">{{rowTargets[r]}}</text>
+          </view>
+        </view>
+        <!-- Column targets row -->
+        <view class="grid-row target-row">
+          <view
+            class="target-cell col-target {{colMatch[c] ? 'matched' : ''}}"
+            style="width:{{cellSize}}rpx;height:{{cellSize}}rpx"
+            wx:for="{{colTargets}}"
+            wx:key="index"
+            wx:for-index="c"
+          >
+            <text class="target-num" style="font-size:{{cellSize > 70 ? 30 : (cellSize > 55 ? 24 : 20)}}rpx">{{item}}</text>
+          </view>
+          <view class="target-cell corner" style="width:{{cellSize}}rpx;height:{{cellSize}}rpx"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Controls -->
+    <view class="controls-row">
+      <view class="btn btn-ghost" bindtap="resetPuzzle">
+        <text>重置</text>
+      </view>
+      <view class="btn btn-ghost" bindtap="newPuzzle">
+        <text>换题</text>
+      </view>
+      <view class="btn btn-ghost" bindtap="goIntro">
+        <text>返回</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- COMPLETE SCREEN -->
+  <view class="screen complete-screen" wx:if="{{phase === 'complete'}}">
+    <view class="complete-card">
+      <text class="complete-emoji">🎉</text>
+      <text class="complete-title">恭喜通关！</text>
+      <text class="complete-diff">{{size}}x{{size}} 数和删</text>
+
+      <view class="complete-stats">
+        <view class="stat-item">
+          <text class="stat-num">{{timerDisplay}}</text>
+          <text class="stat-label">用时</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{moveCount}}</text>
+          <text class="stat-label">步数</text>
+        </view>
+      </view>
+
+      <view class="result-stars">
+        <text class="result-star {{stars >= 1 ? 'lit' : ''}}">★</text>
+        <text class="result-star {{stars >= 2 ? 'lit' : ''}}">★</text>
+        <text class="result-star {{stars >= 3 ? 'lit' : ''}}">★</text>
+      </view>
+
+      <view class="complete-btns">
+        <view class="btn btn-ghost" bindtap="goIntro">
+          <text>返回主页</text>
+        </view>
+        <view class="btn btn-primary" bindtap="playAgain">
+          <text>再来一局</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
